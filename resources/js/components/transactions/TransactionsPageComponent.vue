@@ -1,6 +1,7 @@
 <template>
 
 <div class="container-fluid">
+    <notifications group="notification"/>
 
     <div class="row justify-content-center">
       <div class="col-12">
@@ -202,6 +203,7 @@
                 var self = this;
                 this.asyncSendData(transaction, '/transactions', 'POST').then( function( response ) {
                     self.$set(self.transactions, self.transactions.length, response)
+                    self.showNotification('success', 'Transaction Posted Successfully!')
                 })
             },
             deleteTransaction( transaction ) {
@@ -209,6 +211,7 @@
                 this.asyncSendData(transaction, '/transactions/'+transaction.id, 'DELETE').then( function( response ) {
                     let index = self.transactions.map(function (x) { return x.id; }).indexOf(transaction.id);
                     self.$delete(self.transactions, index)
+                    self.showNotification('success', 'Transaction Successfully Removed!')
                 })
             }
         },

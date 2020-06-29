@@ -25,4 +25,13 @@ class ProfileController extends Controller
     {
         return view('user.profile');
     }
+
+    public function update( Request $request )
+    {
+        $user = \Auth::User();
+        $user->update($request->input());
+
+
+        return response(json_encode($user), 200);
+    }
 }

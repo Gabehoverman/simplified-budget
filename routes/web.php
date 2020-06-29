@@ -34,6 +34,8 @@ Route::resource('/accounts', 'AccountsController');
 
 
 Route::get('/profile', 'ProfileController@index')->name('profile');
+Route::resource('/profile', 'ProfileController');
+
 
 
 

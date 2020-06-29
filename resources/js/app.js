@@ -22,6 +22,12 @@ files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(
 import Vuelidate from 'vuelidate'
 Vue.use(Vuelidate)
 
+import Notifications from 'vue-notification'
+Vue.use(Notifications);
+
+import ToggleButton from 'vue-js-toggle-button'
+Vue.use(ToggleButton)
+
 /**
  * Mixin global functions
  */
@@ -41,7 +47,7 @@ Vue.mixin({
             return String(first) + String(last);
         },
         getBadgeType( transaction ) {
-            switch( transaction.type ) {
+            switch( parseInt(transaction.type) ) {
                 case 2:
                     return 'badge-warning'
                 case 1:
@@ -56,7 +62,7 @@ Vue.mixin({
             return formattedDate.toDateString()
         },
         getAccountLabel( type ) {
-            switch( type ) {
+            switch( parseInt( type ) ) {
                 case 1:
                     return 'Savings'
                 case 0:
@@ -65,7 +71,7 @@ Vue.mixin({
             }
         },
         getTrackingLabel( type ) {
-            switch( type ) {
+            switch( parseInt( type ) ) {
                 case 2:
                     return 'Expenses Only'
                 case 1:
@@ -88,6 +94,15 @@ Vue.mixin({
         },
         asset( url ) {
             return url;
+        },
+        showNotification( type, message ) {
+            Vue.notify({
+                group: "notification",
+                type: type,
+                title: this.formatString(type)+'!',
+                text: message,
+                duration: 3000
+            });
         },
         async asyncFetchData(url) {
             return await fetch(url, {

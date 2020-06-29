@@ -169,9 +169,6 @@
             TransactionsCountWidget,
             BudgetProgressWidget,
             TransactionAverageWidget
-        },
-        mounted() {
-            console.log('Component mounted.')
         }
     }
 </script>

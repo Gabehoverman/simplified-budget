@@ -74,13 +74,14 @@
                             <label for="name" class="col-md-12 col-form-label">Phone</label>
 
                             <div class="col-md-12">
-                                <input id="phone" type="text" :class="'form-control'"
-                                            name="phone" required autocomplete="name" v-model="user.phone">
+                                <vue-mask type="text" class="form-control" name="phone" mask="000-000-0000" v-model="user.phone" :options="{raw: true}"/>
+                                <!-- <input id="phone" type="text" :class="'form-control'"
+                                            name="phone" required autocomplete="name" v-model="user.phone"> -->
                             </div>
                         </div>
 
                         <div class="form-group row col-12" style="padding: 10px 25px;">
-                            <toggle-button v-model="user.preferences"
+                            <toggle-button v-model="user.notifications"
                                 color="#0095f7"
                                 :labels="{checked: 'Yes', unchecked: 'No'}"
                             />

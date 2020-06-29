@@ -28,6 +28,9 @@ Vue.use(Notifications);
 import ToggleButton from 'vue-js-toggle-button'
 Vue.use(ToggleButton)
 
+import VueMask from 'vue-jquery-mask';
+Vue.use(VueMask);
+
 /**
  * Mixin global functions
  */

@@ -30,11 +30,19 @@ Route::resource('/transactions', 'TransactionsController');
 
 Route::get('/accounts', 'AccountsController@index')->name('accounts');
 Route::get('/accounts/new', 'AccountsController@new')->name('account.new');
+Route::get('/accounts/new/{any}', 'AccountsController@new')->name('account.new');
+
 Route::resource('/accounts', 'AccountsController');
 
 
 Route::get('/profile', 'ProfileController@index')->name('profile');
 Route::resource('/profile', 'ProfileController');
+
+Route::resource('/admin/dashboard', 'Admin\DashboardController');
+
+Route::resource('/admin/settings', 'Admin\SettingsController');
+
+
 
 
 

@@ -2686,6 +2686,9 @@ input[type="submit"].btn-block {
 .dropdown.position-static .dropdown-menu {
     display: block;
 }
+.dropdown.open .dropdown-menu {
+    display: block;
+}
 .dropdown-menu-right {
     right: 0;
     left: auto;

@@ -160,7 +160,7 @@
                   </div> <!-- / .row -->
 
                 </a>
-                <a href="profile-posts.html" class="list-group-item px-0">
+                <a href="/profile" class="list-group-item px-0">
 
                   <div class="row align-items-center">
                     <div class="col-auto">
@@ -187,7 +187,7 @@
                   </div> <!-- / .row -->
 
                 </a>
-                <a href="profile-posts.html" class="list-group-item px-0">
+                <a href="/profile" class="list-group-item px-0">
 
                   <div class="row align-items-center">
                     <div class="col-auto">
@@ -510,10 +510,10 @@
 
           <!-- Menu -->
           <div class="dropdown-menu dropdown-menu-right">
-            <a href="profile-posts.html" class="dropdown-item">Profile</a>
-            <a href="settings.html" class="dropdown-item">Settings</a>
+            <a href="/profile" class="dropdown-item">Profile</a>
+            <a href="/settings" class="dropdown-item">Settings</a>
             <hr class="dropdown-divider">
-            <a href="sign-in.html" class="dropdown-item">Logout</a>
+            <a href="/logout" class="dropdown-item">Logout</a>
           </div>
 
         </div>
@@ -557,7 +557,7 @@
                   Profile
                 </a>
                 <div class="dropdown-menu" aria-labelledby="topnavProfile">
-                  <a class="dropdown-item @@if(page=='profile-posts.html'){active}" href="profile-posts.html">
+                  <a class="dropdown-item @@if(page=='/profile'){active}" href="/profile">
                     Posts
                   </a>
                   <a class="dropdown-item @@if(page=='profile-groups.html'){active}" href="profile-groups.html">
@@ -623,7 +623,7 @@
                 </a>
               </li>
               <li>
-                <a class="dropdown-item @@if(page=='settings.html'){active}" href="settings.html">
+                <a class="dropdown-item @@if(page=='/settings'){active}" href="/settings">
                   Settings
                 </a>
               </li>

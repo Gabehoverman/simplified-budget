@@ -48,7 +48,7 @@
                 <div class="col-auto">
 
                   <!-- Avatar -->
-                  <a href="profile-posts.html" class="avatar">
+                  <a href="/profile" class="avatar">
                     <img src="assets/img/avatars/profiles/avatar-5.jpg" alt="..." class="avatar-img rounded-circle">
                   </a>
 
@@ -57,7 +57,7 @@
 
                   <!-- Title -->
                   <h4 class="mb-1 name">
-                    <a href="profile-posts.html">Miyah Myles</a>
+                    <a href="/profile">Miyah Myles</a>
                   </h4>
 
                   <!-- Time -->
@@ -83,7 +83,7 @@
                 <div class="col-auto">
 
                   <!-- Avatar -->
-                  <a href="profile-posts.html" class="avatar">
+                  <a href="/profile" class="avatar">
                     <img src="assets/img/avatars/profiles/avatar-6.jpg" alt="..." class="avatar-img rounded-circle">
                   </a>
 
@@ -92,7 +92,7 @@
 
                   <!-- Title -->
                   <h4 class="mb-1 name">
-                    <a href="profile-posts.html">Ryu Duke</a>
+                    <a href="/profile">Ryu Duke</a>
                   </h4>
 
                   <!-- Time -->
@@ -118,7 +118,7 @@
                 <div class="col-auto">
 
                   <!-- Avatar -->
-                  <a href="profile-posts.html" class="avatar">
+                  <a href="/profile" class="avatar">
                     <img src="assets/img/avatars/profiles/avatar-7.jpg" alt="..." class="avatar-img rounded-circle">
                   </a>
 
@@ -127,7 +127,7 @@
 
                   <!-- Title -->
                   <h4 class="mb-1 name">
-                    <a href="profile-posts.html">Glen Rouse</a>
+                    <a href="/profile">Glen Rouse</a>
                   </h4>
 
                   <!-- Time -->
@@ -153,7 +153,7 @@
                 <div class="col-auto">
 
                   <!-- Avatar -->
-                  <a href="profile-posts.html" class="avatar">
+                  <a href="/profile" class="avatar">
                     <img src="assets/img/avatars/profiles/avatar-8.jpg" alt="..." class="avatar-img rounded-circle">
                   </a>
 
@@ -162,7 +162,7 @@
 
                   <!-- Title -->
                   <h4 class="mb-1 name">
-                    <a href="profile-posts.html">Grace Gross</a>
+                    <a href="/profile">Grace Gross</a>
                   </h4>
 
                   <!-- Time -->
@@ -342,7 +342,7 @@
               </div> <!-- / .row -->
 
             </a>
-            <a href="profile-posts.html" class="list-group-item px-0">
+            <a href="/profile" class="list-group-item px-0">
 
               <div class="row align-items-center">
                 <div class="col-auto">
@@ -369,7 +369,7 @@
               </div> <!-- / .row -->
 
             </a>
-            <a href="profile-posts.html" class="list-group-item px-0">
+            <a href="/profile" class="list-group-item px-0">
 
               <div class="row align-items-center">
                 <div class="col-auto">

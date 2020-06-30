@@ -1,8 +1,14 @@
 // Fonts
 @import url('https://fonts.googleapis.com/css?family=Nunito');
 
+// Steps Tracker Stylings
+@import "node_modules/progress-tracker/src/styles/progress-tracker.scss";
+
 // Variables
 @import 'variables';
 
 // Bootstrap
 // @import '~bootstrap/scss/bootstrap';
+
+
+@import 'custom';

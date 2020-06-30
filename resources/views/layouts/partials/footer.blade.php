@@ -2,7 +2,8 @@
     ================================================== -->
     <!-- Libs JS -->
     <script src="{{ asset('libs/jquery/dist/jquery.min.js') }}"></script>
-    <script src="{{ asset('libs/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    {{-- <script src="{{ asset('libs/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script> --}}
     <script src="{{ asset('libs/chart.js/dist/Chart.min.js') }}"></script>
     <script src="{{ asset('libs/chart.js/Chart.extension.min.js') }}"></script>
     <script src="{{ asset('libs/highlightjs/highlight.pack.min.js') }}"></script>

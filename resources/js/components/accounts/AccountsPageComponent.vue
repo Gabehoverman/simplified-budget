@@ -1,9 +1,9 @@
 <template>
 <div class="container-fluid">
+    <notifications group="notification"/>
 
     <div class="row justify-content-center">
       <div class="col-12">
-
 
         <!-- Header -->
         <div class="header">
@@ -133,14 +133,11 @@
                         <i class="fe fe-more-vertical"></i>
                       </a>
                       <div class="dropdown-menu dropdown-menu-right">
+                        <a href="#!" class="dropdown-item">
+                          Edit
+                        </a>
                         <a @click="deleteAccount( account )" href="#!" class="dropdown-item">
                           Delete
-                        </a>
-                        <a href="#!" class="dropdown-item">
-                          Another action
-                        </a>
-                        <a href="#!" class="dropdown-item">
-                          Something else here
                         </a>
                       </div>
                     </div>
@@ -189,6 +186,7 @@
                 this.asyncSendData(account, '/accounts/'+account.id, 'DELETE').then( function( response ) {
                     let index = self.accounts.map(function (x) { return x.id; }).indexOf(account.id);
                     self.$delete(self.accounts, index)
+                    self.showNotification('success', 'Account Successfuly Removed!')
                 })
             }
         },

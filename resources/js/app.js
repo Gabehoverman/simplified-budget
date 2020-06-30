@@ -31,6 +31,9 @@ Vue.use(ToggleButton)
 import VueMask from 'vue-jquery-mask';
 Vue.use(VueMask);
 
+import VueRouter from 'vue-router';
+Vue.use(VueRouter);
+
 /**
  * Mixin global functions
  */
@@ -82,6 +85,15 @@ Vue.mixin({
                 case 0:
                 default:
                     return 'Income & Expenses'
+            }
+        },
+        getTrackingTypeLabel( type ) {
+            switch( parseInt( type ) ) {
+                case 1:
+                    return 'Automatic'
+                case 0:
+                default:
+                    return 'Manual'
             }
         },
         getInitials( string ) {

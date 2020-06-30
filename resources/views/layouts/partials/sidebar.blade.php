@@ -27,10 +27,10 @@
 
           <!-- Menu -->
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="sidebarIcon">
-            <a href="profile-posts.html" class="dropdown-item">Profile</a>
-            <a href="settings.html" class="dropdown-item">Settings</a>
+            <a href="/profile" class="dropdown-item">Profile</a>
+            <a href="/settings" class="dropdown-item">Settings</a>
             <hr class="dropdown-divider">
-            <a href="sign-in.html" class="dropdown-item">Logout</a>
+            <a href="/logout" class="dropdown-item">Logout</a>
           </div>
 
         </div>
@@ -95,13 +95,13 @@
         </h6>
 
         <!-- Navigation -->
-        {{-- <ul class="navbar-nav mb-md-4">
+        <ul class="navbar-nav mb-md-4">
           <li class="nav-item">
-            <a class="nav-link " href="getting-started.html">
-              <i class="fe fe-clipboard"></i> Getting started
+            <a class="nav-link " href="/admin/dashboard">
+              <i class="fe fe-clipboard"></i> Dashboard
             </a>
           </li>
-          <li class="nav-item dropdown">
+          {{-- <li class="nav-item dropdown">
             <a class="nav-link" href="#sidebarComponents" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarComponents">
               <i class="fe fe-book-open"></i> Components
             </a>
@@ -234,13 +234,13 @@
                 </li>
               </ul>
             </div>
-          </li>
+          </li> --}}
           <li class="nav-item">
-            <a class="nav-link " href="changelog.html">
-              <i class="fe fe-git-branch"></i> Changelog <span class="badge badge-primary ml-auto">v1.3.1</span>
+            <a class="nav-link " href="/admin/settings">
+              <i class="fe fe-git-branch"></i> Site Settings <span class="badge badge-primary ml-auto">v1.3.1</span>
             </a>
           </li>
-        </ul> --}}
+        </ul>
 
         <!-- Push content down -->
         <div class="mt-auto"></div>
@@ -248,7 +248,7 @@
 
         <!-- Customize -->
         <a href="#modalDemo" class="btn btn-block btn-primary mb-4" data-toggle="modal">
-          <i class="fe fe-sliders mr-2"></i> Customize
+          <i class="fe fe-sliders mr-2"></i> Settings
         </a>
 
 
@@ -275,10 +275,10 @@
 
             <!-- Menu -->
             <div class="dropdown-menu" aria-labelledby="sidebarIconCopy">
-              <a href="profile-posts.html" class="dropdown-item">Profile</a>
-              <a href="settings.html" class="dropdown-item">Settings</a>
+              <a href="/profile" class="dropdown-item">Profile</a>
+              <a href="/settings" class="dropdown-item">Settings</a>
               <hr class="dropdown-divider">
-              <a href="sign-in.html" class="dropdown-item">Logout</a>
+              <a href="/logout" class="dropdown-item">Logout</a>
             </div>
 
           </div>

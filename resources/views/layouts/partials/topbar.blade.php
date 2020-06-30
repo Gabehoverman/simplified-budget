@@ -13,7 +13,7 @@
             </div>
 
           <!-- Input -->
-          <input type="search" class="form-control form-control-prepended dropdown-toggle search" data-toggle="dropdown" placeholder="Search" aria-label="Search">
+          <input type="search" class="form-control form-control-prepended dropdown-toggle toggler search" data-toggle="dropdown" placeholder="Search" aria-label="Search">
           <div class="input-group-prepend">
             <div class="input-group-text">
               <i class="fe fe-search"></i>
@@ -157,7 +157,7 @@
                   </div> <!-- / .row -->
 
                 </a>
-                <a href="profile-posts.html" class="list-group-item px-0">
+                <a href="/profile" class="list-group-item px-0">
 
                   <div class="row align-items-center">
                     <div class="col-auto">
@@ -184,7 +184,7 @@
                   </div> <!-- / .row -->
 
                 </a>
-                <a href="profile-posts.html" class="list-group-item px-0">
+                <a href="/profile" class="list-group-item px-0">
 
                   <div class="row align-items-center">
                     <div class="col-auto">
@@ -501,16 +501,16 @@
         <div class="dropdown">
 
           <!-- Toggle -->
-          <a href="#" class="avatar avatar-sm avatar-online dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <a href="#" class="avatar avatar-sm avatar-online dropdown-toggle toggler" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <img src="{{ asset('img/avatars/profiles/avatar.png') }}" alt="..." class="avatar-img rounded-circle">
           </a>
 
           <!-- Menu -->
           <div class="dropdown-menu dropdown-menu-right">
-            <a href="profile-posts.html" class="dropdown-item">Profile</a>
-            <a href="settings.html" class="dropdown-item">Settings</a>
+            <a href="/profile" class="dropdown-item">Profile</a>
+            <a href="/settings" class="dropdown-item">Settings</a>
             <hr class="dropdown-divider">
-            <a href="sign-in.html" class="dropdown-item">Logout</a>
+            <a href="/logout" class="dropdown-item">Logout</a>
           </div>
 
         </div>

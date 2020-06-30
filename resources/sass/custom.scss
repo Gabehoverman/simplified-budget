@@ -1,0 +1,48 @@
+
+
+// Account Steps CSS
+.progress-tracker {
+    margin-top: 0px;
+    counter-reset: my-sec-counter;
+
+    .progress-marker {
+        position: absolute;
+        right: 50px;
+
+        &:before {
+            counter-increment: my-sec-counter;
+            content: counter(my-sec-counter);
+            color: #0095f7;
+            background-color: white;
+            border: 1px solid #0095f7;
+        }
+
+        &:after {
+            height: 250%;
+            z-index: 1;
+            width: 2px;
+            background-color: #efefef !important;
+        }
+    }
+
+    .is-active {
+        .progress-marker:before {
+            color: white;
+            background-color: #0095f7;
+        }
+    }
+
+    .is-complete {
+        .progress-marker:before {
+            content: '\e92b';
+            font-family: Feather !important;
+            background-color: white;
+            color: #78CA3C;
+            border: 1px solid #78CA3C;
+        }
+    }
+}
+
+.new-account-form {
+    min-height: 250px;
+}

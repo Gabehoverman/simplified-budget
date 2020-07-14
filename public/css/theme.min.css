@@ -10569,6 +10569,8 @@ a.text-white:hover {
 }
 #topbar {
     z-index: 1000;
+    position: fixed;
+    width: 100%;
 }
 #sidebar {
     z-indeX: 500;
@@ -10690,7 +10692,7 @@ a.text-white:hover {
 .navbar-brand-img,
 .navbar-brand > img {
     max-width: 100%;
-    max-height: 1.5rem;
+    max-height: 2.8rem;
 }
 .navbar-collapse {
     margin-right: -1rem;
@@ -11592,6 +11594,9 @@ button:focus {
     background-attachment: fixed;
     background-position: 100% 100%;
     background-size: 100% auto;
+}
+.main-content {
+    padding-top: 70px;
 }
 .navbar-vertical ~ .main-content.bg-fixed-bottom {
     background-size: 100%;

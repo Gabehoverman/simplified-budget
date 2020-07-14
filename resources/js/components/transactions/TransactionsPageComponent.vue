@@ -33,7 +33,7 @@
 
               </div>
             </div> <!-- / .row -->
-            <div class="row align-items-center" :key="selectedAccount">
+            <div class="row align-items-center" :key="selectedAccount ? selectedAccount.id : null">
               <div class="col">
 
                 <!-- Nav -->
@@ -130,7 +130,7 @@
                 </tr>
               </thead>
               <tbody class="list">
-                <tr v-for="(transaction, index ) in dataTransactions" :key="index">
+                <tr v-for="(transaction, index ) in filteredTransactions" :key="index">
                   <td class="orders-order">
                     #{{ index + 1 }}
                   </td>
@@ -215,5 +215,14 @@
                 })
             }
         },
+        computed: {
+            filteredTransactions() {
+                console.log(this.selectedAccount)
+                if (this.selectedAccount) {
+                    return this.dataTransactions.filter(x => x.account_id == this.selectedAccount.id)
+                }
+                return this.dataTransactions
+            }
+        }
     }
 </script>

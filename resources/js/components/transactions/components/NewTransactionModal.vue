@@ -72,6 +72,12 @@
                     <input v-model="transaction.vendor" type="text"
                                 :class="'form-control '+($v.transaction.vendor.$error ? 'is-invalid ' : '')" id="vendorInput" placeholder="Target">
                 </div>
+
+                <div class="form-group">
+                    <label for="vendorInput">Transaction Date</label>
+                    <input v-model="transaction.date" type="date"
+                                :class="'form-control '+($v.transaction.date.$error ? 'is-invalid ' : '')" id="dateInput" placeholder="">
+                </div>
             </form>
 
 
@@ -127,6 +133,9 @@ export default {
             required
         },
         amount: {
+            required
+        },
+        date: {
             required
         }
       }

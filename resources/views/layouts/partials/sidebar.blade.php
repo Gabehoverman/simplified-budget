@@ -66,7 +66,12 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/accounts">
-              <i class="fe fe-user"></i> Accounts
+              <i class="fe fe-clipboard"></i> Accounts
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/reporting">
+             <span class="fe fe-grid"></span> Reporting
             </a>
           </li>
           <li class="nav-item">
@@ -74,7 +79,7 @@
               <i class="fe fe-user"></i> Profile
             </a>
           </li>
-          <li class="nav-item d-md-none">
+          {{-- <li class="nav-item d-md-none">
             <a class="nav-link" href="#sidebarModalActivity" data-toggle="modal">
              <span class="fe fe-bell"></span> Notifications
             </a>
@@ -83,7 +88,7 @@
             <a class="nav-link" href="/profile" data-toggle="modal">
              <span class="fe fe-bell"></span> Profile
             </a>
-          </li>
+          </li> --}}
         </ul>
 
         <!-- Divider -->
@@ -98,7 +103,7 @@
         <ul class="navbar-nav mb-md-4">
           <li class="nav-item">
             <a class="nav-link " href="/admin/dashboard">
-              <i class="fe fe-clipboard"></i> Dashboard
+              <i class="fe fe-book"></i> Dashboard
             </a>
           </li>
           {{-- <li class="nav-item dropdown">

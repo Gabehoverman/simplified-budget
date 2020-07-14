@@ -5,9 +5,9 @@
       <form class="form-inline mr-4 d-none d-md-flex">
         <div class="input-group input-group-flush input-group-merge" data-toggle="lists" data-lists-values='["name"]'>
 
-            <div class="input-group-prepend" style="margin-right: 240px;">
+            <div class="input-group-prepend" style="margin-right: 150px;">
                 <a class="navbar-brand" href="/dashboard">
-                    <img src="{{ asset('/img/logo.svg') }}" class="navbar-brand-img
+                    <img src="{{ asset('/img/logo2-01.png') }}" class="navbar-brand-img
                     mx-auto" alt="...">
                 </a>
             </div>

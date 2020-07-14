@@ -14,28 +14,27 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return redirect('/login');
+    // return redirect('/login');
     return view('welcome');
 });
 
 Auth::routes();
+
 Route::get('logout', 'Auth\LoginController@logout');
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
+Route::resource('/dashboard', 'DashboardController');
 
-Route::get('/transactions', 'TransactionsController@index')->name('transactions');
 Route::resource('/transactions', 'TransactionsController');
 
-Route::get('/accounts', 'AccountsController@index')->name('accounts');
 Route::get('/accounts/new', 'AccountsController@new')->name('account.new');
 Route::get('/accounts/new/{any}', 'AccountsController@new')->name('account.new');
 
 Route::resource('/accounts', 'AccountsController');
 
+Route::resource('/reporting', 'ReportingController');
 
-Route::get('/profile', 'ProfileController@index')->name('profile');
 Route::resource('/profile', 'ProfileController');
 
 Route::resource('/admin/dashboard', 'Admin\DashboardController');

@@ -34,7 +34,7 @@
                     </div>
 
                     <div class="col-4 card" style="padding: 25px;">
-                        <img height="100" width="100" :src="asset('/img/avatars/profiles/avatar.png')" alt="..." class="rounded-circle" style="margin: auto">
+                        <img height="150" width="150" :src="asset('/img/avatars/profiles/avatar.png')" alt="..." class="rounded-circle" style="margin: auto">
                         <h5>Profile</h5>
                         <span>{{ user.first_name }} {{ user.last_name }}</span>
                         <span>{{ user.email }}</span>
@@ -80,6 +80,23 @@
                             </div>
                         </div>
 
+                        <div class="form-group row col-6">
+                            <label for="name" class="col-md-12 col-form-label">New Password (optional)</label>
+                            <div class="col-md-12">
+                                <input id="email" type="password" :class="'form-control '+($v.user.password.$error ? 'is-invalid ' : '')"
+                                            name="email" required autocomplete="name" v-model="user.password">
+                            </div>
+                        </div>
+
+                        <div class="form-group row col-6">
+                            <label for="name" class="col-md-12 col-form-label">Confirm New Password</label>
+
+                            <div class="col-md-12">
+                                <input id="email" type="password" :class="'form-control '+($v.user.confirmPassword.$error ? 'is-invalid ' : '')"
+                                            name="email" required autocomplete="name" v-model="user.confirmPassword">
+                            </div>
+                        </div>
+
                         <div class="form-group row col-12" style="padding: 10px 25px;">
                             <toggle-button v-model="user.notifications"
                                 color="#0095f7"
@@ -90,9 +107,8 @@
                         </div>
 
                         <div class="col-12 text-right">
-                            <button @click="updateProfile" class="btn btn-primary">Submit</button>
+                            <button @click="updateProfile()" class="btn btn-primary">Submit</button>
                         </div>
-
 
                     </div>
 
@@ -104,7 +120,7 @@
 </template>
 
 <script>
-    import { required, minLength } from 'vuelidate/lib/validators'
+    import { required, minLength, sameAs } from 'vuelidate/lib/validators'
 
     export default {
         name: 'profile-page-component',
@@ -137,6 +153,12 @@
                 email: {
                     required
                 },
+                password: {
+                    // required: requiredUnless('isOptional'),
+                },
+                confirmPassword: {
+                    sameAsPassword: sameAs('password')
+                }
             }
         }
     }

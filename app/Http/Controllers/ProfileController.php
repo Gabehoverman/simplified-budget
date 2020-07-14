@@ -29,8 +29,15 @@ class ProfileController extends Controller
     public function update( Request $request )
     {
         $user = \Auth::User();
-        $user->update($request->input());
+        $data = $request->input();
 
+        if (isset($data['password']) && !\Hash::check($data['password'], $user->password)) {
+            $data['password'] = \Hash::make($data['password']);
+        } else {
+            $data['password'] = \Auth::User()->password;
+        }
+
+        $user->update($data);
 
         return response(json_encode($user), 200);
     }

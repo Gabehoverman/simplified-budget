@@ -252,7 +252,7 @@
 
 
         <!-- Customize -->
-        <a href="#modalDemo" class="btn btn-block btn-primary mb-4" data-toggle="modal">
+        <a href="/settings" class="btn btn-block btn-primary mb-4">
           <i class="fe fe-sliders mr-2"></i> Settings
         </a>
 

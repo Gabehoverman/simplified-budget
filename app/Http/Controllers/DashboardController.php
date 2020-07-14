@@ -26,7 +26,7 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $transactions = Transaction::where('user_id', Auth::User()->id)->with('account')->limit(5)->get();
+        $transactions = Transaction::where('user_id', Auth::User()->id)->with('account')->get();
         $accounts = Account::where('user_id', Auth::User()->id)->limit(3)->with('transactions')->get();
 
 

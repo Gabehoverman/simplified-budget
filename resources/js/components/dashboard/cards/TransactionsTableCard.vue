@@ -51,7 +51,7 @@
                 </tr>
                 </thead>
                 <tbody class="list">
-                <tr v-for="(transaction, index) in transactions" :key="transaction.id">
+                <tr v-for="(transaction, index) in dataTransactions" :key="transaction.id">
                     <td class="goal-project">
                         {{ index + 1 }}
                     </td>
@@ -105,6 +105,11 @@
         props: ['transactions'],
         mounted() {
             console.log('Component mounted.')
+        },
+        computed: {
+            dataTransactions() {
+                return this.transactions.slice(0,5)
+            }
         }
     }
 </script>

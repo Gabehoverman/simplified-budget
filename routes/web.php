@@ -37,6 +37,8 @@ Route::resource('/reporting', 'ReportingController');
 
 Route::resource('/profile', 'ProfileController');
 
+Route::resource('/settings', 'SettingsController');
+
 Route::resource('/admin/dashboard', 'Admin\DashboardController');
 
 Route::resource('/admin/settings', 'Admin\SettingsController');

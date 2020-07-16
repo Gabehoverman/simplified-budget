@@ -12,7 +12,7 @@
 
             <!-- Heading -->
             <span class="h2 mb-0">
-               {{ transactions.length }}
+               {{ transactionCount }}
             </span>
 
             </div>
@@ -31,6 +31,34 @@
 <script>
 export default {
     name: 'transactouns-count-widget',
-    props: ['transactions']
+    props: ['transactions', 'filter'],
+    methods: {
+        getFilterDate() {
+            let today = new Date();
+            switch(this.filter) {
+                case 'weekly':
+                    let day = today.getDay(),
+                    diff = today.getDate() - day + (day == 0 ? -6:0)
+                    return new Date(today.setDate(diff));
+                case 'monthly':
+                    return new Date(today.getFullYear(), today.getMonth(), 1);
+                case 'annual':
+                    return new Date(new Date().getFullYear(), 0, 1);
+            }
+            return today
+        }
+    },
+     computed: {
+        transactionCount() {
+            let count = 0;
+            let date = this.getFilterDate()
+            this.transactions.forEach( function(transaction) {
+                if (new Date(transaction.date) >= date) {
+                    count++;
+                }
+            })
+            return count;
+        }
+    }
 }
 </script>

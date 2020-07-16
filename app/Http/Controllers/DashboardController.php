@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Account;
 use App\Models\Transaction;
+use Carbon\Carbon;
 use Auth;
 
 class DashboardController extends Controller
@@ -28,8 +29,15 @@ class DashboardController extends Controller
     {
         $transactions = Transaction::where('user_id', Auth::User()->id)->with('account')->get();
         $accounts = Account::where('user_id', Auth::User()->id)->limit(3)->with('transactions')->get();
-
-
-        return view('user.dashboard', array('transactions'=> $transactions, 'accounts'=>$accounts));
+        $weeklyExpenses = Transaction::where('type', 0)->where('date', '>=', Carbon::now()->startOfWeek())->orderBy('date', 'ASC')->get()->groupBy(function($date) {
+            return Carbon::parse($date->date)->format('d'); // grouping by months
+        });
+        $monthlyExpenses = Transaction::where('type', 0)->where('date', '>=', Carbon::now()->firstOfMonth())->orderBy('date', 'ASC')->get()->groupBy(function($date) {
+            return Carbon::parse($date->date)->format('d'); // grouping by months
+        });
+        $annualExpenses = Transaction::where('type', 0)->where('date', '>=', Carbon::now()->firstOfYear())->orderBy('date', 'ASC')->get()->groupBy(function($date) {
+            return Carbon::parse($date->date)->format('m-d'); // grouping by months
+        });
+        return view('user.dashboard', compact('transactions', 'accounts', 'weeklyExpenses', 'monthlyExpenses', 'annualExpenses'));
     }
 }

@@ -15,7 +15,8 @@ export default {
       return {
         options: {
             legend: {
-                display: false
+                // display: false
+                position: 'left'
             },
             scales:{
                 xAxes: [{

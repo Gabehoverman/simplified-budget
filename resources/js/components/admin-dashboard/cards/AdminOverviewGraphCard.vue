@@ -108,7 +108,7 @@
               data: [this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt()]
             }, {
               label: 'Paid Users',
-              backgroundColor: 'rgba(255, 255, 255, .75',
+              backgroundColor: 'rgba(255, 255, 255, .75)',
               borderColor: 'rgba(255, 255, 255, 1)',
               data: [this.getRandomInt()/3, this.getRandomInt()/3, this.getRandomInt()/3, this.getRandomInt()/3,  this.getRandomInt()/3, this.getRandomInt()/3]
             }

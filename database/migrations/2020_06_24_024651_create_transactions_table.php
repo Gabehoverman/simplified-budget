@@ -21,6 +21,7 @@ class CreateTransactionsTable extends Migration
             $table->integer('type');
             $table->decimal('amount', 9 , 2);
             $table->string('vendor');
+            $table->date('date');
             $table->timestamps();
         });
     }

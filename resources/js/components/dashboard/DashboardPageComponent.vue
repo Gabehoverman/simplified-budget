@@ -5,6 +5,10 @@
 
         <overview-graph-card
             :transactions="transactions"
+            :weeklyExpenses="weeklyExpenses"
+            :monthlyExpenses="monthlyExpenses"
+            :annualExpenses="annualExpenses"
+            @updateDate="updateData( $event )"
         />
 
       <!-- CARDS -->
@@ -28,8 +32,25 @@
         <div class="row">
           <div class="col-12 col-lg-6 col-xl">
 
-              <transactions-total-widget
+              <transaction-expense-widget
                 :transactions="transactions"
+                :filter="dataFilter"
+              />
+
+          </div>
+        <div class="col-12 col-lg-6 col-xl">
+
+              <transaction-income-widget
+                :transactions="transactions"
+                :filter="dataFilter"
+              />
+
+          </div>
+          <div class="col-12 col-lg-6 col-xl">
+
+              <budget-progress-widget
+                :transactions="transactions"
+                :filter="dataFilter"
               />
 
           </div>
@@ -37,23 +58,11 @@
 
             <transactions-count-widget
                 :transactions="transactions"
+                :filter="dataFilter"
             />
 
           </div>
-          <div class="col-12 col-lg-6 col-xl">
 
-              <budget-progress-widget
-                :transactions="transactions"
-              />
-
-          </div>
-          <div class="col-12 col-lg-6 col-xl">
-
-              <transaction-average-widget
-                :transactions="transactions"
-              />
-
-          </div>
         </div> <!-- / .row -->
         <div class="row">
           <div class="col-12 col-xl-4">
@@ -80,16 +89,19 @@
     import TransactionsTableCard from './cards/TransactionsTableCard'
     import AccountsTableCard from './cards/AccountsTableCard'
 
-    import TransactionsTotalWidget from './widgets/TransactionsTotalWidget'
+    import TransactionExpenseWidget from './widgets/TransactionExpenseWidget'
+    import TransactionIncomeWidget from './widgets/TransactionIncomeWidget'
     import TransactionsCountWidget from './widgets/TransactionsCountWidget'
     import BudgetProgressWidget from './widgets/BudgetProgressWidget'
-    import TransactionAverageWidget from './widgets/TransactionAverageWidget'
 
     export default {
         name: 'dashboard-page-component',
         props: [
             'accounts',
-            'transactions'
+            'transactions',
+            'weekly-expenses',
+            'monthly-expenses',
+            'annual-expenses'
         ],
         components: {
             OverviewGraphCard,
@@ -97,10 +109,24 @@
             TransactionsGraphCard,
             TransactionsTableCard,
             AccountsTableCard,
-            TransactionsTotalWidget,
+            TransactionExpenseWidget,
+            TransactionIncomeWidget,
             TransactionsCountWidget,
             BudgetProgressWidget,
-            TransactionAverageWidget
+        },
+        data() {
+            return {
+                dataFilter: 'weekly',
+                dataSet: this.weeklyExpenses
+            }
+        },
+        methods: {
+            updateData( data ) {
+                this.dataFilter = data;
+            }
+        },
+        mounted() {
+            console.log(this.monthlyExpenses)
         }
     }
 </script>

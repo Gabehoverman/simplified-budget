@@ -40,7 +40,7 @@
     },
     data () {
       return {
-        datacollection: null
+        datacollection: {}
       }
     },
     mounted () {

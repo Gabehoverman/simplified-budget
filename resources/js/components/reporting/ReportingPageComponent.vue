@@ -39,7 +39,7 @@
             </div>
 
             <div class="col-12 col-lg-6">
-                <monthly-comparison-chart
+                <monthly-comparison-card
 
                 />
             </div>
@@ -51,7 +51,7 @@
             </div>
 
             <div class="col-12 col-lg-6">
-                <top-category-card
+                <top-vendor-card
 
                 />
             </div>
@@ -69,19 +69,19 @@
 <script>
     import InsightsCard from './cards/InsightsCard'
     import BudgetCard from './cards/BudgetCard'
-    import MonthlyComparisonChart from './charts/MonthlyComparisonChart'
+    import MonthlyComparisonCard from './cards/MonthlyComparisonCard'
     import CategoryChart from './cards/CategoryCard';
-    import TopCategoryCard from './cards/TopCategoryCard'
+    import TopVendorCard from './cards/TopVendorCard'
     import CashflowCard from './cards/CashflowCard'
 
     export default {
         components: {
             InsightsCard,
-            MonthlyComparisonChart,
+            MonthlyComparisonCard,
             CategoryChart,
             BudgetCard,
-            TopCategoryCard,
-            CashflowCard
+            TopVendorCard,
+            CashflowCard,
         }
     }
 </script>

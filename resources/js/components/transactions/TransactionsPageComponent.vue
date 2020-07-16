@@ -149,7 +149,7 @@
                     {{ transaction.account.name }}
                   </td>
                   <td class="orders-date">
-                    <time :datetime="transaction.created_at">{{ getFormattedDate( transaction.created_at ) }}</time>
+                    <time :datetime="transaction.date">{{ getFormattedDate( transaction.date ) }}</time>
                   </td>
                   <td class="text-right">
                     <div class="dropdown">

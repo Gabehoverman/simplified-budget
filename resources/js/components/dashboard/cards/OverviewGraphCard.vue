@@ -1,9 +1,7 @@
 <template>
-
-          <!-- HEADER -->
+    <!-- HEADER -->
       <div class="header bg-dark pb-5">
         <div class="container-fluid" style="padding-left: 0px !important; padding-right: 0px !important">
-
           <!-- Body -->
           <div class="header-body" style="padding: 1.5rem 36px">
             <div class="row align-items-end">
@@ -46,7 +44,7 @@
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="#" :class="'nav-link text-center'+(dataTab == 'annually' ? ' active' : '')" @click="fillData( 'annually' )">
+                    <a href="#" :class="'nav-link text-center'+(dataTab == 'annual' ? ' active' : '')" @click="fillData( 'annual' )">
                       <h6 class="header-pretitle text-secondary">
                         Breakdown
                         <!-- &nbsp -->
@@ -84,36 +82,52 @@
   import OverviewChart from './OverviewChart'
 
   export default {
+    props: [
+        'weeklyExpenses',
+        'monthlyExpenses',
+        'annualExpenses'
+    ],
     components: {
       OverviewChart
     },
     data () {
       return {
-        datacollection: null,
+        datacollection: {},
+        datalabels: [],
+        dataset: [],
         dataTab: 'weekly'
       }
     },
-
     methods: {
       fillData ( tab ) {
         this.dataTab = tab;
+        this.parseData( eval ('this.'+tab+'Expenses') )
+        this.$emit('updateDate', tab)
         this.datacollection = {
-          labels: [this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt()],
+          labels: this.datalabels,
           datasets: [
             {
               label: 'Spending',
               backgroundColor: 'rgba(0, 149, 247, .5)',
               borderColor: '#0095f7',
-              data: [this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt()]
+              data: this.dataset
             }
-            // }, {
-            //   label: 'Data Two',
-            //   backgroundColor: 'rgba(255, 255, 255, .5)',
-            //   borderColor: 'rgba(255, 255, 255, 1)',
-            //   data: [this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt(),  this.getRandomInt(), this.getRandomInt()]
-            // }
           ]
         }
+      },
+      parseData( data ) {
+            this.dataset = [];
+            this.datalabels = [];
+            var self = this;
+            for (const [key, value] of Object.entries(data)) {
+                let sum = 0;
+                value.forEach( expense => {
+                    sum = parseFloat(sum) + parseFloat(expense.amount);
+                })
+                self.datalabels.push(key)
+                self.dataset.push(sum)
+            }
+            return true;
       },
       getRandomInt () {
         return Math.floor(Math.random() * (100 - 5 + 1)) + 5
@@ -121,6 +135,8 @@
     },
     mounted () {
       this.fillData('weekly')
+      this.parseData(this.weeklyExpenses)
+      console.log(this.weeklyExpenses)
     },
   }
 </script>

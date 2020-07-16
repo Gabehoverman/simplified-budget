@@ -4,7 +4,7 @@
             <h3>Cashflow</h3>
         </div>
         <div class='card-body row'>
-            <div class="col-10">
+            <div class="col-10 mt-3">
 
                 <!-- Progress -->
                 <div class="progress progress-md">
@@ -12,7 +12,7 @@
                 </div>
             </div>
             <div class="col-2">
-                <span class="text-medium">avg: $3,000</span>
+                <span class="text-small">$3,000</span>
             </div>
             <div class="col-10 mt-5">
 
@@ -22,7 +22,7 @@
                 </div>
             </div>
             <div class="col-2 mt-5">
-                <span class="text-medium">avg: $1,600</span>
+                <span class="text-small">$1,600</span>
             </div>
 
             <div class="col-12 col-lg-12 mt-5 row">
@@ -30,7 +30,7 @@
                     <h5><span style="color: rgb(129, 214, 184)">●</span> $2,265</h5> Income
                 </div>
                 <div class="col-4">
-                    <h5><span class="text-primary">●</span> $12</h5> Expenses
+                    <h5><span class="text-primary">●</span> $256</h5> Expenses
                 </div>
             </div>
         </div>

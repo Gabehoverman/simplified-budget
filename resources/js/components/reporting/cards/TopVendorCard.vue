@@ -5,10 +5,9 @@
         </div>
         <div class='card-body'>
             <div class="list-group list-group-flush list-group-activity my-n3">
-                <div class="list-group-item" v-for="(i, key) in ['1','2','3',]" :key="key">
+                <div class="list-group-item" v-for="(vendor, name) in vendors" :key="name">
                     <div class="row" >
                         <div class="col-auto">
-
                         <!-- Avatar -->
                         <div class="avatar avatar-sm">
                             <div class="avatar-title font-size-lg bg-primary-soft rounded-circle text-primary">
@@ -21,12 +20,12 @@
 
                             <!-- Heading -->
                             <h4 class="mb-1">
-                                Publix
+                                {{ name }}
                             </h4>
 
                         </div>
                         <div class="col ml-n2 mt-3 text-right">
-                            <span class="text-muted">$12.99</span>
+                            <span class="text-muted">${{ getTotal(vendor) }}</span>
                         </div>
                     </div> <!-- / .row -->
                 </div>
@@ -37,6 +36,15 @@
 
 <script>
     export default {
-
+        props: ['vendors'],
+        methods: {
+            getTotal( vendorData ) {
+                let sum = 0;
+                vendorData.forEach(transaction => {
+                    sum += parseFloat(transaction.amount)
+                });
+                return sum.toFixed(2);
+            }
+        }
     }
 </script>

@@ -135,8 +135,7 @@
     },
     mounted () {
       this.fillData('weekly')
-      this.parseData(this.weeklyExpenses)
-      console.log(this.weeklyExpenses)
+    //   this.parseData(this.weeklyExpenses)
     },
   }
 </script>

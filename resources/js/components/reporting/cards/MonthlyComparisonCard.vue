@@ -27,10 +27,10 @@
             <monthly-comparison-chart style="height: 220px" :chart-data="datacollection"></monthly-comparison-chart>
             <div class="col-12 col-lg-12 mt-5 row">
                 <div class="col-6">
-                    <h5><span class="text-primary">●</span> $12</h5> This Month
+                    <h5><span class="text-primary">●</span> ${{ monthlyTotal }}</h5> This Month
                 </div>
                 <div class="col-6">
-                    <h5><span class="text-info">●</span> $875</h5> Last Month
+                    <h5><span class="text-info">●</span> ${{ previousMonthlyTotal }}</h5> Last Month
                 </div>
             </div>
         </div>
@@ -43,12 +43,19 @@
   import MonthlyComparisonChart from '../charts/MonthlyComparisonChart'
 
   export default {
+      props: ['monthlyTransactions', 'previousMonthlyTransactions'],
     components: {
       MonthlyComparisonChart
     },
     data () {
       return {
-        datacollection: {}
+        datacollection: {},
+        monthlydataset: [],
+        monthlydatalabels: [],
+        previousdataset: [],
+        previousdatalabels: [],
+        monthlyTotal: 0,
+        previousMonthlyTotal: 0,
       }
     },
     mounted () {
@@ -56,22 +63,47 @@
     },
     methods: {
       fillData () {
+          this.parseData( )
         this.datacollection = {
-          labels: [this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt()],
+          labels: this.monthlydatalabels,
           datasets: [
             {
-              label: 'New Users',
+              label: 'Current Months Transactions',
               backgroundColor: 'rgba(0, 149, 247, .6)',
               borderColor: '#0095f7',
-              data: [this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt()]
+              data: this.monthlydataset
             }, {
-              label: 'Paid Users',
+              label: 'Previous Months Transactions',
               backgroundColor: 'rgba(255, 255, 255, .75)',
               borderColor: 'rgba(255, 255, 255, 1)',
-              data: [this.getRandomInt()/3, this.getRandomInt()/3, this.getRandomInt()/3, this.getRandomInt()/3,  this.getRandomInt()/3, this.getRandomInt()/3]
+              data: this.previousdataset
             }
           ]
         }
+      },
+      parseData( ) {
+        this.dataset = [];
+        this.datalabels = [];
+        var self = this;
+        let sum = 0;
+        for (const [key, value] of Object.entries(this.monthlyTransactions)) {
+            value.forEach( expense => {
+                sum = parseFloat(sum) + parseFloat(expense.amount);
+            })
+            self.monthlydatalabels.push(key)
+            self.monthlydataset.push(sum)
+        }
+        let previousSum = 0;
+        for (const [key, value] of Object.entries(this.previousMonthlyTransactions)) {
+            value.forEach( expense => {
+                previousSum = parseFloat(previousSum) + parseFloat(expense.amount);
+            })
+            self.previousdatalabels.push(key)
+            self.previousdataset.push(previousSum)
+        }
+        this.monthlyTotal = sum.toFixed(2);
+        this.previousMonthlyTotal = previousSum.toFixed(2);
+        return true;
       },
       getRandomInt () {
         return Math.floor(Math.random() * (50 - 5 + 1)) + 5

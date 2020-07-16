@@ -107,6 +107,9 @@ Vue.mixin({
         formatString( string ) {
             return string.charAt(0).toUpperCase() + string.slice(1)
         },
+        formatCurrency ( currency ) {
+            return currency.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        },
         asset( url ) {
             return url;
         },

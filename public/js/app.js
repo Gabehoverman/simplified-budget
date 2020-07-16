@@ -3915,9 +3915,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
     }
   },
   mounted: function mounted() {
-    this.fillData('weekly');
-    this.parseData(this.weeklyExpenses);
-    console.log(this.weeklyExpenses);
+    this.fillData('weekly'); //   this.parseData(this.weeklyExpenses)
   }
 });
 
@@ -4678,6 +4676,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 
@@ -4685,6 +4685,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['categories', 'vendors', 'income', 'expenses', 'monthlyTransactions', 'previousMonthlyTransactions'],
   components: {
     InsightsCard: _cards_InsightsCard__WEBPACK_IMPORTED_MODULE_0__["default"],
     MonthlyComparisonCard: _cards_MonthlyComparisonCard__WEBPACK_IMPORTED_MODULE_2__["default"],
@@ -4742,7 +4743,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ __webpack_exports__["default"] = ({});
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['expenses'],
+  computed: {
+    incomePercentage: function incomePercentage() {
+      return this.income / 3000 * 100;
+    },
+    expensesPercentage: function expensesPercentage() {
+      return this.expenses / 3000 * 100;
+    },
+    budgetRemainder: function budgetRemainder() {
+      return (3000 - this.expenses).toFixed(2);
+    }
+  }
+});
 
 /***/ }),
 
@@ -4794,7 +4808,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ __webpack_exports__["default"] = ({});
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['income', 'expenses'],
+  computed: {
+    incomePercentage: function incomePercentage() {
+      return this.income / 3000 * 100;
+    },
+    expensesPercentage: function expensesPercentage() {
+      return this.expenses / 2000 * 100;
+    }
+  }
+});
 
 /***/ }),
 
@@ -4808,16 +4832,18 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _charts_CategoryChart__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../charts/CategoryChart */ "./resources/js/components/reporting/charts/CategoryChart.vue");
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 //
 //
 //
@@ -4843,12 +4869,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ["categories"],
   components: {
     CategoryChart: _charts_CategoryChart__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   data: function data() {
     return {
-      datacollection: {}
+      datacollection: {},
+      dataset: [],
+      datalabels: []
     };
   },
   mounted: function mounted() {
@@ -4856,21 +4885,42 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     fillData: function fillData() {
+      this.parseData(this.categories);
       this.datacollection = {
-        labels: ['Housing', 'Grocery'],
+        labels: this.datalabels,
         datasets: [{
-          label: 'Data One',
-          backgroundColor: ['#0095f7', 'rgba(0, 149, 247, .7)'],
-          data: [this.getRandomInt(), this.getRandomInt()]
-        } // }, {
-        //   label: 'Data One',
-        //   backgroundColor: '#f87979',
-        //   data: [this.getRandomInt(), this.getRandomInt()]
-        // }
-        ]
+          label: "Data One",
+          backgroundColor: ["#0095f7", "rgba(0, 149, 247, .7)"],
+          data: this.dataset
+        }]
       };
     },
+    parseData: function parseData(data) {
+      this.dataset = [];
+      this.datalabels = [];
+      var self = this;
+
+      var _loop = function _loop() {
+        var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
+            key = _Object$entries$_i[0],
+            value = _Object$entries$_i[1];
+
+        var sum = 0;
+        value.forEach(function (expense) {
+          sum = parseFloat(sum) + parseFloat(expense.amount);
+        });
+        self.datalabels.push(key);
+        self.dataset.push(sum);
+      };
+
+      for (var _i = 0, _Object$entries = Object.entries(data); _i < _Object$entries.length; _i++) {
+        _loop();
+      }
+
+      return true;
+    },
     getRandomInt: function getRandomInt() {
+      console.log(this.categories);
       return Math.floor(Math.random() * (50 - 5 + 1)) + 5;
     }
   }
@@ -4912,6 +4962,18 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _charts_MonthlyComparisonChart__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../charts/MonthlyComparisonChart */ "./resources/js/components/reporting/charts/MonthlyComparisonChart.vue");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 //
 //
 //
@@ -4955,12 +5017,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['monthlyTransactions', 'previousMonthlyTransactions'],
   components: {
     MonthlyComparisonChart: _charts_MonthlyComparisonChart__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   data: function data() {
     return {
-      datacollection: {}
+      datacollection: {},
+      monthlydataset: [],
+      monthlydatalabels: [],
+      previousdataset: [],
+      previousdatalabels: [],
+      monthlyTotal: 0,
+      previousMonthlyTotal: 0
     };
   },
   mounted: function mounted() {
@@ -4968,20 +5037,58 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     fillData: function fillData() {
+      this.parseData();
       this.datacollection = {
-        labels: [this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt()],
+        labels: this.monthlydatalabels,
         datasets: [{
-          label: 'New Users',
+          label: 'Current Months Transactions',
           backgroundColor: 'rgba(0, 149, 247, .6)',
           borderColor: '#0095f7',
-          data: [this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt()]
+          data: this.monthlydataset
         }, {
-          label: 'Paid Users',
+          label: 'Previous Months Transactions',
           backgroundColor: 'rgba(255, 255, 255, .75)',
           borderColor: 'rgba(255, 255, 255, 1)',
-          data: [this.getRandomInt() / 3, this.getRandomInt() / 3, this.getRandomInt() / 3, this.getRandomInt() / 3, this.getRandomInt() / 3, this.getRandomInt() / 3]
+          data: this.previousdataset
         }]
       };
+    },
+    parseData: function parseData() {
+      this.dataset = [];
+      this.datalabels = [];
+      var self = this;
+      var sum = 0;
+
+      for (var _i = 0, _Object$entries = Object.entries(this.monthlyTransactions); _i < _Object$entries.length; _i++) {
+        var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
+            key = _Object$entries$_i[0],
+            value = _Object$entries$_i[1];
+
+        value.forEach(function (expense) {
+          sum = parseFloat(sum) + parseFloat(expense.amount);
+        });
+        self.monthlydatalabels.push(key);
+        self.monthlydataset.push(sum);
+      }
+
+      var previousSum = 0;
+
+      for (var _i2 = 0, _Object$entries2 = Object.entries(this.previousMonthlyTransactions); _i2 < _Object$entries2.length; _i2++) {
+        var _Object$entries2$_i = _slicedToArray(_Object$entries2[_i2], 2),
+            _key = _Object$entries2$_i[0],
+            _value = _Object$entries2$_i[1];
+
+        _value.forEach(function (expense) {
+          previousSum = parseFloat(previousSum) + parseFloat(expense.amount);
+        });
+
+        self.previousdatalabels.push(_key);
+        self.previousdataset.push(previousSum);
+      }
+
+      this.monthlyTotal = sum.toFixed(2);
+      this.previousMonthlyTotal = previousSum.toFixed(2);
+      return true;
     },
     getRandomInt: function getRandomInt() {
       return Math.floor(Math.random() * (50 - 5 + 1)) + 5;
@@ -5036,8 +5143,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-/* harmony default export */ __webpack_exports__["default"] = ({});
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['vendors'],
+  methods: {
+    getTotal: function getTotal(vendorData) {
+      var sum = 0;
+      vendorData.forEach(function (transaction) {
+        sum += parseFloat(transaction.amount);
+      });
+      return sum.toFixed(2);
+    }
+  }
+});
 
 /***/ }),
 
@@ -85344,30 +85461,51 @@ var render = function() {
         _vm._v(" "),
         _c("div", { staticClass: "col-12 col-lg-6" }, [_c("insights-card")], 1),
         _vm._v(" "),
-        _c("div", { staticClass: "col-12 col-lg-6" }, [_c("budget-card")], 1),
-        _vm._v(" "),
         _c(
           "div",
           { staticClass: "col-12 col-lg-6" },
-          [_c("monthly-comparison-card")],
+          [_c("budget-card", { attrs: { expenses: _vm.expenses } })],
           1
         ),
         _vm._v(" "),
         _c(
           "div",
           { staticClass: "col-12 col-lg-6" },
-          [_c("category-chart")],
+          [
+            _c("monthly-comparison-card", {
+              attrs: {
+                monthlyTransactions: _vm.monthlyTransactions,
+                previousMonthlyTransactions: _vm.previousMonthlyTransactions
+              }
+            })
+          ],
           1
         ),
         _vm._v(" "),
         _c(
           "div",
           { staticClass: "col-12 col-lg-6" },
-          [_c("top-vendor-card")],
+          [_c("category-chart", { attrs: { categories: _vm.categories } })],
           1
         ),
         _vm._v(" "),
-        _c("div", { staticClass: "col-12 col-lg-6" }, [_c("cashflow-card")], 1)
+        _c(
+          "div",
+          { staticClass: "col-12 col-lg-6" },
+          [_c("top-vendor-card", { attrs: { vendors: _vm.vendors } })],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "col-12 col-lg-6" },
+          [
+            _c("cashflow-card", {
+              attrs: { income: _vm.income, expenses: _vm.expenses }
+            })
+          ],
+          1
+        )
       ])
     ],
     1
@@ -85422,66 +85560,72 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "card" }, [
+    _vm._m(0),
+    _vm._v(" "),
+    _c("div", { staticClass: "card-body" }, [
+      _c("div", { staticClass: "col" }, [
+        _c("div", { staticClass: "row align-items-center no-gutters" }, [
+          _c("div", { staticClass: "col-12" }, [
+            _c("div", { staticClass: "progress progress-md" }, [
+              _c("div", {
+                staticClass: "progress-bar",
+                style: "width: " + _vm.expensesPercentage + "%",
+                attrs: {
+                  role: "progressbar",
+                  "aria-valuenow": _vm.expensesPercentage,
+                  "aria-valuemin": "0",
+                  "aria-valuemax": "100"
+                }
+              })
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-12 col-lg-12 mt-5 row" }, [
+            _c("div", { staticClass: "col-4" }, [
+              _c("h5", [
+                _c("span", { staticClass: "text-primary" }, [_vm._v("●")]),
+                _vm._v(" $" + _vm._s(_vm.formatCurrency(_vm.expenses)))
+              ]),
+              _vm._v(" Spent\n                    ")
+            ]),
+            _vm._v(" "),
+            _vm._m(1),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-4" }, [
+              _c("h5", [
+                _c("span", { staticStyle: { color: "#edf2f9" } }, [
+                  _vm._v("●")
+                ]),
+                _vm._v(" $" + _vm._s(_vm.formatCurrency(_vm.budgetRemainder)))
+              ]),
+              _vm._v(" Remaining\n                    ")
+            ])
+          ])
+        ])
+      ])
+    ])
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card" }, [
-      _c("div", { staticClass: "card-header col-12" }, [
-        _c("h3", [_vm._v("Budget")])
+    return _c("div", { staticClass: "card-header col-12" }, [
+      _c("h3", [_vm._v("Budget")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-4" }, [
+      _c("h5", [
+        _c("span", { staticClass: "text-info" }, [_vm._v("●")]),
+        _vm._v(" $875")
       ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "card-body" }, [
-        _c("div", { staticClass: "col" }, [
-          _c("div", { staticClass: "row align-items-center no-gutters" }, [
-            _c("div", { staticClass: "col-12" }, [
-              _c("div", { staticClass: "progress progress-md" }, [
-                _c("div", {
-                  staticClass: "progress-bar",
-                  staticStyle: { width: "23%" },
-                  attrs: {
-                    role: "progressbar",
-                    "aria-valuenow": "23",
-                    "aria-valuemin": "0",
-                    "aria-valuemax": "100"
-                  }
-                })
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-12 col-lg-12 mt-5 row" }, [
-              _c("div", { staticClass: "col-4" }, [
-                _c("h5", [
-                  _c("span", { staticClass: "text-primary" }, [_vm._v("●")]),
-                  _vm._v(" $12")
-                ]),
-                _vm._v(" Spent\n                    ")
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-4" }, [
-                _c("h5", [
-                  _c("span", { staticClass: "text-info" }, [_vm._v("●")]),
-                  _vm._v(" $875")
-                ]),
-                _vm._v(" Upcoming\n                    ")
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-4" }, [
-                _c("h5", [
-                  _c("span", { staticStyle: { color: "#edf2f9" } }, [
-                    _vm._v("●")
-                  ]),
-                  _vm._v(" $2,265")
-                ]),
-                _vm._v(" Remaining\n                    ")
-              ])
-            ])
-          ])
-        ])
-      ])
+      _vm._v(" Upcoming\n                    ")
     ])
   }
 ]
@@ -85506,80 +85650,92 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "card" }, [
+    _vm._m(0),
+    _vm._v(" "),
+    _c("div", { staticClass: "card-body row" }, [
+      _c("div", { staticClass: "col-9 mt-3" }, [
+        _c("div", { staticClass: "progress progress-md" }, [
+          _c("div", {
+            staticClass: "progress-bar",
+            style:
+              "width: " +
+              _vm.incomePercentage +
+              "%; background-color: rgb(129, 214, 184)",
+            attrs: {
+              role: "progressbar",
+              "aria-valuenow": _vm.incomePercentage,
+              "aria-valuemin": "0",
+              "aria-valuemax": "100"
+            }
+          })
+        ])
+      ]),
+      _vm._v(" "),
+      _vm._m(1),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-9 mt-5" }, [
+        _c("div", { staticClass: "progress progress-md" }, [
+          _c("div", {
+            staticClass: "progress-bar",
+            style: "width: " + _vm.expensesPercentage + "%",
+            attrs: {
+              role: "progressbar",
+              "aria-valuenow": _vm.expensesPercentage,
+              "aria-valuemin": "0",
+              "aria-valuemax": "100"
+            }
+          })
+        ])
+      ]),
+      _vm._v(" "),
+      _vm._m(2),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-12 col-lg-12 mt-5 row" }, [
+        _c("div", { staticClass: "col-4" }, [
+          _c("h5", [
+            _c("span", { staticStyle: { color: "rgb(129, 214, 184)" } }, [
+              _vm._v("●")
+            ]),
+            _vm._v(" $" + _vm._s(_vm.formatCurrency(_vm.income)))
+          ]),
+          _vm._v(" Income\n            ")
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-4" }, [
+          _c("h5", [
+            _c("span", { staticClass: "text-primary" }, [_vm._v("●")]),
+            _vm._v(" $" + _vm._s(_vm.formatCurrency(_vm.expenses)))
+          ]),
+          _vm._v(" Expenses\n            ")
+        ])
+      ])
+    ])
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card" }, [
-      _c("div", { staticClass: "card-header col-12" }, [
-        _c("h3", [_vm._v("Cashflow")])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "card-body row" }, [
-        _c("div", { staticClass: "col-10 mt-3" }, [
-          _c("div", { staticClass: "progress progress-md" }, [
-            _c("div", {
-              staticClass: "progress-bar",
-              staticStyle: {
-                width: "76%",
-                "background-color": "rgb(129, 214, 184)"
-              },
-              attrs: {
-                role: "progressbar",
-                "aria-valuenow": "76",
-                "aria-valuemin": "0",
-                "aria-valuemax": "100"
-              }
-            })
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-2" }, [
-          _c("span", { staticClass: "text-small" }, [_vm._v("$3,000")])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-10 mt-5" }, [
-          _c("div", { staticClass: "progress progress-md" }, [
-            _c("div", {
-              staticClass: "progress-bar",
-              staticStyle: { width: "23%" },
-              attrs: {
-                role: "progressbar",
-                "aria-valuenow": "23",
-                "aria-valuemin": "0",
-                "aria-valuemax": "100"
-              }
-            })
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-2 mt-5" }, [
-          _c("span", { staticClass: "text-small" }, [_vm._v("$1,600")])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-12 col-lg-12 mt-5 row" }, [
-          _c("div", { staticClass: "col-4" }, [
-            _c("h5", [
-              _c("span", { staticStyle: { color: "rgb(129, 214, 184)" } }, [
-                _vm._v("●")
-              ]),
-              _vm._v(" $2,265")
-            ]),
-            _vm._v(" Income\n            ")
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-4" }, [
-            _c("h5", [
-              _c("span", { staticClass: "text-primary" }, [_vm._v("●")]),
-              _vm._v(" $256")
-            ]),
-            _vm._v(" Expenses\n            ")
-          ])
-        ])
-      ])
+    return _c("div", { staticClass: "card-header col-12" }, [
+      _c("h3", [_vm._v("Cashflow")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-3" }, [
+      _c("span", { staticClass: "text-small" }, [_vm._v("est. $3,000")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-3 mt-5" }, [
+      _c("span", { staticClass: "text-small" }, [_vm._v("est. $2,000")])
     ])
   }
 ]
@@ -85630,9 +85786,7 @@ var staticRenderFns = [
     return _c("div", { staticClass: "card-header" }, [
       _c("div", { staticClass: "row align-items-center" }, [
         _c("div", { staticClass: "col" }, [
-          _c("h4", { staticClass: "card-header-title" }, [
-            _vm._v("\n            Categories\n        ")
-          ])
+          _c("h4", { staticClass: "card-header-title" }, [_vm._v("Categories")])
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "col-auto mr--3" }),
@@ -85730,7 +85884,23 @@ var render = function() {
             attrs: { "chart-data": _vm.datacollection }
           }),
           _vm._v(" "),
-          _vm._m(1)
+          _c("div", { staticClass: "col-12 col-lg-12 mt-5 row" }, [
+            _c("div", { staticClass: "col-6" }, [
+              _c("h5", [
+                _c("span", { staticClass: "text-primary" }, [_vm._v("●")]),
+                _vm._v(" $" + _vm._s(_vm.monthlyTotal))
+              ]),
+              _vm._v(" This Month\n            ")
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-6" }, [
+              _c("h5", [
+                _c("span", { staticClass: "text-info" }, [_vm._v("●")]),
+                _vm._v(" $" + _vm._s(_vm.previousMonthlyTotal))
+              ]),
+              _vm._v(" Last Month\n            ")
+            ])
+          ])
         ],
         1
       )
@@ -85753,28 +85923,6 @@ var staticRenderFns = [
         _c("div", { staticClass: "col-auto mr--3" }),
         _vm._v(" "),
         _c("div", { staticClass: "col-auto" })
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-12 col-lg-12 mt-5 row" }, [
-      _c("div", { staticClass: "col-6" }, [
-        _c("h5", [
-          _c("span", { staticClass: "text-primary" }, [_vm._v("●")]),
-          _vm._v(" $12")
-        ]),
-        _vm._v(" This Month\n            ")
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-6" }, [
-        _c("h5", [
-          _c("span", { staticClass: "text-info" }, [_vm._v("●")]),
-          _vm._v(" $875")
-        ]),
-        _vm._v(" Last Month\n            ")
       ])
     ])
   }
@@ -85809,9 +85957,27 @@ var render = function() {
         {
           staticClass: "list-group list-group-flush list-group-activity my-n3"
         },
-        _vm._l(["1", "2", "3"], function(i, key) {
-          return _c("div", { key: key, staticClass: "list-group-item" }, [
-            _vm._m(1, true)
+        _vm._l(_vm.vendors, function(vendor, name) {
+          return _c("div", { key: name, staticClass: "list-group-item" }, [
+            _c("div", { staticClass: "row" }, [
+              _vm._m(1, true),
+              _vm._v(" "),
+              _c("div", { staticClass: "col ml-n2 mt-3" }, [
+                _c("h4", { staticClass: "mb-1" }, [
+                  _vm._v(
+                    "\n                            " +
+                      _vm._s(name) +
+                      "\n                        "
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col ml-n2 mt-3 text-right" }, [
+                _c("span", { staticClass: "text-muted" }, [
+                  _vm._v("$" + _vm._s(_vm.getTotal(vendor)))
+                ])
+              ])
+            ])
           ])
         }),
         0
@@ -85832,30 +85998,16 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-auto" }, [
-        _c("div", { staticClass: "avatar avatar-sm" }, [
-          _c(
-            "div",
-            {
-              staticClass:
-                "avatar-title font-size-lg bg-primary-soft rounded-circle text-primary"
-            },
-            [_c("i", { staticClass: "fe fe-mail" })]
-          )
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col ml-n2 mt-3" }, [
-        _c("h4", { staticClass: "mb-1" }, [
-          _vm._v(
-            "\n                            Publix\n                        "
-          )
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col ml-n2 mt-3 text-right" }, [
-        _c("span", { staticClass: "text-muted" }, [_vm._v("$12.99")])
+    return _c("div", { staticClass: "col-auto" }, [
+      _c("div", { staticClass: "avatar avatar-sm" }, [
+        _c(
+          "div",
+          {
+            staticClass:
+              "avatar-title font-size-lg bg-primary-soft rounded-circle text-primary"
+          },
+          [_c("i", { staticClass: "fe fe-mail" })]
+        )
       ])
     ])
   }
@@ -105450,6 +105602,8 @@ Vue.mixin({
     return name;
   }), _defineProperty(_methods, "formatString", function formatString(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
+  }), _defineProperty(_methods, "formatCurrency", function formatCurrency(currency) {
+    return currency.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }), _defineProperty(_methods, "asset", function asset(url) {
     return url;
   }), _defineProperty(_methods, "showNotification", function showNotification(type, message) {

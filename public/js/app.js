@@ -84686,7 +84686,7 @@ var render = function() {
                   _c("td", { staticClass: "text-right" }, [
                     _vm._v(
                       "\n                    " +
-                        _vm._s(_vm.getFormattedDate(transaction.created_at)) +
+                        _vm._s(_vm.getFormattedDate(transaction.date)) +
                         "\n                "
                     )
                   ])

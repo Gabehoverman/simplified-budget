@@ -27,7 +27,7 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $transactions = Transaction::where('user_id', Auth::User()->id)->with('account')->get();
+        $transactions = Transaction::where('user_id', Auth::User()->id)->with('account')->orderBy('date', 'DESC')->get();
         $accounts = Account::where('user_id', Auth::User()->id)->limit(3)->with('transactions')->get();
         $weeklyExpenses = Transaction::where('type', 0)->where('date', '>=', Carbon::now()->startOfWeek())->orderBy('date', 'ASC')->get()->groupBy(function($date) {
             return Carbon::parse($date->date)->format('d'); // grouping by months

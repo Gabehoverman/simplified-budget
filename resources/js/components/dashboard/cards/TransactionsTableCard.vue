@@ -71,7 +71,7 @@
                         {{ transaction.account.name }}
                     </td>
                     <td class="text-right">
-                        {{ getFormattedDate( transaction.created_at ) }}
+                        {{ getFormattedDate( transaction.date ) }}
                     </td>
                     <!-- <td class="text-right">
                     <div class="dropdown">

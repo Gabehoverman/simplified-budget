@@ -70,6 +70,7 @@ class TransactionsController extends Controller
     {
         $transaction = Transaction::find($id);
         $transaction->update( $request->input() );
+        $transaction->account;
 
         return response(json_encode($transaction), 200);
     }

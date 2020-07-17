@@ -99,25 +99,38 @@
 <script>
     export default {
         props: ['user', 'transactions'],
-        // data() {
-        //     return {
-        //         transactions: []
-        //     }
-        // },
         methods: {
             generateTransactions() {
-                let transaction = {
+                var self = this
+                let date = new Date()
+                let transactions = [{
                     'category': 'shopping',
                     'amount': 12.99,
                     'type': 0,
                     'vendor': 'Target',
                     'account_id': 1,
                     'user_id': this.user.id,
-                    'date': this.formatDate(new Date()),
-                }
-                this.transactions.push(transaction)
-                this.transactions.push(transaction)
-                this.transactions.push(transaction)
+                    'date': this.formatDate(date),
+                },{
+                    'category': 'utilities',
+                    'amount': 49.99,
+                    'type': 0,
+                    'vendor': 'Spectrum',
+                    'account_id': 1,
+                    'user_id': this.user.id,
+                    'date': this.formatDate(date.setDate(date.getDate() - 2)),
+                }, {
+                    'category': 'subscriptions',
+                    'amount': 16.99,
+                    'type': 0,
+                    'vendor': 'HBO',
+                    'account_id': 1,
+                    'user_id': this.user.id,
+                    'date': this.formatDate(date.setDate(date.getDate() - 2)),
+                }]
+                transactions.forEach( function( transaction ) {
+                    self.transactions.push(transaction)
+                })
             },
             formatDate(date) {
                 var d = new Date(date),

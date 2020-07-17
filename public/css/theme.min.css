@@ -4625,6 +4625,9 @@ button.close {
 .modal-backdrop.show {
     opacity: 0.5;
 }
+body:not(.modal-open) .modal-backdrop {
+    display: none;
+}
 .modal-header {
     display: flex;
     padding: 1.5rem;

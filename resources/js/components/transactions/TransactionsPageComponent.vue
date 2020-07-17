@@ -79,7 +79,19 @@
                 <!-- Button -->
 
                 <div class="dropdown">
+                    <!-- Button trigger modal -->
+                    <button
+                        @click="newTransaction()"
+                        type="button"
+                        class="btn btn-sm btn-primary"
+                        data-toggle="modal"
+                        data-target="#newTransactionModal"
+                        :disabled="accounts.length < 1 ? true : false"
+                        >Add Transaction
+                    </button>
+
                   <new-transaction-modal
+                    :transaction="selectedTransaction"
                     :accounts="accounts"
                     @saveTransaction="saveTransaction($event)"
                   />
@@ -157,6 +169,9 @@
                         <i class="fe fe-more-vertical"></i>
                       </a>
                       <div class="dropdown-menu dropdown-menu-right">
+                        <a @click="editTransaction( transaction )" href="#!" class="dropdown-item" data-toggle="modal" data-target="#newTransactionModal">
+                          Edit
+                        </a>
                         <a @click="deleteTransaction( transaction )" href="#!" class="dropdown-item">
                           Delete
                         </a>
@@ -189,6 +204,7 @@
         data() {
             return {
                 selectedAccount: null,
+                selectedTransaction: {},
                 dataTransactions: this.transactions
             }
         },
@@ -199,11 +215,23 @@
             selectAccount( account ) {
                 this.selectedAccount = account;
             },
+            editTransaction ( transaction ) {
+                this.selectedTransaction = transaction
+            },
+            newTransaction() {
+                this.selectedTransaction = {};
+            },
             saveTransaction( transaction ) {
                 var self = this;
-                this.asyncSendData(transaction, '/transactions', 'POST').then( function( response ) {
-                    self.$set(self.transactions, self.transactions.length, response)
-                    self.showNotification('success', 'Transaction Posted Successfully!')
+                let url = '/transactions' + ( transaction.id ? '/'+transaction.id : '')
+                let method = transaction.id ? 'PUT' : 'POST'
+                this.asyncSendData(transaction, url, method).then( function( response ) {
+                    if (!transaction.id) {
+                        self.$set(self.transactions, self.transactions.length, response)
+                        self.showNotification('success', 'Transaction Posted Successfully!')
+                    } else {
+                        self.showNotification('success', 'Transaction Updated Successfully!')
+                    }
                 })
             },
             deleteTransaction( transaction ) {
@@ -225,3 +253,9 @@
         }
     }
 </script>
+
+<style scoped>
+    .dropdown .dropdown-menu:not(.show) {
+        display: none;
+    }
+</style>

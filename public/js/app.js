@@ -4941,25 +4941,38 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['user', 'transactions'],
-  // data() {
-  //     return {
-  //         transactions: []
-  //     }
-  // },
   methods: {
     generateTransactions: function generateTransactions() {
-      var transaction = {
+      var self = this;
+      var date = new Date();
+      var transactions = [{
         'category': 'shopping',
         'amount': 12.99,
         'type': 0,
         'vendor': 'Target',
         'account_id': 1,
         'user_id': this.user.id,
-        'date': this.formatDate(new Date())
-      };
-      this.transactions.push(transaction);
-      this.transactions.push(transaction);
-      this.transactions.push(transaction);
+        'date': this.formatDate(date)
+      }, {
+        'category': 'utilities',
+        'amount': 49.99,
+        'type': 0,
+        'vendor': 'Spectrum',
+        'account_id': 1,
+        'user_id': this.user.id,
+        'date': this.formatDate(date.setDate(date.getDate() - 2))
+      }, {
+        'category': 'subscriptions',
+        'amount': 16.99,
+        'type': 0,
+        'vendor': 'HBO',
+        'account_id': 1,
+        'user_id': this.user.id,
+        'date': this.formatDate(date.setDate(date.getDate() - 2))
+      }];
+      transactions.forEach(function (transaction) {
+        self.transactions.push(transaction);
+      });
     },
     formatDate: function formatDate(date) {
       var d = new Date(date),
@@ -6241,6 +6254,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'transactions-page-component',
@@ -6251,6 +6279,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       selectedAccount: null,
+      selectedTransaction: {},
       dataTransactions: this.transactions
     };
   },
@@ -6261,11 +6290,23 @@ __webpack_require__.r(__webpack_exports__);
     selectAccount: function selectAccount(account) {
       this.selectedAccount = account;
     },
+    editTransaction: function editTransaction(transaction) {
+      this.selectedTransaction = transaction;
+    },
+    newTransaction: function newTransaction() {
+      this.selectedTransaction = {};
+    },
     saveTransaction: function saveTransaction(transaction) {
       var self = this;
-      this.asyncSendData(transaction, '/transactions', 'POST').then(function (response) {
-        self.$set(self.transactions, self.transactions.length, response);
-        self.showNotification('success', 'Transaction Posted Successfully!');
+      var url = '/transactions' + (transaction.id ? '/' + transaction.id : '');
+      var method = transaction.id ? 'PUT' : 'POST';
+      this.asyncSendData(transaction, url, method).then(function (response) {
+        if (!transaction.id) {
+          self.$set(self.transactions, self.transactions.length, response);
+          self.showNotification('success', 'Transaction Posted Successfully!');
+        } else {
+          self.showNotification('success', 'Transaction Updated Successfully!');
+        }
       });
     },
     deleteTransaction: function deleteTransaction(transaction) {
@@ -6397,21 +6438,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'new-transaction-model',
-  props: ['accounts'],
+  props: ['accounts', 'transaction'],
   data: function data() {
-    return {
-      transaction: {}
+    return {//   transaction: {}
     };
   },
   methods: {
@@ -6419,9 +6451,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.$v.transaction.$touch();
 
       if (!this.$v.$invalid) {
-        this.$emit('saveTransaction', this.transaction);
-        $('#newTransactionModal').modal('toggle');
-        $('.modal-backdrop').remove();
+        this.$emit('saveTransaction', this.transaction); // $('#newTransactionModal').modal('hide')
+
+        $("#newTransactionModal .close-modal").click();
       }
     }
   },
@@ -27188,6 +27220,25 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 // module
 exports.push([module.i, "\n.fade-enter-active[data-v-fe5c0dca], .fade-leave-active[data-v-fe5c0dca] {\n    transition: opacity .5s;\n}\n.fade-enter[data-v-fe5c0dca], .fade-leave-to[data-v-fe5c0dca] /* .fade-leave-active below version 2.1.8 */ {\n    opacity: 0;\n    transition: opacity .5s\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/transactions/TransactionsPageComponent.vue?vue&type=style&index=0&id=4dd26e0a&scoped=true&lang=css&":
+/*!********************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/transactions/TransactionsPageComponent.vue?vue&type=style&index=0&id=4dd26e0a&scoped=true&lang=css& ***!
+  \********************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.dropdown .dropdown-menu[data-v-4dd26e0a]:not(.show) {\n    display: none;\n}\n", ""]);
 
 // exports
 
@@ -81090,6 +81141,36 @@ if(false) {}
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/transactions/TransactionsPageComponent.vue?vue&type=style&index=0&id=4dd26e0a&scoped=true&lang=css&":
+/*!************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/transactions/TransactionsPageComponent.vue?vue&type=style&index=0&id=4dd26e0a&scoped=true&lang=css& ***!
+  \************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../../node_modules/css-loader??ref--6-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--6-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./TransactionsPageComponent.vue?vue&type=style&index=0&id=4dd26e0a&scoped=true&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/transactions/TransactionsPageComponent.vue?vue&type=style&index=0&id=4dd26e0a&scoped=true&lang=css&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/lib/addStyles.js":
 /*!****************************************************!*\
   !*** ./node_modules/style-loader/lib/addStyles.js ***!
@@ -87983,10 +88064,10 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/transactions/TransactionsPageComponent.vue?vue&type=template&id=4dd26e0a&":
-/*!*****************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/transactions/TransactionsPageComponent.vue?vue&type=template&id=4dd26e0a& ***!
-  \*****************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/transactions/TransactionsPageComponent.vue?vue&type=template&id=4dd26e0a&scoped=true&":
+/*!*****************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/transactions/TransactionsPageComponent.vue?vue&type=template&id=4dd26e0a&scoped=true& ***!
+  \*****************************************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -88104,8 +88185,30 @@ var render = function() {
                       "div",
                       { staticClass: "dropdown" },
                       [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-sm btn-primary",
+                            attrs: {
+                              type: "button",
+                              "data-toggle": "modal",
+                              "data-target": "#newTransactionModal",
+                              disabled: _vm.accounts.length < 1 ? true : false
+                            },
+                            on: {
+                              click: function($event) {
+                                return _vm.newTransaction()
+                              }
+                            }
+                          },
+                          [_vm._v("Add Transaction\n                    ")]
+                        ),
+                        _vm._v(" "),
                         _c("new-transaction-modal", {
-                          attrs: { accounts: _vm.accounts },
+                          attrs: {
+                            transaction: _vm.selectedTransaction,
+                            accounts: _vm.accounts
+                          },
                           on: {
                             saveTransaction: function($event) {
                               return _vm.saveTransaction($event)
@@ -88209,6 +88312,30 @@ var render = function() {
                                     "dropdown-menu dropdown-menu-right"
                                 },
                                 [
+                                  _c(
+                                    "a",
+                                    {
+                                      staticClass: "dropdown-item",
+                                      attrs: {
+                                        href: "#!",
+                                        "data-toggle": "modal",
+                                        "data-target": "#newTransactionModal"
+                                      },
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.editTransaction(
+                                            transaction
+                                          )
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n                          Edit\n                        "
+                                      )
+                                    ]
+                                  ),
+                                  _vm._v(" "),
                                   _c(
                                     "a",
                                     {
@@ -88419,20 +88546,6 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c(
-      "button",
-      {
-        staticClass: "btn btn-sm btn-primary",
-        attrs: {
-          type: "button",
-          "data-toggle": "modal",
-          "data-target": "#newTransactionModal",
-          disabled: _vm.accounts.length < 1 ? true : false
-        }
-      },
-      [_vm._v("Add Transaction")]
-    ),
-    _vm._v(" "),
     _c(
       "div",
       {
@@ -88783,7 +88896,7 @@ var render = function() {
                 _c(
                   "button",
                   {
-                    staticClass: "btn btn-secondary",
+                    staticClass: "btn btn-secondary close-modal",
                     attrs: { type: "button", "data-dismiss": "modal" }
                   },
                   [_vm._v("Close")]
@@ -110615,9 +110728,11 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _TransactionsPageComponent_vue_vue_type_template_id_4dd26e0a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./TransactionsPageComponent.vue?vue&type=template&id=4dd26e0a& */ "./resources/js/components/transactions/TransactionsPageComponent.vue?vue&type=template&id=4dd26e0a&");
+/* harmony import */ var _TransactionsPageComponent_vue_vue_type_template_id_4dd26e0a_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./TransactionsPageComponent.vue?vue&type=template&id=4dd26e0a&scoped=true& */ "./resources/js/components/transactions/TransactionsPageComponent.vue?vue&type=template&id=4dd26e0a&scoped=true&");
 /* harmony import */ var _TransactionsPageComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./TransactionsPageComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/transactions/TransactionsPageComponent.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _TransactionsPageComponent_vue_vue_type_style_index_0_id_4dd26e0a_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./TransactionsPageComponent.vue?vue&type=style&index=0&id=4dd26e0a&scoped=true&lang=css& */ "./resources/js/components/transactions/TransactionsPageComponent.vue?vue&type=style&index=0&id=4dd26e0a&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
 
 
 
@@ -110625,13 +110740,13 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
   _TransactionsPageComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _TransactionsPageComponent_vue_vue_type_template_id_4dd26e0a___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _TransactionsPageComponent_vue_vue_type_template_id_4dd26e0a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _TransactionsPageComponent_vue_vue_type_template_id_4dd26e0a_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _TransactionsPageComponent_vue_vue_type_template_id_4dd26e0a_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
-  null,
+  "4dd26e0a",
   null
   
 )
@@ -110657,19 +110772,35 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/components/transactions/TransactionsPageComponent.vue?vue&type=template&id=4dd26e0a&":
-/*!***********************************************************************************************************!*\
-  !*** ./resources/js/components/transactions/TransactionsPageComponent.vue?vue&type=template&id=4dd26e0a& ***!
-  \***********************************************************************************************************/
+/***/ "./resources/js/components/transactions/TransactionsPageComponent.vue?vue&type=style&index=0&id=4dd26e0a&scoped=true&lang=css&":
+/*!*************************************************************************************************************************************!*\
+  !*** ./resources/js/components/transactions/TransactionsPageComponent.vue?vue&type=style&index=0&id=4dd26e0a&scoped=true&lang=css& ***!
+  \*************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_TransactionsPageComponent_vue_vue_type_style_index_0_id_4dd26e0a_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader!../../../../node_modules/css-loader??ref--6-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--6-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./TransactionsPageComponent.vue?vue&type=style&index=0&id=4dd26e0a&scoped=true&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/transactions/TransactionsPageComponent.vue?vue&type=style&index=0&id=4dd26e0a&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_TransactionsPageComponent_vue_vue_type_style_index_0_id_4dd26e0a_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_TransactionsPageComponent_vue_vue_type_style_index_0_id_4dd26e0a_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_TransactionsPageComponent_vue_vue_type_style_index_0_id_4dd26e0a_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_TransactionsPageComponent_vue_vue_type_style_index_0_id_4dd26e0a_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_TransactionsPageComponent_vue_vue_type_style_index_0_id_4dd26e0a_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
+/***/ }),
+
+/***/ "./resources/js/components/transactions/TransactionsPageComponent.vue?vue&type=template&id=4dd26e0a&scoped=true&":
+/*!***********************************************************************************************************************!*\
+  !*** ./resources/js/components/transactions/TransactionsPageComponent.vue?vue&type=template&id=4dd26e0a&scoped=true& ***!
+  \***********************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_TransactionsPageComponent_vue_vue_type_template_id_4dd26e0a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./TransactionsPageComponent.vue?vue&type=template&id=4dd26e0a& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/transactions/TransactionsPageComponent.vue?vue&type=template&id=4dd26e0a&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_TransactionsPageComponent_vue_vue_type_template_id_4dd26e0a___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_TransactionsPageComponent_vue_vue_type_template_id_4dd26e0a_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./TransactionsPageComponent.vue?vue&type=template&id=4dd26e0a&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/transactions/TransactionsPageComponent.vue?vue&type=template&id=4dd26e0a&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_TransactionsPageComponent_vue_vue_type_template_id_4dd26e0a_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_TransactionsPageComponent_vue_vue_type_template_id_4dd26e0a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_TransactionsPageComponent_vue_vue_type_template_id_4dd26e0a_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

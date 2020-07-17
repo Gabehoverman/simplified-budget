@@ -1,13 +1,5 @@
 <template>
   <div>
-    <!-- Button trigger modal -->
-    <button
-      type="button"
-      class="btn btn-sm btn-primary"
-      data-toggle="modal"
-      data-target="#newTransactionModal"
-      :disabled="accounts.length < 1 ? true : false"
-    >Add Transaction</button>
     <!-- Modal -->
     <div
       class="modal fade"
@@ -83,7 +75,7 @@
 
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-secondary close-modal" data-dismiss="modal">Close</button>
             <button @click="saveTransaction()" type="button" class="btn btn-primary">Save changes</button>
           </div>
         </div>
@@ -98,11 +90,12 @@ import { required, minLength } from 'vuelidate/lib/validators'
 export default {
   name: 'new-transaction-model',
   props: [
-      'accounts'
+      'accounts',
+      'transaction'
   ],
   data() {
       return {
-          transaction: {}
+        //   transaction: {}
       }
   },
   methods: {
@@ -110,8 +103,8 @@ export default {
         this.$v.transaction.$touch()
         if (!this.$v.$invalid) {
             this.$emit('saveTransaction', this.transaction)
-            $('#newTransactionModal').modal('toggle')
-            $('.modal-backdrop').remove();
+            // $('#newTransactionModal').modal('hide')
+            $("#newTransactionModal .close-modal").click()
         }
       }
   },

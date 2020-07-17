@@ -4949,7 +4949,7 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     generateTransactions: function generateTransactions() {
       var transaction = {
-        'category': 'dining',
+        'category': 'shopping',
         'amount': 12.99,
         'type': 0,
         'vendor': 'Target',

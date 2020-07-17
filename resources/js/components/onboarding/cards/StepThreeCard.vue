@@ -107,14 +107,13 @@
         methods: {
             generateTransactions() {
                 let transaction = {
-                    'category': 'dining',
+                    'category': 'shopping',
                     'amount': 12.99,
                     'type': 0,
                     'vendor': 'Target',
                     'account_id': 1,
                     'user_id': this.user.id,
                     'date': this.formatDate(new Date()),
-
                 }
                 this.transactions.push(transaction)
                 this.transactions.push(transaction)

@@ -20,6 +20,9 @@ Route::get('/', function () {
 
 Auth::routes();
 
+// Route::post('/onboarding', 'OnboardingController@save');
+Route::resource('/onboarding', 'OnboardingController');
+
 Route::get('logout', 'Auth\LoginController@logout');
 
 Route::get('/home', 'HomeController@index')->name('home');

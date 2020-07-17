@@ -27,16 +27,20 @@ class DashboardController extends Controller
      */
     public function index()
     {
+        if (Auth::User()->income == null) {
+            return redirect('/onboarding');
+        }
         $transactions = Transaction::where('user_id', Auth::User()->id)->with('account')->orderBy('date', 'DESC')->get();
         $accounts = Account::where('user_id', Auth::User()->id)->limit(3)->with('transactions')->get();
+
         $weeklyExpenses = Transaction::where('type', 0)->where('date', '>=', Carbon::now()->startOfWeek())->orderBy('date', 'ASC')->get()->groupBy(function($date) {
-            return Carbon::parse($date->date)->format('d'); // grouping by months
+            return Carbon::parse($date->date)->format('d'); // grouping by day
         });
         $monthlyExpenses = Transaction::where('type', 0)->where('date', '>=', Carbon::now()->firstOfMonth())->orderBy('date', 'ASC')->get()->groupBy(function($date) {
-            return Carbon::parse($date->date)->format('d'); // grouping by months
+            return Carbon::parse($date->date)->format('d'); // grouping by month
         });
         $annualExpenses = Transaction::where('type', 0)->where('date', '>=', Carbon::now()->firstOfYear())->orderBy('date', 'ASC')->get()->groupBy(function($date) {
-            return Carbon::parse($date->date)->format('m-d'); // grouping by months
+            return Carbon::parse($date->date)->format('m-d'); // grouping by month-day
         });
         return view('user.dashboard', compact('transactions', 'accounts', 'weeklyExpenses', 'monthlyExpenses', 'annualExpenses'));
     }

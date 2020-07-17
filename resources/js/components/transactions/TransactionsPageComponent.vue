@@ -217,7 +217,6 @@
         },
         computed: {
             filteredTransactions() {
-                console.log(this.selectedAccount)
                 if (this.selectedAccount) {
                     return this.dataTransactions.filter(x => x.account_id == this.selectedAccount.id)
                 }

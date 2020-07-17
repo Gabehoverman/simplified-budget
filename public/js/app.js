@@ -3742,7 +3742,7 @@ var reactiveProp = vue_chartjs__WEBPACK_IMPORTED_MODULE_0__["mixins"].reactivePr
         },
         responsive: true,
         maintainAspectRatio: false,
-        height: '360px'
+        height: '300px'
       }
     };
   },
@@ -3777,6 +3777,7 @@ function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
+//
 //
 //
 //
@@ -85363,8 +85364,15 @@ var render = function() {
               { staticClass: "small" },
               [
                 _c("overview-chart", {
-                  staticClass: "small",
+                  staticStyle: { height: "320px" },
                   attrs: { "chart-data": _vm.datacollection }
+                }),
+                _vm._v(" "),
+                _c("div", {
+                  staticStyle: {
+                    height: "40px",
+                    background: "rgba(0, 149, 247, .5)"
+                  }
                 })
               ],
               1

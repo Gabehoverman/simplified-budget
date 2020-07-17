@@ -30,7 +30,7 @@ export default {
             },
             responsive: true,
             maintainAspectRatio: false,
-            height: '360px',
+            height: '300px',
         }
     }
   },

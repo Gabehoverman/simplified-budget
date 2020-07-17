@@ -67,7 +67,8 @@
             <div class="chart">
               <!-- <canvas id="headerChart" class="chart-canvas"></canvas> -->
                 <div class="small">
-                    <overview-chart class="small" :chart-data="datacollection"></overview-chart>
+                    <overview-chart style="height: 320px;" :chart-data="datacollection"></overview-chart>
+                    <div style="height: 40px; background: rgba(0, 149, 247, .5);"></div>
                 </div>
             </div>
 

@@ -12,7 +12,7 @@
                 </div>
             </div>
             <div class="col-3">
-                <span class="text-small">est. $3,000</span>
+                <span class="text-small">est. ${{ formatCurrency(this.user.income / 12) }}</span>
             </div>
             <div class="col-9 mt-5">
 
@@ -39,10 +39,14 @@
 
 <script>
     export default {
-        props: ['income', 'expenses'],
+        props: [
+            'user',
+            'income',
+            'expenses',
+        ],
         computed: {
             incomePercentage() {
-                return (this.income / 3000) * 100;
+                return (this.income / (this.user.income / 12)) * 100;
             },
             expensesPercentage() {
                 return (this.expenses / 2000) * 100;

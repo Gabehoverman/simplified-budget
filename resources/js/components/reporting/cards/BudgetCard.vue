@@ -36,16 +36,19 @@
 
 <script>
     export default {
-        props: ['expenses'],
+        props: [
+            'user',
+            'expenses'
+        ],
          computed: {
             incomePercentage() {
-                return (this.income / 3000) * 100;
+                return (this.income / (this.user.income / 12)) * 100;
             },
             expensesPercentage() {
-                return (this.expenses / 3000) * 100;
+                return (this.expenses / (this.user.income / 12)) * 100;
             },
             budgetRemainder() {
-                return (3000 - this.expenses).toFixed(2);
+                return ((this.user.income / 12) - this.expenses).toFixed(2);
             }
         }
     }

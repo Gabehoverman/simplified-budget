@@ -51,13 +51,13 @@
 
         <!-- Card -->
         <account-card v-if="selectedTab == 'account'"
-
+            :user="dataUser"
+            @updateProfile="updateProfile($event)"
         />
 
         <email-card v-if="selectedTab == 'email'"
-
+            :user="dataUser"
         />
-
 
       </div>
     </div> <!-- / .row -->
@@ -71,6 +71,7 @@
     export default {
         name: 'settings-page-component',
         props: [
+            'user',
             'settings'
         ],
         components: {
@@ -80,12 +81,20 @@
         data() {
             return {
                 selectedTab: 'account',
+                dataUser: this.user
             }
         },
         methods: {
             selectTab( tab ) {
                 this.selectedTab = tab;
             },
+            updateProfile(data) {
+                var self = this;
+                this.asyncSendData(data, '/profile/update', 'PUT').then( function( response ) {
+                    self.user = response;
+                    self.showNotification('success', 'Profile Updated Successfully!')
+                })
+            }
         }
     }
 </script>

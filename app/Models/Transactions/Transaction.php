@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Transactions;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -27,5 +27,9 @@ class Transaction extends Model
     public function account()
     {
         return $this->belongsTo("App\Models\Account");
+    }
+
+    public function scopeToUser( $query ) {
+        return $query->where('user_id', \Auth::User()->id);
     }
 }

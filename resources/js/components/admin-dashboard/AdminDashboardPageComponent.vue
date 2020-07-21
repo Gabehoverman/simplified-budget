@@ -2,14 +2,18 @@
     <div>
         <admin-overview-graph-card
             :users="users"
+            :weeklyNewUsers="weeklyNewUsers"
+            :monthlyNewUsers="monthlyNewUsers"
+            :annualNewUsers="annualNewUsers"
+            @updateDate="updateData( $event )"
         />
-
         <div class="container-fluid mt--6">
             <div class="row">
                 <div class="col-12 col-xl-8">
 
                     <admin-widget-row
                         :users="users"
+                        :filter="dataFilter"
                     />
 
                     <!-- <admin-user-graph-card
@@ -39,13 +43,15 @@
     import AdminActivityCard from './cards/AdminActivityCard'
     import AdminWidgetRow from './widgets/AdminWidgetRow'
 
-
     export default {
         name: 'admin-dashboard-page-component',
         props: [
             'users',
             'accounts',
-            'transactions'
+            'transactions',
+            'weeklyNewUsers',
+            'monthlyNewUsers',
+            'annualNewUsers'
         ],
         components: {
             AdminOverviewGraphCard,
@@ -53,6 +59,19 @@
             AdminGrowthGraphCard,
             AdminActivityCard,
             AdminWidgetRow
+        },
+        data() {
+            return {
+                dataFilter: 'weekly',
+                dataSet: this.weeklyNewUsers
+            }
+        },
+        methods: {
+            updateData( data ) {
+                this.dataFilter = data;
+            }
+        },
+        mounted() {
         }
     }
 </script>

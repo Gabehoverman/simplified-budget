@@ -46,7 +46,7 @@
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="#" :class="'nav-link text-center'+(dataTab == 'annually' ? ' active' : '')" @click="fillData( 'annually' )">
+                    <a href="#" :class="'nav-link text-center'+(dataTab == 'annual' ? ' active' : '')" @click="fillData( 'annual' )">
                       <h6 class="header-pretitle text-secondary">
                         Breakdown
                         <!-- &nbsp -->
@@ -84,13 +84,15 @@
   import AdminOverviewChart from './AdminOverviewChart'
 
   export default {
-    props: ['users'],
+    props: ['users', 'weeklyNewUsers', 'monthlyNewUsers', 'annualNewUsers'],
     components: {
       AdminOverviewChart
     },
     data () {
       return {
-        datacollection: null,
+        datacollection: {},
+        datalabels: [],
+        dataset: [],
         dataTab: 'weekly'
       }
     },
@@ -98,22 +100,34 @@
     methods: {
       fillData ( tab ) {
         this.dataTab = tab;
+        this.parseData( eval ('this.'+tab+'NewUsers') )
+        this.$emit('updateDate', tab)
         this.datacollection = {
-          labels: [this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt()],
+          labels: this.datalabels,
           datasets: [
             {
-              label: 'New Users',
-              backgroundColor: 'rgba(0, 149, 247, .6)',
+              label: 'Spending',
+              backgroundColor: 'rgba(0, 149, 247, .5)',
               borderColor: '#0095f7',
-              data: [this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt()]
-            }, {
-              label: 'Paid Users',
-              backgroundColor: 'rgba(255, 255, 255, .75)',
-              borderColor: 'rgba(255, 255, 255, 1)',
-              data: [this.getRandomInt()/3, this.getRandomInt()/3, this.getRandomInt()/3, this.getRandomInt()/3,  this.getRandomInt()/3, this.getRandomInt()/3]
+              data: this.dataset
             }
           ]
         }
+      },
+      parseData( data ) {
+            this.dataset = [];
+            this.datalabels = [];
+            var self = this;
+            console.log(data);
+            for (const [key, value] of Object.entries(data)) {
+                let sum = 0;
+                value.forEach( expense => {
+                    sum = parseFloat(sum) + parseFloat(expense.amount);
+                })
+                self.datalabels.push(key)
+                self.dataset.push(sum)
+            }
+            return true;
       },
       getRandomInt () {
         return Math.floor(Math.random() * (100 - 5 + 1)) + 5

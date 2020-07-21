@@ -38,18 +38,13 @@
                     </select>
                 </div>
 
-                  <div class="form-group">
+                  <div class="form-group" v-if="transaction.type != 1">
                     <label for="categorySelect">Category</label>
                     <select v-model="transaction.category"
                                 :class="'form-control '+($v.transaction.category.$error ? 'is-invalid ' : '')"
                                 id="categorySelect" name="category">
                         <option value="undefined" selected disabled>Select a Category</option>
-                        <option value="shopping">Shopping</option>
-                        <option value="dining">Dining</option>
-                        <option value="utilities">Utilities</option>
-                        <option value="subscriptions">Subscriptions</option>
-                        <option value="housing">Rent / Mortgage</option>
-                        <option value="misc">Misc</option>
+                        <option v-for="(category, key) in $transactionCategories" :key="key" :value="key"> {{ category }}</option>
                     </select>
                 </div>
 
@@ -85,7 +80,7 @@
 </template>
 
 <script>
-import { required, minLength } from 'vuelidate/lib/validators'
+import { required, minLength, requiredIf } from 'vuelidate/lib/validators'
 
 export default {
   name: 'new-transaction-model',
@@ -120,7 +115,9 @@ export default {
             required
         },
         category: {
-            required
+            required: requiredIf(function() {
+                return this.transaction.type != 1;
+            })
         },
         type: {
             required

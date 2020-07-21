@@ -18,10 +18,10 @@ Route::get('/', function () {
     return view('splash');
 });
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
 // Route::post('/onboarding', 'OnboardingController@save');
-Route::resource('/onboarding', 'OnboardingController');
+Route::resource('/onboarding', 'OnboardingController')->middleware('verified');;
 
 Route::get('logout', 'Auth\LoginController@logout');
 

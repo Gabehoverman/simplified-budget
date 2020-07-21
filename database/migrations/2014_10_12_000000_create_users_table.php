@@ -20,8 +20,10 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->string('phone')->nullable();
             $table->integer('income')->nullable();
+            $table->integer('pay')->nullable();
             $table->integer('goals')->nullable();
             $table->boolean('notifications')->default(1);
+            $table->boolean('verified')->default(0);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

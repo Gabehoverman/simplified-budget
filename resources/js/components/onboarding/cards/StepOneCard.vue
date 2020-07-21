@@ -85,15 +85,23 @@
         <!-- <hr class="my-5"> -->
 
         <div class="row">
-            <div class="form-group col-md-12">
+            <div class="form-group col-md-6">
 
                 <label class="mb-1">
                     Estimated Annual Income
                 </label>
 
-                <input v-model="dataUser.income" name="email" type="email" :class="'form-control '+(errors.income.$error ? 'is-invalid ' : '')">
+                <input v-model="dataUser.income" name="income" type="income" :class="'form-control '+(errors.income.$error ? 'is-invalid ' : '')">
             </div>
 
+            <div class="form-group col-md-6">
+
+                <label class="mb-1">
+                    Monthly Take Home Pay
+                </label>
+
+                <input v-model="dataUser.pay" name="pay" type="pay" :class="'form-control '+(errors.income.$error ? 'is-invalid ' : '')">
+            </div>
         </div>
 
         <div class="row">

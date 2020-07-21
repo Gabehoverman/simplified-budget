@@ -134,6 +134,9 @@ export default {
             income: {
                 required
             },
+            pay: {
+                required
+            },
             goals: {
                 required
             }
@@ -165,7 +168,7 @@ export default {
             required,
             minLength: minLength(1)
         },
-        StepOneGroup: ['user.first_name', 'user.last_name', 'user.email', 'user.phone', 'user.income', 'user.goals'],
+        StepOneGroup: ['user.first_name', 'user.last_name', 'user.email', 'user.phone', 'user.income', 'user.pay', 'user.goals'],
         StepTwoGroup: ['account.institution', 'account.username', 'account.password', 'account.name', 'account.tracking_type', 'account.tracking_options', 'account.type'],
         StepThreeGroup: ['transactions'],
         BankGroup: ['account.institution'],

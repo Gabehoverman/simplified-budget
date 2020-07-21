@@ -75,12 +75,40 @@
 
                             <div class="col-md-12">
                                 <vue-mask type="text" class="form-control" name="phone" mask="000-000-0000" v-model="user.phone" :options="{raw: true}"/>
-                                <!-- <input id="phone" type="text" :class="'form-control'"
-                                            name="phone" required autocomplete="name" v-model="user.phone"> -->
                             </div>
                         </div>
 
                         <div class="form-group row col-6">
+                            <label for="income" class="col-md-12 col-form-label">Annual Income</label>
+
+                            <div class="col-md-12">
+                                <input id="income" type="text" :class="'form-control '+($v.user.income.$error ? 'is-invalid ' : '')"
+                                            name="income" required autocomplete="income" v-model="user.income">
+                            </div>
+                        </div>
+
+                        <div class="form-group row col-6">
+                            <label for="pay" class="col-md-12 col-form-label">Monthly Take Home Pay</label>
+
+                            <div class="col-md-12">
+                                <input id="pay" type="text" :class="'form-control '+($v.user.pay.$error ? 'is-invalid ' : '')"
+                                            name="pay" required autocomplete="pay" v-model="user.pay">
+                            </div>
+                        </div>
+
+                        <div class="form-group row col-12">
+                            <label for="pay" class="col-md-12 col-form-label">Financial Goals</label>
+
+                            <div class="col-md-12">
+                                <select v-model="user.goals" :class="'form-control '+($v.user.goals.$error ? 'is-invalid ' : '')">
+                                    <option value="0">Save More Money</option>
+                                    <option value="1">Pay Down Debt</option>
+                                    <option value="2">Track My Spending</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- <div class="form-group row col-6">
                             <label for="name" class="col-md-12 col-form-label">New Password (optional)</label>
                             <div class="col-md-12">
                                 <input id="email" type="password" :class="'form-control '+($v.user.password.$error ? 'is-invalid ' : '')"
@@ -95,16 +123,16 @@
                                 <input id="email" type="password" :class="'form-control '+($v.user.confirmPassword.$error ? 'is-invalid ' : '')"
                                             name="email" required autocomplete="name" v-model="user.confirmPassword">
                             </div>
-                        </div>
+                        </div> -->
 
-                        <div class="form-group row col-12" style="padding: 10px 25px;">
+                        <!-- <div class="form-group row col-12" style="padding: 10px 25px;">
                             <toggle-button v-model="user.notifications"
                                 color="#0095f7"
                                 :labels="{checked: 'Yes', unchecked: 'No'}"
                             />
                             <span>&nbsp &nbsp Receive Notifications and Alerts</span>
 
-                        </div>
+                        </div> -->
 
                         <div class="col-12 text-right">
                             <button @click="updateProfile()" class="btn btn-primary">Submit</button>
@@ -142,6 +170,11 @@
                 }
             }
         },
+        watch: {
+            "user.income": function() {
+                this.user.pay = (this.user.income / 12).toFixed(2);
+            }
+        },
         validations: {
             user: {
                 first_name: {
@@ -153,12 +186,21 @@
                 email: {
                     required
                 },
-                password: {
-                    // required: requiredUnless('isOptional'),
+                income: {
+                    required
                 },
-                confirmPassword: {
-                    sameAsPassword: sameAs('password')
-                }
+                pay: {
+                    required
+                },
+                goals: {
+                    required
+                },
+                // password: {
+                //     // required: requiredUnless('isOptional'),
+                // },
+                // confirmPassword: {
+                //     sameAsPassword: sameAs('password')
+                // }
             }
         }
     }

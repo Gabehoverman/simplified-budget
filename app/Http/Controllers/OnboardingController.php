@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Account;
-use App\Models\Transaction;
+use App\Models\Transactions\Transaction;
 use App\User;
 
 class OnboardingController extends Controller

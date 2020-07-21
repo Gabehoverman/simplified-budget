@@ -126,7 +126,6 @@
             }
         },
         mounted() {
-            console.log(this.monthlyExpenses)
         }
     }
 </script>

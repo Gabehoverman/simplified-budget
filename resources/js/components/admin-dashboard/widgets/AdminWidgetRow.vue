@@ -85,7 +85,7 @@
 
                     <!-- Heading -->
                     <span class="h2 mr-2 mb-0">
-                        12.3%
+                        0%
                     </span>
 
                     </div>
@@ -93,7 +93,7 @@
 
                     <!-- Progress -->
                     <div class="progress progress-sm">
-                        <div class="progress-bar" role="progressbar" style="width: 12%" aria-valuenow="12" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
 
                     </div>
@@ -127,7 +127,7 @@
 
                 <!-- Heading -->
                 <span class="h2 mb-0">
-                    $5.50
+                    $0.00
                 </span>
 
                 </div>

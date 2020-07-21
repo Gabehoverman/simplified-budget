@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Transaction;
+use App\Models\Transactions\Transaction;
+use App\Models\Transactions\TransactionCategory;
 use App\Models\Account;
 use Auth;
 
@@ -55,6 +56,9 @@ class TransactionsController extends Controller
     {
         $transaction = new Transaction($request->input());
         $transaction->user_id = \Auth::User()->id;
+        if (!$transaction->category) {
+            $transaction->category = TransactionCategory::INCOME;
+        }
         $transaction->save();
         $transaction->account;
 

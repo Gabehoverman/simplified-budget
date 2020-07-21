@@ -5,6 +5,7 @@
  */
 
 require('./bootstrap');
+// require('./enums/TransactionCategories');
 
 window.Vue = require('vue');
 
@@ -18,6 +19,12 @@ window.Vue = require('vue');
 
 const files = require.context('./', true, /\.vue$/i)
 files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
+
+import TransactionCategories from './enums/TransactionCategories';
+import TransactionCategoryColors from './enums/TransactionCategoryColors';
+
+Vue.prototype.$transactionCategories = TransactionCategories
+Vue.prototype.$transactionCategoryColors = TransactionCategoryColors
 
 import Vuelidate from 'vuelidate'
 Vue.use(Vuelidate)
@@ -105,9 +112,10 @@ Vue.mixin({
             return name
         },
         formatString( string ) {
-            return string.charAt(0).toUpperCase() + string.slice(1)
+            return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase()
         },
         formatCurrency ( currency ) {
+            currency = parseFloat(currency).toFixed(2);
             return currency.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         },
         asset( url ) {

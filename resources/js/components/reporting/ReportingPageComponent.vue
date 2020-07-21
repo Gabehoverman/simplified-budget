@@ -34,6 +34,7 @@
 
             <div class="col-12 col-lg-6">
                 <budget-card
+                    :user="user"
                     :expenses="expenses"
                 />
             </div>
@@ -59,6 +60,7 @@
 
             <div class="col-12 col-lg-6">
                 <cashflow-card
+                    :user="user"
                     :income="income"
                     :expenses="expenses"
                 />
@@ -77,7 +79,7 @@
     import CashflowCard from './cards/CashflowCard'
 
     export default {
-        props: ['categories', 'vendors', 'income', 'expenses', 'monthlyTransactions', 'previousMonthlyTransactions'],
+        props: ['user', 'categories', 'vendors', 'income', 'expenses', 'monthlyTransactions', 'previousMonthlyTransactions'],
         components: {
             InsightsCard,
             MonthlyComparisonCard,

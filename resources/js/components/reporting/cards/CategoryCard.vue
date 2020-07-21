@@ -34,6 +34,7 @@ export default {
       datacollection: {},
       dataset: [],
       datalabels: [],
+      dataColors: [],
     };
   },
   mounted() {
@@ -47,7 +48,7 @@ export default {
         datasets: [
           {
             label: "Data One",
-            backgroundColor: ["#0095f7", "rgba(0, 149, 247, .7)"],
+            backgroundColor: ["rgba(0, 149, 247, 1)", "rgba(0, 149, 247, .8)", "rgba(0, 149, 247, .6)", "rgba(0, 149, 247, .4)", "rgba(0, 149, 247, .2)"],
             data: this.dataset
           }
         ]
@@ -62,13 +63,13 @@ export default {
             value.forEach( expense => {
                 sum = parseFloat(sum) + parseFloat(expense.amount);
             })
-            self.datalabels.push(key)
-            self.dataset.push(sum)
+            self.datalabels.push(this.formatString(key))
+            self.dataColors.push(this.$transactionCategoryColors[key])
+            self.dataset.push(this.formatCurrency(sum))
         }
         return true;
       },
         getRandomInt() {
-            console.log(this.categories)
             return Math.floor(Math.random() * (50 - 5 + 1)) + 5;
         }
   }

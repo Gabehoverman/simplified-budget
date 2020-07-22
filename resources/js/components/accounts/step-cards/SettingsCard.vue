@@ -1,7 +1,7 @@
 <template>
     <div>
 
-        <h3 class="mb-5">Account Settings</h3>
+        <h3 class="mb-5 card-lead">Account Settings</h3>
 
         <div class="row">
             <!-- Project name -->
@@ -17,7 +17,7 @@
                 <label>
                     Account Type
                 </label>
-                <select v-model="account.type" :class="'form-control '+(errors.type.$error ? 'is-invalid ' : '')" data-toggle="select">
+                <select v-model="account.type" name="type" :class="'form-control '+(errors.type.$error ? 'is-invalid ' : '')" data-toggle="select">
                     <option value="undefined" disabled>Select an Option</option>
                     <option value="0">Checking</option>
                     <option value="1">Savings</option>
@@ -32,7 +32,7 @@
                 <label>
                     Transaction Recording
                 </label>
-                <select v-model="account.tracking_type"  :class="'form-control '+(errors.tracking_type.$error ? 'is-invalid ' : '')" data-toggle="select">
+                <select v-model="account.tracking_type" name="tracking_type" :class="'form-control '+(errors.tracking_type.$error ? 'is-invalid ' : '')" data-toggle="select">
                     <option value="undefined" disabled>Select an Option</option>
                     <option value="1">Automatic</option>
                     <option value="0">Manual</option>
@@ -44,7 +44,7 @@
                 <label>
                     Tracking Options
                 </label>
-                <select v-model="account.tracking_options" :class="'form-control '+(errors.tracking_options.$error ? 'is-invalid ' : '')" data-toggle="select">
+                <select v-model="account.tracking_options" name="tracking_options" :class="'form-control '+(errors.tracking_options.$error ? 'is-invalid ' : '')" data-toggle="select">
                     <option value="undefined" disabled>Select an Option</option>
                     <option value="0">Income & Expenses</option>
                     <option value="1">Income Only</option>

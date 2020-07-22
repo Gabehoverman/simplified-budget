@@ -20,6 +20,8 @@
             </div>
           </div>
 
+          {{ account }}
+
           <div class="col-12 col-lg-12 col-xl-12">
             <div class="card row" style="padding: 25px; flex-direction: row">
                 <div class="col-md-12">

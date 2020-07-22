@@ -91,6 +91,7 @@
                     </button>
 
                   <new-transaction-modal
+                    :key="modalKey"
                     :transaction="selectedTransaction"
                     :accounts="accounts"
                     @saveTransaction="saveTransaction($event)"
@@ -205,7 +206,8 @@
             return {
                 selectedAccount: null,
                 selectedTransaction: {},
-                dataTransactions: this.transactions
+                dataTransactions: this.transactions,
+                modalKey: 0
             }
         },
         methods: {
@@ -232,6 +234,7 @@
                     } else {
                         self.showNotification('success', 'Transaction Updated Successfully!')
                     }
+                    self.modalKey += 1;
                 })
             },
             deleteTransaction( transaction ) {

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h3 class="mb-5">Select a Bank</h3>
+        <h3 class="mb-5 card-lead">Select a Bank</h3>
 
         <div class="row">
 
@@ -9,7 +9,7 @@
                 <label>
                     Account Type
                 </label>
-                <select v-model="account.institution" :class="'form-control '+(errors.institution.$error ? 'is-invalid ' : '')" data-toggle="select">
+                <select v-model="account.institution" name="institution" :class="'form-control '+(errors.institution.$error ? 'is-invalid ' : '')" data-toggle="select">
                     <option value="undefined" disabled>Select an Option</option>
                     <option value="Bank of America">Bank of America</option>
                     <option value="Wells Fargo">Wells Fargo</option>

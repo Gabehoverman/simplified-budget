@@ -98,8 +98,7 @@ export default {
         this.$v.transaction.$touch()
         if (!this.$v.$invalid) {
             this.$emit('saveTransaction', this.transaction)
-            // $('#newTransactionModal').modal('hide')
-            $("#newTransactionModal .close-modal").click()
+            $('#newTransactionModal').modal('hide')
         }
       }
   },
@@ -129,6 +128,8 @@ export default {
             required
         }
       }
+  },
+  mounted() {
   }
 };
 </script>

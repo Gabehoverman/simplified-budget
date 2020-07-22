@@ -133,7 +133,7 @@
                         <i class="fe fe-more-vertical"></i>
                       </a>
                       <div class="dropdown-menu dropdown-menu-right">
-                        <a href="#!" class="dropdown-item">
+                        <a :href="'/accounts/'+account.id" class="dropdown-item">
                           Edit
                         </a>
                         <a @click="deleteAccount( account )" href="#!" class="dropdown-item">
@@ -147,7 +147,6 @@
             </table>
           </div>
         </div>
-
       </div>
     </div> <!-- / .row -->
   </div>
@@ -160,7 +159,6 @@
             'accounts',
         ],
         components: {
-
         },
         data() {
             return {
@@ -192,3 +190,9 @@
         },
     }
 </script>
+
+<style scoped>
+    .dropdown .dropdown-menu:not(.show) {
+        display: none;
+    }
+</style>

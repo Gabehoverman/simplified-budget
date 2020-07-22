@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Account;
 use Auth;
+use Carbon\Carbon;
 
 class AccountsController extends Controller
 {
@@ -40,8 +41,33 @@ class AccountsController extends Controller
         return view('user.new-account');
     }
 
+    /**
+     * Shows a Specific Account
+     *
+     */
+    public function show( Request $request, $id )
+    {
+        $account = Account::find($id);
+        $transactions = $account->transactions->groupBy(function($date) {
+            return Carbon::parse($date->date)->format('m'); // grouping by month
+        });
+
+        return view('user.show-account', compact('account', 'transactions'));
+    }
+
+    /**
+     * Edit an account
+     *
+     */
+    public function edit( Request $request, $id )
+    {
+        $account = Account::find($id);
+
+        return view('user.edit-account', compact('account'));
+    }
+
       /**
-     * Creates a new Transaction
+     * Creates a new Account
      *
      * @return Account
      */
@@ -55,7 +81,7 @@ class AccountsController extends Controller
     }
 
     /**
-     * Updates a Transaction
+     * Updates an Account
      *
      * @return Account
      */
@@ -68,7 +94,7 @@ class AccountsController extends Controller
     }
 
     /**
-     * Deletes a Transaction
+     * Deletes an Account
      *
      * @return Account
      */

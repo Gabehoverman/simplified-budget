@@ -2107,6 +2107,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'accounts-page-component',
   props: ['accounts'],
@@ -83795,21 +83797,29 @@ var render = function() {
                           _vm._v(" "),
                           _c("td", { staticClass: "orders-category" }, [
                             _c(
-                              "div",
-                              {
-                                staticClass:
-                                  "avatar avatar-account avatar-rounded"
-                              },
+                              "a",
+                              { attrs: { href: "/accounts/" + account.id } },
                               [
-                                _c("p", [
-                                  _vm._v(_vm._s(_vm.getInitials(account.name)))
-                                ])
+                                _c(
+                                  "div",
+                                  {
+                                    staticClass:
+                                      "avatar avatar-account avatar-rounded"
+                                  },
+                                  [
+                                    _c("p", [
+                                      _vm._v(
+                                        _vm._s(_vm.getInitials(account.name))
+                                      )
+                                    ])
+                                  ]
+                                ),
+                                _vm._v(
+                                  "\n                    " +
+                                    _vm._s(account.name) +
+                                    "\n                    "
+                                )
                               ]
-                            ),
-                            _vm._v(
-                              "\n                    " +
-                                _vm._s(account.name) +
-                                "\n                  "
                             )
                           ]),
                           _vm._v(" "),
@@ -84430,7 +84440,7 @@ var render = function() {
       _vm._v(" "),
       _c(
         "div",
-        { staticClass: "row justify-content-center" },
+        { staticClass: "row justify-content" },
         [
           _c("div", { staticClass: "col-12 col-lg-12 col-xl-12" }, [
             _c("div", { staticClass: "header" }, [
@@ -84453,7 +84463,7 @@ var render = function() {
                   ])
                 ]),
                 _vm._v(" "),
-                _c("div", { staticClass: "row align-items-center" }, [
+                _c("div", { staticClass: "row" }, [
                   _c("div", { staticClass: "col" }, [
                     _c(
                       "ul",
@@ -84580,8 +84590,8 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container" }, [
-    _c("div", { staticClass: "row justify-content-center" }, [
+  return _c("div", { staticClass: "container col-12" }, [
+    _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col" }, [
         _c("div", { staticClass: "card" }, [
           _c("div", { staticClass: "card-header" }, [
@@ -84668,8 +84678,8 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container" }, [
-    _c("div", { staticClass: "row justify-content-center" }, [
+  return _c("div", { staticClass: "container col-12" }, [
+    _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col" }, [
         _c("div", { staticClass: "card" }, [
           _c("div", { staticClass: "card-header" }, [_vm._v("Edit Account")]),
@@ -84744,8 +84754,8 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container" }, [
-    _c("div", { staticClass: "row justify-content-center" }, [
+  return _c("div", { staticClass: "container col-12" }, [
+    _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col" }, [
         _c("div", { staticClass: "card" }, [
           _c("div", { staticClass: "card-header" }, [

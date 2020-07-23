@@ -108,10 +108,12 @@
                     {{ index + 1 }}
                   </td>
                   <td class="orders-category">
+                      <a :href="'/accounts/'+account.id">
                       <div class="avatar avatar-account avatar-rounded">
                           <p>{{ getInitials(account.name) }}</p>
                       </div>
                     {{ account.name }}
+                    </a>
                   </td>
                   <td class="orders-amount">
                     {{ account.transactions.length }}

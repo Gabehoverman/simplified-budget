@@ -1,7 +1,7 @@
 <template>
  <div class="container-fluid ">
     <notifications group="notification"/>
-    <div class="row justify-content-center">
+    <div class="row justify-content">
           <div class="col-12 col-lg-12 col-xl-12">
 
                 <!-- Header -->
@@ -22,7 +22,7 @@
 
                             </div>
                         </div> <!-- / .row -->
-                        <div class="row align-items-center">
+                        <div class="row">
                             <div class="col">
 
                                 <!-- Nav -->

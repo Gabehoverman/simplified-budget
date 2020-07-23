@@ -1,6 +1,6 @@
 <template>
-    <div class="container">
-        <div class="row justify-content-center">
+    <div class="container col-12">
+        <div class="row">
             <div class="col">
                 <div class="card">
                     <div class="card-header">Account Details</div>

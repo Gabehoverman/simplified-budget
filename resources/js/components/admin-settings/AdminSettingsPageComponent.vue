@@ -40,6 +40,12 @@
                                         <!-- <span class="badge badge-pill badge-soft-secondary">823</span> -->
                                         </a>
                                     </li>
+                                    <li class="nav-item">
+                                        <a @click="selectTab('institutions')" href="#!" :class="selectedTab == 'institutions' ? 'nav-link active' : 'nav-link'">
+                                            Manage Institutions
+                                        <!-- <span class="badge badge-pill badge-soft-secondary">823</span> -->
+                                        </a>
+                                    </li>
                                 </ul>
 
                             </div>
@@ -48,19 +54,16 @@
                 </div>
             </div>
 
-            <!-- <div class="col-12 col-lg-12">
-                <div class="card row" style="flex-direction: row; padding: 25px;">
-                    <div class="card-header col-12" style="border-bottom: 0px;">
-                        <h3>Site Settings</h3>
-                    </div>
 
-                </div>
-            </div> -->
               <!-- Card -->
                 <settings-card v-if="selectedTab == 'settings'"
                 />
 
                 <notifications-card v-if="selectedTab == 'notifications'"
+                />
+
+                <institutions-card v-if="selectedTab == 'institutions'"
+                    :institutions="institutions"
                 />
         </div>
     </div>
@@ -69,9 +72,10 @@
 <script>
     import SettingsCard from './Components/SettingsCard'
     import NotificationsCard from './Components/NotificationsCard';
+    import InstitutionsCard from './Components/InstitutionsCard';
 
     export default {
-        props: [],
+        props: ['institutions'],
         data() {
             return {
                 selectedTab: 'settings'
@@ -79,7 +83,8 @@
         },
         components: {
             SettingsCard,
-            NotificationsCard
+            NotificationsCard,
+            InstitutionsCard
         },
         methods: {
             selectTab( tab ) {

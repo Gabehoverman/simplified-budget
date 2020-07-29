@@ -67,6 +67,7 @@
             <edit-card
                 v-if="selectedTab == 'edit'"
                 :account="account"
+                :institutions="institutions"
                 @saveAccount="saveAccount"
             />
 
@@ -83,7 +84,8 @@
         name: 'show-account-page-component',
         props: [
             'selectedAccount',
-            'transactions'
+            'transactions',
+            'institutions'
         ],
         components: {
             DetailsCard,

@@ -2293,8 +2293,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 
 
 
@@ -2331,7 +2329,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_6__["default"]({
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'accounts-page-component',
   router: router,
-  props: ['selectedAccount'],
+  props: ['selectedAccount', 'institutions'],
   components: {
     SettingsCard: _step_cards_SettingsCard__WEBPACK_IMPORTED_MODULE_3__["default"]
   },
@@ -2407,7 +2405,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_6__["default"]({
       tracking_options: {
         required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["required"]
       },
-      institution: {
+      institution_id: {
         required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["required"]
       },
       username: {
@@ -2417,7 +2415,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_6__["default"]({
         required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["required"]
       }
     },
-    BankGroup: ['account.institution'],
+    BankGroup: ['account.institution_id'],
     CredentialsGroup: ['account.username', 'account.password'],
     SettingsGroup: ['account.name', 'account.tracking_type', 'account.tracking_options', 'account.type']
   }
@@ -2517,12 +2515,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'show-account-page-component',
-  props: ['selectedAccount', 'transactions'],
+  props: ['selectedAccount', 'transactions', 'institutions'],
   components: (_components = {
     DetailsCard: _show_cards_DetailsCard__WEBPACK_IMPORTED_MODULE_0__["default"]
   }, _defineProperty(_components, "DetailsCard", _show_cards_DetailsCard__WEBPACK_IMPORTED_MODULE_0__["default"]), _defineProperty(_components, "TransactionsCard", _show_cards_TransactionsCard__WEBPACK_IMPORTED_MODULE_2__["default"]), _components),
@@ -2640,12 +2639,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['account'],
+  props: ['account', 'institutions'],
   components: {
     BankCard: _step_cards_BankCard__WEBPACK_IMPORTED_MODULE_1__["default"],
     CredentialsCard: _step_cards_CredentialsCard__WEBPACK_IMPORTED_MODULE_2__["default"],
@@ -2675,7 +2675,7 @@ __webpack_require__.r(__webpack_exports__);
       tracking_options: {
         required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["required"]
       },
-      institution: {
+      institution_id: {
         required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["required"]
       },
       username: {
@@ -2685,7 +2685,7 @@ __webpack_require__.r(__webpack_exports__);
         required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["required"]
       }
     },
-    BankGroup: ['account.institution'],
+    BankGroup: ['account.institution_id'],
     CredentialsGroup: ['account.username', 'account.password'],
     SettingsGroup: ['account.name', 'account.tracking_type', 'account.tracking_options', 'account.type']
   }
@@ -2774,11 +2774,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['account', 'errors'],
+  props: ['account', 'institutions', 'errors'],
   mounted: function mounted() {
     console.log('Component mounted.');
   }
@@ -3732,6 +3729,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Components_SettingsCard__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Components/SettingsCard */ "./resources/js/components/admin-settings/Components/SettingsCard.vue");
 /* harmony import */ var _Components_NotificationsCard__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Components/NotificationsCard */ "./resources/js/components/admin-settings/Components/NotificationsCard.vue");
+/* harmony import */ var _Components_InstitutionsCard__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Components/InstitutionsCard */ "./resources/js/components/admin-settings/Components/InstitutionsCard.vue");
 //
 //
 //
@@ -3800,10 +3798,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: [],
+  props: ['institutions'],
   data: function data() {
     return {
       selectedTab: 'settings'
@@ -3811,13 +3813,301 @@ __webpack_require__.r(__webpack_exports__);
   },
   components: {
     SettingsCard: _Components_SettingsCard__WEBPACK_IMPORTED_MODULE_0__["default"],
-    NotificationsCard: _Components_NotificationsCard__WEBPACK_IMPORTED_MODULE_1__["default"]
+    NotificationsCard: _Components_NotificationsCard__WEBPACK_IMPORTED_MODULE_1__["default"],
+    InstitutionsCard: _Components_InstitutionsCard__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
   methods: {
     selectTab: function selectTab(tab) {
       this.selectedTab = tab;
     }
   }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin-settings/Components/Institutions/NewInstitutionModal.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/admin-settings/Components/Institutions/NewInstitutionModal.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
+/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'new-institution-model',
+  props: ['institution'],
+  data: function data() {
+    return {
+      //   institution: {}
+      image: ''
+    };
+  },
+  methods: {
+    uploadAsset: function uploadAsset(e) {
+      var files = e.target.files || e.dataTransfer.files;
+      if (!files.length) this.institution.asset = null; // this.createImage(files[0]);
+
+      this.institution.asset = files[0];
+    },
+    saveInstitution: function saveInstitution() {
+      this.$v.institution.$touch();
+
+      if (!this.$v.$invalid) {
+        this.$emit('saveInstitution', this.institution);
+        $('#newInstitutionModal').modal('hide');
+      }
+    },
+    createImage: function createImage(file) {
+      var reader = new FileReader();
+      var vm = this;
+
+      reader.onload = function (e) {
+        vm.image = e.target.result;
+      };
+
+      reader.readAsDataURL(file);
+    },
+    uploadImage: function uploadImage() {
+      axios.post('/image/store', {
+        image: this.image
+      }).then(function (response) {
+        if (response.data.success) {
+          alert(response.data.success);
+        }
+      });
+    }
+  },
+  validations: {
+    institution: {
+      name: {
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["required"]
+      },
+      asset: {
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["required"]
+      },
+      status: {
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["required"]
+      }
+    }
+  },
+  mounted: function mounted() {}
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin-settings/Components/InstitutionsCard.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/admin-settings/Components/InstitutionsCard.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Institutions_NewInstitutionModal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Institutions/NewInstitutionModal */ "./resources/js/components/admin-settings/Components/Institutions/NewInstitutionModal.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['institutions'],
+  components: {
+    NewInstitutionModal: _Institutions_NewInstitutionModal__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  data: function data() {
+    return {
+      dataInstitutions: this.institutions,
+      selectedInstitution: {},
+      modalKey: 0
+    };
+  },
+  methods: {
+    editInstitution: function editInstitution(institution) {
+      this.selectedInstitution = institution;
+    },
+    newInstitution: function newInstitution() {
+      this.selectedInstitution = {};
+    },
+    saveInstitution: function saveInstitution(institution) {
+      var self = this;
+      var url = '/institutions' + (institution.id ? '/' + institution.id : '');
+      var method = institution.id ? 'PUT' : 'POST';
+      this.asyncSendData(institution, url, method).then(function (response) {
+        if (!institution.id) {
+          self.$set(self.institutions, self.institutions.length, response);
+          self.showNotification('success', 'Institution Posted Successfully!');
+        } else {
+          self.showNotification('success', 'Institution Updated Successfully!');
+        }
+
+        self.modalKey += 1;
+      });
+    },
+    deleteInstitution: function deleteInstitution(institution) {
+      var self = this;
+      this.asyncSendData(institution, '/institutions/' + institution.id, 'DELETE').then(function (response) {
+        var index = self.institutions.map(function (x) {
+          return x.id;
+        }).indexOf(institution.id);
+        self.$delete(self.institutions, index);
+        self.showNotification('success', 'Institution Successfully Removed!');
+      });
+    }
+  },
+  mounted: function mounted() {}
 });
 
 /***/ }),
@@ -83842,7 +84132,11 @@ var render = function() {
                           _c("td", { staticClass: "orders-account" }, [
                             _vm._v(
                               "\n                    " +
-                                _vm._s(account.institution) +
+                                _vm._s(
+                                  account.institution
+                                    ? account.institution.name
+                                    : ""
+                                ) +
                                 "\n                  "
                             )
                           ]),
@@ -84118,7 +84412,7 @@ var render = function() {
   return _c("div", { staticClass: "container-fluid " }, [
     _c("div", { staticClass: "row justify-content-center" }, [
       _vm._m(0),
-      _vm._v("\n\n          " + _vm._s(_vm.account) + "\n\n          "),
+      _vm._v(" "),
       _c("div", { staticClass: "col-12 col-lg-12 col-xl-12" }, [
         _c(
           "div",
@@ -84134,7 +84428,7 @@ var render = function() {
                     _vm._m(1),
                     _vm._v(" "),
                     _c("div", { staticClass: "col-6" }, [
-                      _vm.account.institution
+                      _vm.account.institution_id
                         ? _c("div", { staticClass: "row text-right" }, [
                             _c("img", {
                               staticStyle: {
@@ -84144,10 +84438,13 @@ var render = function() {
                               },
                               attrs: {
                                 width: "300px",
-                                src:
-                                  "/img/logos/" +
-                                  _vm.account.institution +
-                                  " Logo.png"
+                                src: _vm.institutions.filter(function(
+                                  institution
+                                ) {
+                                  return (
+                                    institution.id == _vm.account.institution_id
+                                  )
+                                })[0].asset
                               }
                             })
                           ])
@@ -84249,7 +84546,11 @@ var render = function() {
                     { attrs: { name: "fade", mode: "out-in" } },
                     [
                       _c("router-view", {
-                        attrs: { account: _vm.account, errors: _vm.$v.account }
+                        attrs: {
+                          account: _vm.account,
+                          institutions: _vm.institutions,
+                          errors: _vm.$v.account
+                        }
                       })
                     ],
                     1
@@ -84557,7 +84858,7 @@ var render = function() {
           _vm._v(" "),
           _vm.selectedTab == "edit"
             ? _c("edit-card", {
-                attrs: { account: _vm.account },
+                attrs: { account: _vm.account, institutions: _vm.institutions },
                 on: { saveAccount: _vm.saveAccount }
               })
             : _vm._e()
@@ -84627,7 +84928,15 @@ var render = function() {
               [
                 _c("p", [_vm._v("Institution")]),
                 _vm._v(" "),
-                _c("p", [_vm._v(_vm._s(_vm.account.institution))])
+                _c("p", [
+                  _vm._v(
+                    _vm._s(
+                      _vm.account.institution
+                        ? _vm.account.institution.name
+                        : ""
+                    )
+                  )
+                ])
               ]
             ),
             _vm._v(" "),
@@ -84689,7 +84998,11 @@ var render = function() {
             { staticClass: "card-body" },
             [
               _c("bank-card", {
-                attrs: { account: _vm.account, errors: _vm.$v.account }
+                attrs: {
+                  account: _vm.account,
+                  errors: _vm.$v.account,
+                  institutions: _vm.institutions
+                }
               }),
               _vm._v(" "),
               _c("credentials-card", {
@@ -84850,13 +85163,13 @@ var render = function() {
               {
                 name: "model",
                 rawName: "v-model",
-                value: _vm.account.institution,
-                expression: "account.institution"
+                value: _vm.account.institution_id,
+                expression: "account.institution_id"
               }
             ],
             class:
               "form-control " +
-              (_vm.errors.institution.$error ? "is-invalid " : ""),
+              (_vm.errors.institution_id.$error ? "is-invalid " : ""),
             attrs: { name: "institution", "data-toggle": "select" },
             on: {
               change: function($event) {
@@ -84870,7 +85183,7 @@ var render = function() {
                   })
                 _vm.$set(
                   _vm.account,
-                  "institution",
+                  "institution_id",
                   $event.target.multiple ? $$selectedVal : $$selectedVal[0]
                 )
               }
@@ -84881,22 +85194,15 @@ var render = function() {
               _vm._v("Select an Option")
             ]),
             _vm._v(" "),
-            _c("option", { attrs: { value: "Bank of America" } }, [
-              _vm._v("Bank of America")
-            ]),
-            _vm._v(" "),
-            _c("option", { attrs: { value: "Wells Fargo" } }, [
-              _vm._v("Wells Fargo")
-            ]),
-            _vm._v(" "),
-            _c("option", { attrs: { value: "Ally Financial" } }, [
-              _vm._v("Ally Financial")
-            ]),
-            _vm._v(" "),
-            _c("option", { attrs: { value: "Citi Bank" } }, [
-              _vm._v("Citi Bank")
-            ])
-          ]
+            _vm._l(_vm.institutions, function(institution) {
+              return _c(
+                "option",
+                { key: institution.id, domProps: { value: institution.id } },
+                [_vm._v(_vm._s(institution.name))]
+              )
+            })
+          ],
+          2
         )
       ])
     ])
@@ -86125,6 +86431,29 @@ var render = function() {
                               )
                             ]
                           )
+                        ]),
+                        _vm._v(" "),
+                        _c("li", { staticClass: "nav-item" }, [
+                          _c(
+                            "a",
+                            {
+                              class:
+                                _vm.selectedTab == "institutions"
+                                  ? "nav-link active"
+                                  : "nav-link",
+                              attrs: { href: "#!" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.selectTab("institutions")
+                                }
+                              }
+                            },
+                            [
+                              _vm._v(
+                                "\n                                        Manage Institutions\n                                    "
+                              )
+                            ]
+                          )
                         ])
                       ]
                     )
@@ -86138,6 +86467,12 @@ var render = function() {
           _vm._v(" "),
           _vm.selectedTab == "notifications"
             ? _c("notifications-card")
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.selectedTab == "institutions"
+            ? _c("institutions-card", {
+                attrs: { institutions: _vm.institutions }
+              })
             : _vm._e()
         ],
         1
@@ -86174,6 +86509,545 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin-settings/Components/Institutions/NewInstitutionModal.vue?vue&type=template&id=b3622152&":
+/*!*************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/admin-settings/Components/Institutions/NewInstitutionModal.vue?vue&type=template&id=b3622152& ***!
+  \*************************************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c(
+      "div",
+      {
+        staticClass: "modal fade",
+        attrs: {
+          id: "newInstitutionModal",
+          tabindex: "-1",
+          role: "dialog",
+          "aria-labelledby": "newInstitutionModalLabel",
+          "aria-hidden": "true"
+        }
+      },
+      [
+        _c(
+          "div",
+          { staticClass: "modal-dialog", attrs: { role: "document" } },
+          [
+            _c("div", { staticClass: "modal-content" }, [
+              _vm._m(0),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-body" }, [
+                _c("form", [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", { attrs: { for: "nameInput" } }, [
+                      _vm._v("Name")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.institution.name,
+                          expression: "institution.name"
+                        }
+                      ],
+                      class:
+                        "form-control " +
+                        (_vm.$v.institution.name.$error ? "is-invalid " : ""),
+                      attrs: {
+                        type: "text",
+                        name: "institution_name",
+                        id: "nameInput",
+                        placeholder: "Bank of America"
+                      },
+                      domProps: { value: _vm.institution.name },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.institution, "name", $event.target.value)
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", { attrs: { for: "vendorInput" } }, [
+                      _vm._v("Asset Link")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.institution.asset,
+                          expression: "institution.asset"
+                        }
+                      ],
+                      class:
+                        "form-control " +
+                        (_vm.$v.institution.asset.$error ? "is-invalid " : ""),
+                      attrs: {
+                        type: "text",
+                        id: "vendorInput",
+                        placeholder: "https://website/logolink.png"
+                      },
+                      domProps: { value: _vm.institution.asset },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.institution,
+                            "asset",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", { attrs: { for: "statusSelect" } }, [
+                      _vm._v("Status")
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "select",
+                      {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.institution.status,
+                            expression: "institution.status"
+                          }
+                        ],
+                        class:
+                          "form-control " +
+                          (_vm.$v.institution.status.$error
+                            ? "is-invalid "
+                            : ""),
+                        attrs: { id: "statusSelect" },
+                        on: {
+                          change: function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.$set(
+                              _vm.institution,
+                              "status",
+                              $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            )
+                          }
+                        }
+                      },
+                      [
+                        _c("option", { attrs: { value: "1", selected: "" } }, [
+                          _vm._v("Active")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "0", selected: "" } }, [
+                          _vm._v("Inactive")
+                        ])
+                      ]
+                    )
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-footer" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-secondary close-modal",
+                    attrs: { type: "button", "data-dismiss": "modal" }
+                  },
+                  [_vm._v("Close")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-primary",
+                    attrs: { type: "button" },
+                    on: {
+                      click: function($event) {
+                        return _vm.saveInstitution()
+                      }
+                    }
+                  },
+                  [_vm._v("Save changes")]
+                )
+              ])
+            ])
+          ]
+        )
+      ]
+    )
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c(
+        "h3",
+        {
+          staticClass: "modal-title",
+          attrs: { id: "newInstitutionModalLabel" }
+        },
+        [_vm._v("Add Institution")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin-settings/Components/InstitutionsCard.vue?vue&type=template&id=71f31abe&":
+/*!*********************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/admin-settings/Components/InstitutionsCard.vue?vue&type=template&id=71f31abe& ***!
+  \*********************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "container col-12" }, [
+    _c("div", { staticClass: "row justify-content-center" }, [
+      _c("div", { staticClass: "col" }, [
+        _c(
+          "div",
+          {
+            staticClass: "card",
+            attrs: {
+              "data-toggle": "lists",
+              "data-lists-values":
+                '["institutions-id", "institutions-name", "institutions-asset"'
+            }
+          },
+          [
+            _c("div", { staticClass: "card-header" }, [
+              _c("div", { staticClass: "row" }, [
+                _vm._m(0),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "col-auto pull-right" },
+                  [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-sm btn-primary",
+                        attrs: {
+                          type: "button",
+                          "data-toggle": "modal",
+                          "data-target": "#newInstitutionModal"
+                        },
+                        on: {
+                          click: function($event) {
+                            return _vm.newInstitution()
+                          }
+                        }
+                      },
+                      [
+                        _vm._v(
+                          "Add Institution\n                                "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c("new-institution-modal", {
+                      key: _vm.modalKey,
+                      attrs: { institution: _vm.selectedInstitution },
+                      on: {
+                        saveInstitution: function($event) {
+                          return _vm.saveInstitution($event)
+                        }
+                      }
+                    })
+                  ],
+                  1
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "table-responsive" }, [
+              _c(
+                "table",
+                {
+                  staticClass:
+                    "table table-hover table-sm table-nowrap card-table"
+                },
+                [
+                  _vm._m(1),
+                  _vm._v(" "),
+                  _c(
+                    "tbody",
+                    { staticClass: "list" },
+                    _vm._l(_vm.dataInstitutions, function(institution, index) {
+                      return _c("tr", { key: index }, [
+                        _c("td", { staticClass: "institutions-order" }, [
+                          _vm._v(
+                            "\n                            " +
+                              _vm._s(index + 1) +
+                              "\n                        "
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("td", { staticClass: "institutions-category" }, [
+                          _c(
+                            "a",
+                            {
+                              staticClass: "dropdown-item",
+                              attrs: {
+                                href: "#!",
+                                "data-toggle": "modal",
+                                "data-target": "#newInstitutionModal"
+                              },
+                              on: {
+                                click: function($event) {
+                                  return _vm.editInstitution(institution)
+                                }
+                              }
+                            },
+                            [
+                              _vm._v(
+                                "\n                                " +
+                                  _vm._s(institution.name) +
+                                  "\n                            "
+                              )
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("td", { staticClass: "institutions-institution" }, [
+                          _c(
+                            "div",
+                            {
+                              staticStyle: {
+                                "max-height": "50px",
+                                overflow: "hidden"
+                              }
+                            },
+                            [
+                              _c("img", {
+                                attrs: { src: institution.asset, width: "200" }
+                              })
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("td", { staticClass: "text-right" }, [
+                          _c("div", { staticClass: "dropdown" }, [
+                            _vm._m(2, true),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              {
+                                staticClass: "dropdown-menu dropdown-menu-right"
+                              },
+                              [
+                                _c(
+                                  "a",
+                                  {
+                                    staticClass: "dropdown-item",
+                                    attrs: {
+                                      href: "#!",
+                                      "data-toggle": "modal",
+                                      "data-target": "#newInstitutionModal"
+                                    },
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.editInstitution(institution)
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                                    Edit\n                                    "
+                                    )
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "a",
+                                  {
+                                    staticClass: "dropdown-item",
+                                    attrs: { href: "#!" },
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.deleteInstitution(
+                                          institution
+                                        )
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                                    Delete\n                                    "
+                                    )
+                                  ]
+                                )
+                              ]
+                            )
+                          ])
+                        ])
+                      ])
+                    }),
+                    0
+                  )
+                ]
+              )
+            ])
+          ]
+        )
+      ])
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col" }, [
+      _c("h3", [_vm._v("Institutions")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [
+          _c(
+            "a",
+            {
+              staticClass: "text-muted sort",
+              attrs: { href: "#", "data-sort": "institutions-id" }
+            },
+            [
+              _vm._v(
+                "\n                                #\n                            "
+              )
+            ]
+          )
+        ]),
+        _vm._v(" "),
+        _c("th", [
+          _c(
+            "a",
+            {
+              staticClass: "text-muted sort",
+              attrs: { href: "#", "data-sort": "institutions-name" }
+            },
+            [
+              _vm._v(
+                "\n                            Name\n                            "
+              )
+            ]
+          )
+        ]),
+        _vm._v(" "),
+        _c("th", [
+          _c(
+            "a",
+            {
+              staticClass: "text-muted sort",
+              attrs: { href: "#", "data-sort": "institutions-asset" }
+            },
+            [
+              _vm._v(
+                "\n                            Asset\n                            "
+              )
+            ]
+          )
+        ]),
+        _vm._v(" "),
+        _c("th", { attrs: { colspan: "2" } }, [
+          _c("a", { staticClass: "text-muted", attrs: { href: "#" } }, [
+            _vm._v(
+              "\n                            Actions\n                            "
+            )
+          ])
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "a",
+      {
+        staticClass: "dropdown-ellipses dropdown-toggle",
+        attrs: {
+          href: "#!",
+          role: "button",
+          "data-toggle": "dropdown",
+          "aria-haspopup": "true",
+          "aria-expanded": "false",
+          "data-boundary": "window"
+        }
+      },
+      [_c("i", { staticClass: "fe fe-more-vertical" })]
+    )
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin-settings/Components/NotificationsCard.vue?vue&type=template&id=07118f5c&":
 /*!**********************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/admin-settings/Components/NotificationsCard.vue?vue&type=template&id=07118f5c& ***!
@@ -86196,7 +87070,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container" }, [
+    return _c("div", { staticClass: "container col-12" }, [
       _c("div", { staticClass: "row justify-content-center" }, [
         _c("div", { staticClass: "col" }, [
           _c("div", { staticClass: "card" }, [
@@ -86239,7 +87113,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container" }, [
+    return _c("div", { staticClass: "container col-12" }, [
       _c("div", { staticClass: "row justify-content-center" }, [
         _c("div", { staticClass: "col" }, [
           _c("div", { staticClass: "card" }, [
@@ -108862,6 +109736,8 @@ var map = {
 	"./components/admin-dashboard/cards/AdminUserGraphCard.vue": "./resources/js/components/admin-dashboard/cards/AdminUserGraphCard.vue",
 	"./components/admin-dashboard/widgets/AdminWidgetRow.vue": "./resources/js/components/admin-dashboard/widgets/AdminWidgetRow.vue",
 	"./components/admin-settings/AdminSettingsPageComponent.vue": "./resources/js/components/admin-settings/AdminSettingsPageComponent.vue",
+	"./components/admin-settings/Components/Institutions/NewInstitutionModal.vue": "./resources/js/components/admin-settings/Components/Institutions/NewInstitutionModal.vue",
+	"./components/admin-settings/Components/InstitutionsCard.vue": "./resources/js/components/admin-settings/Components/InstitutionsCard.vue",
 	"./components/admin-settings/Components/NotificationsCard.vue": "./resources/js/components/admin-settings/Components/NotificationsCard.vue",
 	"./components/admin-settings/Components/SettingsCard.vue": "./resources/js/components/admin-settings/Components/SettingsCard.vue",
 	"./components/dashboard/DashboardPageComponent.vue": "./resources/js/components/dashboard/DashboardPageComponent.vue",
@@ -110596,6 +111472,144 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AdminSettingsPageComponent_vue_vue_type_template_id_61cf69e2___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AdminSettingsPageComponent_vue_vue_type_template_id_61cf69e2___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/admin-settings/Components/Institutions/NewInstitutionModal.vue":
+/*!************************************************************************************************!*\
+  !*** ./resources/js/components/admin-settings/Components/Institutions/NewInstitutionModal.vue ***!
+  \************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _NewInstitutionModal_vue_vue_type_template_id_b3622152___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./NewInstitutionModal.vue?vue&type=template&id=b3622152& */ "./resources/js/components/admin-settings/Components/Institutions/NewInstitutionModal.vue?vue&type=template&id=b3622152&");
+/* harmony import */ var _NewInstitutionModal_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./NewInstitutionModal.vue?vue&type=script&lang=js& */ "./resources/js/components/admin-settings/Components/Institutions/NewInstitutionModal.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _NewInstitutionModal_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _NewInstitutionModal_vue_vue_type_template_id_b3622152___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _NewInstitutionModal_vue_vue_type_template_id_b3622152___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/admin-settings/Components/Institutions/NewInstitutionModal.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/admin-settings/Components/Institutions/NewInstitutionModal.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************************!*\
+  !*** ./resources/js/components/admin-settings/Components/Institutions/NewInstitutionModal.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_NewInstitutionModal_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./NewInstitutionModal.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin-settings/Components/Institutions/NewInstitutionModal.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_NewInstitutionModal_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/admin-settings/Components/Institutions/NewInstitutionModal.vue?vue&type=template&id=b3622152&":
+/*!*******************************************************************************************************************************!*\
+  !*** ./resources/js/components/admin-settings/Components/Institutions/NewInstitutionModal.vue?vue&type=template&id=b3622152& ***!
+  \*******************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_NewInstitutionModal_vue_vue_type_template_id_b3622152___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./NewInstitutionModal.vue?vue&type=template&id=b3622152& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin-settings/Components/Institutions/NewInstitutionModal.vue?vue&type=template&id=b3622152&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_NewInstitutionModal_vue_vue_type_template_id_b3622152___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_NewInstitutionModal_vue_vue_type_template_id_b3622152___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/admin-settings/Components/InstitutionsCard.vue":
+/*!********************************************************************************!*\
+  !*** ./resources/js/components/admin-settings/Components/InstitutionsCard.vue ***!
+  \********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _InstitutionsCard_vue_vue_type_template_id_71f31abe___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./InstitutionsCard.vue?vue&type=template&id=71f31abe& */ "./resources/js/components/admin-settings/Components/InstitutionsCard.vue?vue&type=template&id=71f31abe&");
+/* harmony import */ var _InstitutionsCard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./InstitutionsCard.vue?vue&type=script&lang=js& */ "./resources/js/components/admin-settings/Components/InstitutionsCard.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _InstitutionsCard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _InstitutionsCard_vue_vue_type_template_id_71f31abe___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _InstitutionsCard_vue_vue_type_template_id_71f31abe___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/admin-settings/Components/InstitutionsCard.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/admin-settings/Components/InstitutionsCard.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************************!*\
+  !*** ./resources/js/components/admin-settings/Components/InstitutionsCard.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_InstitutionsCard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./InstitutionsCard.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin-settings/Components/InstitutionsCard.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_InstitutionsCard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/admin-settings/Components/InstitutionsCard.vue?vue&type=template&id=71f31abe&":
+/*!***************************************************************************************************************!*\
+  !*** ./resources/js/components/admin-settings/Components/InstitutionsCard.vue?vue&type=template&id=71f31abe& ***!
+  \***************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_InstitutionsCard_vue_vue_type_template_id_71f31abe___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./InstitutionsCard.vue?vue&type=template&id=71f31abe& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin-settings/Components/InstitutionsCard.vue?vue&type=template&id=71f31abe&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_InstitutionsCard_vue_vue_type_template_id_71f31abe___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_InstitutionsCard_vue_vue_type_template_id_71f31abe___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

@@ -124,7 +124,7 @@
                     <!-- </div> -->
                   </td>
                   <td class="orders-account">
-                    {{ account.institution }}
+                    {{ account.institution ? account.institution.name : '' }}
                   </td>
                   <td class="orders-tracking">
                     {{ getTrackingLabel( account.tracking_options ) }}

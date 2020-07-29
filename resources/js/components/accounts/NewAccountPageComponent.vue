@@ -20,8 +20,6 @@
             </div>
           </div>
 
-          {{ account }}
-
           <div class="col-12 col-lg-12 col-xl-12">
             <div class="card row" style="padding: 25px; flex-direction: row">
                 <div class="col-md-12">
@@ -45,9 +43,10 @@
 
                                 <div class="col-6">
 
-                                    <div class="row text-right" v-if="account.institution">
+                                    <div class="row text-right" v-if="account.institution_id">
                                         <!-- Project name -->
-                                        <img width="300px" :src=" '/img/logos/' + account.institution + ' Logo.png'" style="position: absolute; right: 0px; top: -30px">
+                                        <!-- <img width="300px" :src=" '/img/logos/' + institutions.filter( institution => institution.id == account.institution_id )+ ' Logo.png'" style="position: absolute; right: 0px; top: -30px"> -->
+                                        <img width="300px" :src=" institutions.filter( institution => institution.id == account.institution_id )[0].asset " style="position: absolute; right: 0px; top: -30px">
                                     </div>
 
                                 </div>
@@ -55,7 +54,6 @@
                         </div>
                     </div>
                 </div>
-
                 <!-- Form -->
                 <div class="col-md-4 col-lg-4 col-sm-4">
 
@@ -67,7 +65,6 @@
                             </div>
                             <div class="progress-marker"></div>
                         </li>
-
                         <li :class="'progress-step ' + (step == 2 ? 'is-active' : step > 2 ? 'is-complete' : '')">
                             <div class="progress-text">
                             <h4 class="progress-title">Supply Credentials</h4>
@@ -102,6 +99,7 @@
                         <transition name="fade" mode="out-in">
                             <router-view
                                 :account="account"
+                                :institutions="institutions"
                                 :errors="$v.account"
                             />
                         </transition>
@@ -160,6 +158,7 @@
         router,
         props: [
             'selectedAccount',
+            'institutions'
         ],
         components: {
             SettingsCard
@@ -223,7 +222,7 @@
                 tracking_options: {
                     required
                 },
-                institution: {
+                institution_id: {
                     required
                 },
                 username: {
@@ -233,7 +232,7 @@
                     required
                 }
             },
-            BankGroup: ['account.institution'],
+            BankGroup: ['account.institution_id'],
             CredentialsGroup: ['account.username', 'account.password'],
             SettingsGroup: ['account.name', 'account.tracking_type', 'account.tracking_options', 'account.type']
         }

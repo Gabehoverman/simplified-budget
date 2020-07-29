@@ -10,6 +10,7 @@
                         <bank-card
                             :account="account"
                             :errors="$v.account"
+                            :institutions="institutions"
                         />
 
                         <credentials-card
@@ -42,7 +43,7 @@
     import SettingsCard from '../step-cards/SettingsCard'
 
     export default {
-        props: ['account'],
+        props: ['account', 'institutions'],
         components: {
             BankCard,
             CredentialsCard,
@@ -72,7 +73,7 @@
                 tracking_options: {
                     required
                 },
-                institution: {
+                institution_id: {
                     required
                 },
                 username: {
@@ -82,7 +83,7 @@
                     required
                 }
             },
-            BankGroup: ['account.institution'],
+            BankGroup: ['account.institution_id'],
             CredentialsGroup: ['account.username', 'account.password'],
             SettingsGroup: ['account.name', 'account.tracking_type', 'account.tracking_options', 'account.type']
         }

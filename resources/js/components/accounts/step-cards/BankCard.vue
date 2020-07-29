@@ -9,12 +9,9 @@
                 <label>
                     Account Type
                 </label>
-                <select v-model="account.institution" name="institution" :class="'form-control '+(errors.institution.$error ? 'is-invalid ' : '')" data-toggle="select">
+                <select v-model="account.institution_id" name="institution" :class="'form-control '+(errors.institution_id.$error ? 'is-invalid ' : '')" data-toggle="select">
                     <option value="undefined" disabled>Select an Option</option>
-                    <option value="Bank of America">Bank of America</option>
-                    <option value="Wells Fargo">Wells Fargo</option>
-                    <option value="Ally Financial">Ally Financial</option>
-                    <option value="Citi Bank">Citi Bank</option>
+                    <option v-for="institution in institutions" :key="institution.id" :value="institution.id">{{ institution.name }}</option>
                 </select>
             </div>
         </div>
@@ -24,7 +21,7 @@
 
 <script>
     export default {
-        props: ['account', 'errors'],
+        props: ['account', 'institutions', 'errors'],
         mounted() {
             console.log('Component mounted.')
         }

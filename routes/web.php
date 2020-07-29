@@ -46,6 +46,8 @@ Route::resource('/admin/dashboard', 'Admin\DashboardController');
 
 Route::resource('/admin/settings', 'Admin\SettingsController');
 
+Route::resource('/institutions', 'InstitutionsController');
+
 
 
 

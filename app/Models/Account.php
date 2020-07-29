@@ -12,11 +12,16 @@ class Account extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id', 'name', 'type', 'tracking_type', 'tracking_options', 'active',
+        'user_id', 'institution_id', 'name', 'type', 'tracking_type', 'tracking_options', 'active',
     ];
 
     public function transactions()
     {
         return $this->hasMany('App\Models\Transactions\Transaction');
+    }
+
+    public function institution()
+    {
+        return $this->belongsTo('App\Models\Institutions\Institution');
     }
 }

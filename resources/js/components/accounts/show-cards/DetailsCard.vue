@@ -12,7 +12,7 @@
                         </div>
                         <div class="row" style="display: flex; justify-content: space-between">
                             <p>Institution</p>
-                            <p>{{ account.institution }}</p>
+                            <p>{{ account.institution ? account.institution.name : '' }}</p>
                         </div>
                         <div class="row" style="display: flex; justify-content: space-between">
                             <p>Balance</p>

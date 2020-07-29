@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Account;
+use App\Models\Institutions\InstitutionRepository;
 use Auth;
 use Carbon\Carbon;
 
@@ -26,7 +27,7 @@ class AccountsController extends Controller
      */
     public function index()
     {
-        $accounts = Account::where('user_id', Auth::User()->id)->with('transactions')->get();
+        $accounts = Account::where('user_id', Auth::User()->id)->with('transactions', 'institution')->get();
 
         return view('user.accounts', array('accounts' => $accounts));
     }
@@ -36,23 +37,26 @@ class AccountsController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function new()
+    public function new(InstitutionRepository $institutionRepository)
     {
-        return view('user.new-account');
+        $institutions = $institutionRepository->getInstitutions();
+
+        return view('user.new-account', compact( 'institutions'));
     }
 
     /**
      * Shows a Specific Account
      *
      */
-    public function show( Request $request, $id )
+    public function show( Request $request, $id, InstitutionRepository $institutionRepository )
     {
-        $account = Account::find($id);
+        $account = Account::where('id', $id)->with('institution')->first();
         $transactions = $account->transactions->groupBy(function($date) {
             return Carbon::parse($date->date)->format('m'); // grouping by month
         });
+        $institutions = $institutionRepository->getInstitutions();
 
-        return view('user.show-account', compact('account', 'transactions'));
+        return view('user.show-account', compact('account', 'transactions', 'institutions'));
     }
 
     /**
@@ -74,6 +78,7 @@ class AccountsController extends Controller
     public function store( Request $request )
     {
         $account = new Account( $request->input() );
+        $account->institution_id = $request->input( 'institution_id' );
         $account->user_id = \Auth::User()->id;
         $account->save();
 
@@ -89,6 +94,7 @@ class AccountsController extends Controller
     {
         $account = Account::find($id);
         $account->update( $request->input() );
+        $account->institution;
 
         return response(json_encode($account), 200);
     }

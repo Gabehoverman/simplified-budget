@@ -15,6 +15,7 @@
                     <step-two-card
                         v-if="currentStep == 1"
                         :account="account"
+                        :institutions="institutions"
                         :errors="$v.account"
                     />
 
@@ -68,7 +69,7 @@ import StepFourCard from './cards/StepFourCard'
 import { required, minLength, between } from 'vuelidate/lib/validators'
 
 export default {
-    props: ['user'],
+    props: ['user', 'institutions'],
     data() {
         return {
             currentStep: 0,
@@ -154,7 +155,7 @@ export default {
             tracking_options: {
                 required
             },
-            institution: {
+            institution_id: {
                 required
             },
             username: {
@@ -169,7 +170,7 @@ export default {
             minLength: minLength(1)
         },
         StepOneGroup: ['user.first_name', 'user.last_name', 'user.email', 'user.phone', 'user.income', 'user.pay', 'user.goals'],
-        StepTwoGroup: ['account.institution', 'account.username', 'account.password', 'account.name', 'account.tracking_type', 'account.tracking_options', 'account.type'],
+        StepTwoGroup: ['account.institution_id', 'account.username', 'account.password', 'account.name', 'account.tracking_type', 'account.tracking_options', 'account.type'],
         StepThreeGroup: ['transactions'],
         BankGroup: ['account.institution'],
         CredentialsGroup: ['account.username', 'account.password'],

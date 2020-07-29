@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Account;
 use App\Models\Transactions\Transaction;
+use App\Models\Institutions\InstitutionRepository;
 use App\User;
 
 class OnboardingController extends Controller
@@ -24,9 +25,11 @@ class OnboardingController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index( InstitutionRepository $institutionRepository )
     {
-        return view('user.onboarding');
+        $institutions = $institutionRepository->getInstitutions();
+
+        return view('user.onboarding', compact('institutions'));
     }
 
     public function store( Request $request )

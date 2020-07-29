@@ -6,6 +6,7 @@
         <main class="main-content">
             <onboarding-page-component
                 :user="{{ Auth::User() }}"
+                :institutions="{{ json_encode($institutions) }}"
             />
         </main>
     </div>

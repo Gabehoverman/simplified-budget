@@ -27,10 +27,11 @@
             <bank-card
                 :key="1"
                 :account="account"
+                :institutions="institutions"
                 :errors="errors"
             />
             <credentials-card
-                v-if="account.institution"
+                v-if="account.institution_id"
                 :key="2"
                 :account="account"
                 :errors="errors"
@@ -52,7 +53,7 @@
     import SettingsCard from '../../accounts/step-cards/SettingsCard'
 
     export default {
-        props: ['account', 'errors'],
+        props: ['account', 'institutions', 'errors'],
         components: {
             BankCard,
             CredentialsCard,

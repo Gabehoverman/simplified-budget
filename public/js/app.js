@@ -5268,13 +5268,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['user'],
+  props: ['user', 'institutions'],
   data: function data() {
     return {
       currentStep: 0,
@@ -5363,7 +5364,7 @@ __webpack_require__.r(__webpack_exports__);
       tracking_options: {
         required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__["required"]
       },
-      institution: {
+      institution_id: {
         required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__["required"]
       },
       username: {
@@ -5378,7 +5379,7 @@ __webpack_require__.r(__webpack_exports__);
       minLength: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__["minLength"])(1)
     },
     StepOneGroup: ['user.first_name', 'user.last_name', 'user.email', 'user.phone', 'user.income', 'user.pay', 'user.goals'],
-    StepTwoGroup: ['account.institution', 'account.username', 'account.password', 'account.name', 'account.tracking_type', 'account.tracking_options', 'account.type'],
+    StepTwoGroup: ['account.institution_id', 'account.username', 'account.password', 'account.name', 'account.tracking_type', 'account.tracking_options', 'account.type'],
     StepThreeGroup: ['transactions'],
     BankGroup: ['account.institution'],
     CredentialsGroup: ['account.username', 'account.password'],
@@ -5834,11 +5835,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['account', 'errors'],
+  props: ['account', 'institutions', 'errors'],
   components: {
     BankCard: _accounts_step_cards_BankCard__WEBPACK_IMPORTED_MODULE_0__["default"],
     CredentialsCard: _accounts_step_cards_CredentialsCard__WEBPACK_IMPORTED_MODULE_1__["default"],
@@ -88185,7 +88187,11 @@ var render = function() {
                 _vm._v(" "),
                 _vm.currentStep == 1
                   ? _c("step-two-card", {
-                      attrs: { account: _vm.account, errors: _vm.$v.account }
+                      attrs: {
+                        account: _vm.account,
+                        institutions: _vm.institutions,
+                        errors: _vm.$v.account
+                      }
                     })
                   : _vm._e(),
                 _vm._v(" "),
@@ -89056,10 +89062,14 @@ var render = function() {
         [
           _c("bank-card", {
             key: 1,
-            attrs: { account: _vm.account, errors: _vm.errors }
+            attrs: {
+              account: _vm.account,
+              institutions: _vm.institutions,
+              errors: _vm.errors
+            }
           }),
           _vm._v(" "),
-          _vm.account.institution
+          _vm.account.institution_id
             ? _c("credentials-card", {
                 key: 2,
                 attrs: { account: _vm.account, errors: _vm.errors }

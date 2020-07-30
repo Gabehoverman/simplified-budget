@@ -48,8 +48,8 @@ Route::resource('/admin/settings', 'Admin\SettingsController');
 
 Route::resource('/institutions', 'InstitutionsController');
 
-
-
-
+Route::get('/search/accounts', 'SearchController@accounts');
+Route::get('/search/transactions', 'SearchController@transactions');
+Route::resource('/search', 'SearchController');
 
 

@@ -42,13 +42,16 @@
         ],
          computed: {
             incomePercentage() {
-                return (this.income / (this.user.income / 12)) * 100;
+                let monthlyIncome = this.user.pay ? this.user.pay : (this.user.income / 12)
+                return ( monthlyIncome ) * 100;
             },
             expensesPercentage() {
-                return (this.expenses / (this.user.income / 12)) * 100;
+                let monthlyIncome = this.user.pay ? this.user.pay : (this.user.income / 12)
+                return ( this.expenses / monthlyIncome ) * 100;
             },
             budgetRemainder() {
-                return ((this.user.income / 12) - this.expenses).toFixed(2);
+                let monthlyIncome = this.user.pay ? this.user.pay : (this.user.income / 12)
+                return (monthlyIncome - this.expenses).toFixed(2);
             }
         }
     }

@@ -12,7 +12,20 @@
     <!-- Menu -->
     <div class="dropdown-menu dropdown-menu-card" style="left: 225px;">
         <div v-if="awaitingSearch" class="card-body" >
-            Loading Spinner.
+              <content-loader
+                :width="400"
+                :height="160"
+                :speed="2"
+                primaryColor="#f3f3f3"
+                secondaryColor="#ecebeb"
+            >
+            <rect x="47" y="8" rx="3" ry="3" width="177" height="6" />
+            <rect x="47" y="25" rx="3" ry="3" width="152" height="6" />
+            <circle cx="20" cy="20" r="20" />
+            <circle cx="24" cy="85" r="20" />
+            <rect x="51" y="90" rx="3" ry="3" width="152" height="6" />
+            <rect x="51" y="72" rx="3" ry="3" width="177" height="6" />
+            </content-loader>
         </div>
         <div v-else-if="accountResults < 1 && transactionResults < 1" class="card-body" >
             No Results
@@ -107,8 +120,13 @@
 </template>
 
 <script>
+import { ContentLoader } from 'vue-content-loader'
+
 export default {
     props: ['user'],
+    components: {
+        ContentLoader
+    },
     data() {
         return {
             searchInput: null,

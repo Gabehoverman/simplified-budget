@@ -25,11 +25,12 @@ class ReportingController extends Controller
      */
     public function index()
     {
-        $categories = Transaction::toUser()->where('type', 0)->where('date', '>=', Carbon::now()->firstOfMonth())->get()->groupBy('category');
-        $vendors = Transaction::toUser()->where('type', 0)->where('date', '>=', Carbon::now()->firstOfMonth())->orderBy('amount')->get()->groupBy('vendor');
+        $categories = Transaction::toUser()->whereIn('type', [0,3])->where('date', '>=', Carbon::now()->firstOfMonth())->get()->groupBy('category');
+        // $vendors = Transaction::toUser()->whereIn('type', [0,3])->where('date', '>=', Carbon::now()->firstOfMonth())->orderBy('amount')->get()->groupBy('vendor');
+        $vendors = Transaction::groupBy('category')->toUser()->whereIn('type', [0,3])->where('date', '>=', Carbon::now()->firstOfMonth())->selectRaw('category, sum(amount) as sum')->orderBy('sum', 'desc')->get()->take(3);
         $income = Transaction::toUser()->where('type', 1)->where('date', '>=', Carbon::now()->firstOfMonth())->sum('amount');
-        $expenses = Transaction::toUser()->where('type', 0)->where('date', '>=', Carbon::now()->firstOfMonth())->sum('amount');
-        $monthlyTransactions = Transaction::toUser()->where('date', '>=', Carbon::now()->firstOfMonth())->orderBy('date', 'ASC')->get()->groupBy('date');
+        $expenses = Transaction::toUser()->whereIn('type', [0,3])->where('date', '>=', Carbon::now()->firstOfMonth())->sum('amount');
+        $monthlyTransactions = Transaction::toUser()->whereIn('type', [0,3])->where('date', '>=', Carbon::now()->firstOfMonth())->orderBy('date', 'ASC')->get()->groupBy('date');
         $previousMonthlyTransactions = Transaction::toUser()->where('date', '>=', new Carbon('first day of last month'))
                                                                 ->where('date', '<=', new Carbon('last day of last month'))
                                                                 ->orderBy('date', 'ASC')

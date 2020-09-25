@@ -1,16 +1,16 @@
 <template>
-    <div>
-    <!-- Input -->
-    <div class="input-group-prepend" style="display: inline-block;">
-        <div class="input-group-text" style="border: none;">
-        <i class="fe fe-search"></i>
-        </div>
-    </div>
+    <div class="input-group input-group-flush input-group-merge show">
+
     <input v-model="searchInput" @input="updateSearchResults" type="search" class="form-control form-control-prepended dropdown-toggle toggler search" data-toggle="dropdown" placeholder="Search" aria-label="Search">
 
+    <div class="input-group-prepend" >
+        <div class="input-group-text">
+            <i class="fe fe-search"></i>
+        </div>
+    </div>
 
     <!-- Menu -->
-    <div class="dropdown-menu dropdown-menu-card" style="left: 225px;">
+    <div class="dropdown-menu dropdown-menu-card">
         <div v-if="awaitingSearch" class="card-body" >
               <content-loader
                 :width="400"
@@ -86,32 +86,6 @@
                     </div>
                 </div> <!-- / .row -->
             </a>
-            <!-- <h3 class="mt-4">Search</h3>
-            <a v-for="(result, index) in searchResults" :key="result" href="project-overview.html" class="list-group-item px-0">
-
-                <div class="row align-items-center">
-                    <div class="col-auto">
-
-                        <div class="avatar avatar-4by3">
-                            <img :src="asset('/img/avatars/projects/project-1.jpg')" alt="..." class="avatar-img rounded">
-                        </div>
-
-                        </div>
-                        <div class="col ml--2">
-
-                        <h4 class="text-body mb-1 name">
-                            Homepage Redesign
-                        </h4>
-
-                        <p class="small text-muted mb-0">
-                            <span class="fe fe-clock"></span> <time datetime="2018-05-24">Updated 4hr ago</time>
-                        </p>
-
-                    </div>
-                </div>
-
-            </a> -->
-
         </div>
 
         </div>
@@ -142,7 +116,6 @@ export default {
             if (!this.awaitingSearch) {
                 setTimeout(() => {
                     // this.fetchResults({ query: this.search })
-                    console.log(this.searchInput);
                     this.searchAccounts()
                     this.searchTransactions()
                     this.awaitingSearch = false;
@@ -153,14 +126,12 @@ export default {
         searchAccounts() {
             var self = this;
             this.asyncFetchData('/search/accounts?keyword='+this.searchInput).then( function( response ) {
-                console.log(response)
                 self.accountResults = response;
             })
         },
         searchTransactions() {
             var self = this;
             this.asyncFetchData('/search/transactions?keyword='+this.searchInput).then( function( response ) {
-                console.log(response)
                 self.transactionResults = response;
             })
         },

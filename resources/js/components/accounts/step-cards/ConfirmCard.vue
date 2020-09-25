@@ -5,6 +5,14 @@
 
         <div class="row">
             <!-- Project name -->
+
+            <div class="form-group col-md-12">
+                <label>
+                    Institution Name:
+                </label>
+                {{ account.mx_institution_code }}
+            </div>
+
             <div class="form-group col-md-6">
                 <label>
                     Account Name:

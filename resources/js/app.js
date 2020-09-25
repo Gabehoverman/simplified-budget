@@ -41,6 +41,8 @@ Vue.use(VueMask);
 import VueRouter from 'vue-router';
 Vue.use(VueRouter);
 
+Vue.use(require('vue-moment'));
+
 /**
  * Mixin global functions
  */
@@ -61,8 +63,10 @@ Vue.mixin({
         },
         getBadgeType( transaction ) {
             switch( parseInt(transaction.type) ) {
-                case 2:
+                case 3:
                     return 'badge-warning'
+                case 2:
+                    return 'badge-primary'
                 case 1:
                     return 'badge-success'
                 case 0:
@@ -72,6 +76,7 @@ Vue.mixin({
         },
         getFormattedDate( timestamp ) {
             let formattedDate = new Date( timestamp )
+            formattedDate.setDate( formattedDate.getDate() + 1)
             return formattedDate.toDateString()
         },
         getAccountLabel( type ) {
@@ -117,6 +122,13 @@ Vue.mixin({
         formatCurrency ( currency ) {
             currency = parseFloat(currency).toFixed(2);
             return currency.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        },
+        formatLogName( name ) {
+            var i, frags = name.split('_');
+            for (i=0; i<frags.length; i++) {
+                frags[i] = frags[i].charAt(0).toUpperCase() + frags[i].slice(1);
+            }
+            return frags.join(' ');
         },
         asset( url ) {
             return url;

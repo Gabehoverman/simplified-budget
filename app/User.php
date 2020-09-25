@@ -17,6 +17,7 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     protected $fillable = [
         'first_name', 'last_name', 'email', 'phone', 'password', 'notifications', 'income', 'pay', 'goals',
+        'mx_user_guid'
     ];
 
     /**
@@ -36,4 +37,9 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function accounts()
+    {
+        return $this->hasMany('App\Models\Account');
+    }
 }

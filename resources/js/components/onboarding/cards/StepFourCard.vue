@@ -12,7 +12,7 @@
 
                 <!-- Title -->
                 <h1 class="mb-3">
-                    Congrats, you're ready to go!
+                    Congratulations, you're ready to go!
                 </h1>
 
                 <!-- Subtitle -->
@@ -79,9 +79,6 @@
     .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
         opacity: 0;
         transition: opacity .5s
-    }
-    .custom-control-label:after, .custom-control-label:before {
-        top: -12px;
     }
 </style>
 

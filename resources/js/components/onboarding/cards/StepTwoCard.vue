@@ -25,21 +25,23 @@
 
         <transition-group name="fade" mode="out-in" >
             <bank-card
+                v-if="!dataAccount.mx_institution_code"
                 :key="1"
-                :account="account"
+                :account="dataAccount"
                 :institutions="institutions"
                 :errors="errors"
+                @updateAccount="updateAccount($event)"
             />
-            <credentials-card
+            <!-- <credentials-card
                 v-if="account.institution_id"
                 :key="2"
                 :account="account"
                 :errors="errors"
-            />
+            /> -->
             <settings-card
-                v-if="account.username && account.password"
-                :key="3"
-                :account="account"
+                v-if="dataAccount.mx_institution_code"
+                :key="2"
+                :account="dataAccount"
                 :errors="errors"
             />
         </transition-group>
@@ -54,10 +56,22 @@
 
     export default {
         props: ['account', 'institutions', 'errors'],
+        data() {
+            return {
+                dataAccount: this.account
+            }
+        },
         components: {
             BankCard,
             CredentialsCard,
             SettingsCard
+        },
+        methods: {
+            updateAccount( data ) {
+                this.dataAccount = data;
+                console.log(this.account)
+                this.$emit('updateAccount', data)
+            }
         }
     }
 </script>

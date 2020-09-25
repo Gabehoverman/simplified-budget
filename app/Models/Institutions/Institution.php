@@ -12,7 +12,7 @@ class Institution extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'asset', 'status'
+        'name', 'asset', 'status', 'mx_institution_code'
     ];
 
     /**

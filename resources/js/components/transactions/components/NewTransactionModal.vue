@@ -33,8 +33,10 @@
                     <select v-model="transaction.type"
                                 :class="'form-control '+($v.transaction.type.$error ? 'is-invalid ' : '')" id="transactionTypeSelect">
                         <option value="undefined" selected disabled>Select a Type</option>
-                        <option value="1">Income</option>
                         <option value="0">Expense</option>
+                        <option value="1">Income</option>
+                        <option value="2">Transfer</option>
+                        <option value="3">Fee</option>
                     </select>
                 </div>
 

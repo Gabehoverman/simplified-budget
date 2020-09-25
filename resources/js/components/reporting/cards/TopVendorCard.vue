@@ -20,12 +20,14 @@
 
                             <!-- Heading -->
                             <h4 class="mb-1">
-                                {{ name }}
+                                {{ vendor.category }}
                             </h4>
 
                         </div>
                         <div class="col ml-n2 mt-3 text-right">
-                            <span class="text-muted">${{ getTotal(vendor) }}</span>
+                            <span class="text-muted">${{ vendor.sum }}</span>
+
+                            <!-- <span class="text-muted">${{ getTotal(vendor) }}</span> -->
                         </div>
                     </div> <!-- / .row -->
                 </div>

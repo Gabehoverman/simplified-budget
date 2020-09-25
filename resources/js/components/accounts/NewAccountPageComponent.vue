@@ -36,7 +36,7 @@
 
                                     <!-- Pretitle -->
                                     <h6 class="header-pretitle">
-                                        Follow the simple 4 Steps to complete your integration.
+                                        Follow the 3 simple steps to complete your integration.
                                     </h6>
 
                                 </div>
@@ -46,7 +46,7 @@
                                     <div class="row text-right" v-if="account.institution_id">
                                         <!-- Project name -->
                                         <!-- <img width="300px" :src=" '/img/logos/' + institutions.filter( institution => institution.id == account.institution_id )+ ' Logo.png'" style="position: absolute; right: 0px; top: -30px"> -->
-                                        <img width="300px" :src=" institutions.filter( institution => institution.id == account.institution_id )[0].asset " style="position: absolute; right: 0px; top: -30px">
+                                        <!-- <img width="300px" :src=" institutions.filter( institution => institution.id == account.institution_id )[0].asset " style="position: absolute; right: 0px; top: -30px"> -->
                                     </div>
 
                                 </div>
@@ -65,16 +65,16 @@
                             </div>
                             <div class="progress-marker"></div>
                         </li>
-                        <li :class="'progress-step ' + (step == 2 ? 'is-active' : step > 2 ? 'is-complete' : '')">
+                        <!-- <li :class="'progress-step ' + (step == 2 ? 'is-active' : step > 2 ? 'is-complete' : '')">
                             <div class="progress-text">
                             <h4 class="progress-title">Supply Credentials</h4>
                             &nbsp
                             </div>
                             <div class="progress-marker"></div>
 
-                        </li>
+                        </li> -->
 
-                        <li :class="'progress-step ' + (step == 3 ? 'is-active' : step > 3 ? 'is-complete' : '')" aria-current="step">
+                        <li :class="'progress-step ' + (step == 2 ? 'is-active' : step > 2 ? 'is-complete' : '')" aria-current="step">
                             <div class="progress-text">
                             <h4 class="progress-title">Account Settings</h4>
                             &nbsp
@@ -83,7 +83,7 @@
 
                         </li>
 
-                        <li :class="'progress-step ' + (step == 4 ? 'is-active' : step > 4 ? 'is-complete' : '')">
+                        <li :class="'progress-step ' + (step == 3 ? 'is-active' : step > 3 ? 'is-complete' : '')">
                             <div class="progress-text">
                             <h4 class="progress-title">Confirm</h4>
                             &nbsp
@@ -101,20 +101,21 @@
                                 :account="account"
                                 :institutions="institutions"
                                 :errors="$v.account"
+                                @updateAccount="updateAccount( $event )"
                             />
                         </transition>
 
                     </form>
 
-                    <div class="col-md-6 offset-md-6 row mt-5 text-right">
+                    <div class="col-md-6 offset-md-6 row mt-5 text-right" style="height: 40px;">
                         <!-- Buttons -->
-                        <a v-if="step != 1" @click="previousStep()" href="#" class="btn btn-secondary" style="float: left">
+                        <a v-if="step > 2" @click="previousStep()" href="#" class="btn btn-secondary" style="float: left">
                             Prev
                         </a>
-                        <a v-if="step < 4" @click="nextStep()" href="#" class="btn btn-primary" style="right: 0px; position: absolute;">
+                        <a v-if="step < 3" @click="nextStep()" href="#" class="btn btn-primary" style="right: 0px; position: absolute;">
                             Next
                         </a>
-                        <a v-if="step == 4" @click="saveAccount( account )" href="#" class="text-right btn btn-primary" style="right: 0px; position: absolute;">
+                        <a v-if="step == 3" @click="saveAccount( account )" href="#" class="text-right btn btn-primary" style="right: 0px; position: absolute;">
                             Create
                         </a>
                     </div>
@@ -142,9 +143,9 @@
     const routes = [
         {path: '/accounts/new', redirect: '/accounts/new/bank'},
         {path: '/accounts/new/bank', name:'Bank', component: BankCard},
-        {path: '/accounts/new/credentials', name:'Credentials', component: CredentialsCard},
-        {path: '/accounts/new/settings', name:'Settings', component: SettingsCard},
-        {path: '/accounts/new/confirm', name:'Confirm', component: ConfirmCard},
+        // {path: '/accounts/new/credentials', name:'Credentials', component: CredentialsCard},
+        {path: '/accounts/new/settings/:id', name:'Settings', component: SettingsCard},
+        {path: '/accounts/new/confirm/:id', name:'Confirm', component: ConfirmCard},
     ]
 
     const router = new VueRouter ({
@@ -172,7 +173,7 @@
         methods: {
             previousStep() {
                 let index = this.$router.options.routes.map(function(x) {return x.name; }).indexOf(this.$router.currentRoute.name);
-                this.$router.push({name: this.$router.options.routes[index-1].name});
+                this.$router.push({name: this.$router.options.routes[index-1].name, params: {id: this.account.id} });
                 this.step = index - 1;
             },
             nextStep() {
@@ -180,9 +181,19 @@
                 let invalid = eval('this.$v.'+ this.$router.currentRoute.name + 'Group.$invalid')
                 if (!invalid) {
                     let index = this.$router.options.routes.map(function(x) {return x.name; }).indexOf(this.$router.currentRoute.name);
-                    this.$router.push({name: this.$router.options.routes[index+1].name });
+                    this.$router.push({name: this.$router.options.routes[index+1].name, params: {id: this.account.id} });
                     this.step = index + 1;
                 }
+            },
+            updateAccount( account ) {
+                console.log('UPDATE PARENT')
+                this.account = account;
+                // this.account.institution_id = account.institution_id
+                // this.account.name = account.name
+                this.account = account
+                console.log(this.account)
+                this.nextStep();
+                // this.$router.push({name: this.$router.options.routes[2].name, params: { id: this.account.id } });
             },
             unselectAccount() {
                 this.selectedAccount = null
@@ -193,9 +204,12 @@
             saveAccount( account ) {
                 var self = this;
                 this.$v.account.$touch()
+                console.log(this.$v.account.$invalid)
+                console.log(this.$v.account)
 
-                if (!this.$v.$invalid) {
-                    this.asyncSendData(account, '/accounts', 'POST').then( function( response ) {
+                if (!this.$v.account.$invalid) {
+                    console.log('sync')
+                    this.asyncSendData(account, '/accounts/'+account.id+'/sync', 'POST').then( function( response ) {
                         window.location.href = "/accounts"
                     })
                 }
@@ -222,18 +236,18 @@
                 tracking_options: {
                     required
                 },
-                institution_id: {
-                    required
-                },
-                username: {
-                    required
-                },
-                password: {
-                    required
-                }
+                // institution_id: {
+                //     required
+                // },
+                // username: {
+                //     required
+                // },
+                // password: {
+                //     required
+                // }
             },
-            BankGroup: ['account.institution_id'],
-            CredentialsGroup: ['account.username', 'account.password'],
+            BankGroup: [],
+            // CredentialsGroup: ['account.username', 'account.password'],
             SettingsGroup: ['account.name', 'account.tracking_type', 'account.tracking_options', 'account.type']
         }
     }

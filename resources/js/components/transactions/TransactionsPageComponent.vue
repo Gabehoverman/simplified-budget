@@ -33,22 +33,16 @@
 
               </div>
             </div> <!-- / .row -->
-            <div class="row align-items-center" :key="selectedAccount ? selectedAccount.id : null">
+            <div class="row align-items-center" >
               <div class="col">
 
                 <!-- Nav -->
                 <ul class="nav nav-tabs nav-overflow header-tabs">
                   <li class="nav-item">
-                    <a @click="unselectAccount()" href="#!" :class="!selectedAccount ? 'nav-link active' : 'nav-link'">
-                      All Accounts
-                      <!-- <span class="badge badge-pill badge-soft-secondary">823</span> -->
-                    </a>
+                    <a @click="unselectAccount()" href="#!" :class="!selectedAccount ? 'nav-link active list-filter' : 'nav-link list-filter'">All Accounts</a>
                   </li>
                   <li v-for="( account ) in accounts" :key="account.id" class="nav-item">
-                    <a @click="selectAccount(account)" href="#!" :class="selectedAccount && selectedAccount.id == account.id ? 'nav-link active' : 'nav-link'">
-                      {{ account.name }}
-                      <!-- <span class="badge badge-pill badge-soft-secondary">24</span> -->
-                    </a>
+                    <a href="#!" @click="selectAccount( account )" :class="selectedAccount && selectedAccount.id == account.id ? 'nav-link active list-filter' : 'nav-link list-filter'">{{ account.name }}</a>
                   </li>
                 </ul>
 
@@ -58,7 +52,7 @@
         </div>
 
         <!-- Card -->
-        <div class="card" data-toggle="lists" data-lists-values='["orders-order", "orders-product", "orders-date", "orders-total", "orders-status", "orders-method"]'>
+        <div id="list" class="card list" data-toggle="lists" data-list='{"valueNames": ["orders-order", "orders-category", "orders-amount", "orders-vendor", "orders-account", "orders-method", "orders-date"], "page": 10, "pagination": {"paginationClass": "list-pagination"}}'>
           <div class="card-header">
             <div class="row align-items-center">
               <div class="col">
@@ -69,7 +63,7 @@
                     <span class="fe fe-search text-muted"></span>
                   </div>
                   <div class="col">
-                      <input type="search" class="form-control form-control-flush search" placeholder="Search">
+                      <input type="search" class="form-control form-control-flush list-search" placeholder="Search">
                   </div>
                 </form>
 
@@ -106,37 +100,37 @@
               <thead>
                 <tr>
                   <th>
-                    <a href="#" class="text-muted sort" data-sort="orders-order">
+                    <a href="#" class="text-muted list-sort" data-sort="orders-order">
                         #
                     </a>
                   </th>
                   <th>
-                    <a href="#" class="text-muted sort" data-sort="orders-category">
+                    <a href="#" class="text-muted list-sort" data-sort="orders-category">
                       Category
                     </a>
                   </th>
                   <th>
-                    <a href="#" class="text-muted sort" data-sort="orders-amount">
+                    <a href="#" class="text-muted list-sort" data-sort="orders-amount">
                       Amount
                     </a>
                   </th>
                   <th>
-                    <a href="#" class="text-muted sort" data-sort="orders-vendor">
+                    <a href="#" class="text-muted list-sort" data-sort="orders-vendor">
                       Vendor
                     </a>
                   </th>
                   <th>
-                    <a href="#" class="text-muted sort" data-sort="orders-account">
+                    <a href="#" class="text-muted list-sort" data-sort="orders-account">
                       Account
                     </a>
                   </th>
                   <th>
-                    <a href="#" class="text-muted sort" data-sort="orders-date">
+                    <a href="#" class="text-muted list-sort" data-sort="orders-date">
                       Date
                     </a>
                   </th>
                   <th colspan="2">
-                    <a href="#" class="text-muted sort" data-sort="orders-method">
+                    <a href="#" class="text-muted list-sort" data-sort="orders-method">
                       Actions
                     </a>
                   </th>
@@ -183,6 +177,30 @@
               </tbody>
             </table>
           </div>
+           <div class="card-footer d-flex justify-content-between">
+
+                <!-- Pagination (prev) -->
+                <ul class="list-pagination-prev pagination pagination-tabs card-pagination">
+                    <li class="page-item">
+                        <a class="page-link pl-0 pr-4 border-right" href="#">
+                          <i class="fe fe-arrow-left mr-1"></i> Prev
+                        </a>
+                    </li>
+                </ul>
+
+                <!-- Pagination -->
+                <ul class="list-pagination pagination pagination-tabs card-pagination"></ul>
+
+                <!-- Pagination (next) -->
+                <ul class="list-pagination-next pagination pagination-tabs card-pagination">
+                    <li class="page-item">
+                        <a class="page-link pl-4 pr-0 border-left" href="#">
+                          Next <i class="fe fe-arrow-right ml-1"></i>
+                        </a>
+                    </li>
+                </ul>
+           </div>
+
         </div>
 
       </div>
@@ -248,11 +266,23 @@
         },
         computed: {
             filteredTransactions() {
-                if (this.selectedAccount) {
-                    return this.dataTransactions.filter(x => x.account_id == this.selectedAccount.id)
-                }
+                // if (this.selectedAccount) {
+                //     return this.dataTransactions.filter(x => x.account_id == this.selectedAccount.id)
+                // }
                 return this.dataTransactions
             }
+        },
+        mounted() {
+            $(document).ready( function() {
+                // var options = {
+                //     valueNames: ["orders-order", "orders-category", "orders-amount", "orders-vendor", "orders-account"],
+                //     page: 15,
+                //     pagination: true,
+                //     pagination: {"paginationClass": "list-pagination"}
+                // };
+
+                // var userList = new List('list', $('#list').data('list'));
+            })
         }
     }
 </script>

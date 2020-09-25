@@ -27,7 +27,7 @@
                 </div> -->
                 <div class="col-12 col-xl-4">
                     <admin-activity-card
-
+                        :activity="activity"
                     />
                 </div>
             </div>
@@ -51,7 +51,8 @@
             'transactions',
             'weeklyNewUsers',
             'monthlyNewUsers',
-            'annualNewUsers'
+            'annualNewUsers',
+            'activity'
         ],
         components: {
             AdminOverviewGraphCard,

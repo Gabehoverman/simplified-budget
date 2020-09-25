@@ -2,6 +2,7 @@
 
 <body>
     <div id="app">
+    {{-- <div> --}}
         @include('layouts.partials.sidebar')
         @include('layouts.partials.topbar')
         <main class="main-content">

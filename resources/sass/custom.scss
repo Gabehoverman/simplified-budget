@@ -46,3 +46,27 @@
 .new-account-form {
     min-height: 250px;
 }
+
+#topbar {
+    padding: 8px 15px;
+}
+
+.navbar-brand-img, .navbar-brand > img {
+    max-height: 2.8rem;
+}
+
+.form-control {
+    font-size: 0.9375rem;
+    line-height: 1.5;
+    display: block;
+    width: 100%;
+    height: calc(2.40625rem + 2px);
+    padding: 0.5rem 0.75rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    color: #12263f;
+    border: none;
+    border-bottom: 1px solid #d2ddec;
+    border-radius: 0px;
+    background-color: #fff;
+    background-clip: padding-box;
+}

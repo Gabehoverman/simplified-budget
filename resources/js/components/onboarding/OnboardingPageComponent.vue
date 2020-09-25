@@ -17,11 +17,13 @@
                         :account="account"
                         :institutions="institutions"
                         :errors="$v.account"
+                        @updateAccount="updateAccount( $event )"
                     />
 
                     <step-three-card
                         v-if="currentStep == 2"
                         :user="user"
+                        :account="account"
                         :transactions="transactions"
                     />
 
@@ -69,12 +71,12 @@ import StepFourCard from './cards/StepFourCard'
 import { required, minLength, between } from 'vuelidate/lib/validators'
 
 export default {
-    props: ['user', 'institutions'],
+    props: ['user', 'account', 'institutions'],
     data() {
         return {
             currentStep: 0,
             // user: {},
-            account: {},
+            // account: {},
             transactions: [],
         }
     },
@@ -89,7 +91,12 @@ export default {
             eval('this.$v.'+ this.getValidations( this.currentStep ) + 'Group.$touch()')
             let invalid = eval('this.$v.'+ this.getValidations( this.currentStep ) + 'Group.$invalid')
             if (!invalid && this.currentStep < 4) {
+                this.updateData()
                 this.currentStep++;
+                console.log(this.currentStep)
+                if ( this.currentStep == 2 ) {
+                    this.fetchTransactions()
+                }
             }
         },
         previousStep() {
@@ -107,14 +114,36 @@ export default {
                     return 'StepThree'
             }
         },
+        updateAccount( account ) {
+            this.account = account
+        },
+        updateData() {
+            let data = {};
+            if (this.user) {
+                data.user = this.user
+            }
+            if (this.account) {
+                data.account = this.account
+            }
+            this.asyncSendData(data, '/onboarding', 'PUT').then( function( response ) {
+                // console.log( response )
+            })
+        },
         saveData() {
             let data = {
                 'user': this.user,
                 'account': this.account,
-                'transactions': this.transactions,
             }
-            this.asyncSendData(data, '/onboarding', 'POST').then( function( response ) {
+            this.asyncSendData(data, '/onboarding', 'PUT').then( function( response ) {
                 window.location.href = "/dashboard"
+            })
+        },
+        fetchTransactions() {
+            var self = this;
+            this.asyncFetchData('/onboarding/transactions/'+this.account.id+'', 'GET').then( function( response ) {
+                console.log( response )
+                self.transactions = response;
+                Vue.set(self.transactions, response)
             })
         }
     },
@@ -158,22 +187,16 @@ export default {
             institution_id: {
                 required
             },
-            username: {
-                required
-            },
-            password: {
-                required
-            },
         },
         transactions: {
             required,
             minLength: minLength(1)
         },
         StepOneGroup: ['user.first_name', 'user.last_name', 'user.email', 'user.phone', 'user.income', 'user.pay', 'user.goals'],
-        StepTwoGroup: ['account.institution_id', 'account.username', 'account.password', 'account.name', 'account.tracking_type', 'account.tracking_options', 'account.type'],
+        StepTwoGroup: ['account.institution_id', 'account.name', 'account.tracking_type', 'account.tracking_options', 'account.type'],
         StepThreeGroup: ['transactions'],
         BankGroup: ['account.institution'],
-        CredentialsGroup: ['account.username', 'account.password'],
+        // CredentialsGroup: ['account.username', 'account.password'],
         SettingsGroup: ['account.name', 'account.tracking_type', 'account.tracking_options', 'account.type']
     }
 }

@@ -91,7 +91,7 @@
                 sum = parseFloat(sum) + parseFloat(expense.amount);
             })
             self.monthlydatalabels.push(key)
-            self.monthlydataset.push(sum)
+            self.monthlydataset.push(sum.toFixed(2))
         }
         let previousSum = 0;
         for (const [key, value] of Object.entries(this.previousMonthlyTransactions)) {
@@ -99,7 +99,7 @@
                 previousSum = parseFloat(previousSum) + parseFloat(expense.amount);
             })
             self.previousdatalabels.push(key)
-            self.previousdataset.push(previousSum)
+            self.previousdataset.push(previousSum.toFixed(2))
         }
         this.monthlyTotal = sum.toFixed(2);
         this.previousMonthlyTotal = previousSum.toFixed(2);

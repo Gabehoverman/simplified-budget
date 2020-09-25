@@ -12,11 +12,14 @@
 
             <!-- Title -->
             <h1 class="mb-3">
-                Let’s record some transactions.
+                Now, let’s record some transactions.
             </h1>
 
             <!-- Subtitle -->
-            <p class="mb-5 text-muted">
+            <p v-if="account" class="mb-5 text-muted">
+                Recording transactions is how we can analyze your financial habits.
+            </p>
+            <p v-else class="mb-5 text-muted">
                 Recording transactions is how we can analyze your financial habits.
             </p>
 
@@ -24,19 +27,40 @@
         </div> <!-- / .row -->
 
         <div class="row">
-            <div class="col-6 text-center">
+            <!-- <div class="col-6 text-center">
                 <a class="btn btn-primary text-white" @click="generateTransactions()">Auto Record Transactions</a>
-            </div>
-            <div class="col-6 text-center">
+            </div> -->
+            <!-- <div class="col-6 text-center">
                 <a class="btn btn-primary text-white">Input Transactions Manually</a>
-            </div>
+            </div> -->
         </div>
 
         <hr class="divider">
 
+        <div class="row" v-if="transactions.length < 1">
+            <div class="col-md-8 offset-md-2">
+                <content-loader
+                    :width="200"
+                    :height="150"
+                    :speed="2"
+                    primaryColor="#f3f3f3"
+                    secondaryColor="#ecebeb"
+                >
+                    <circle cx="10" cy="20" r="8" /> 
+                    <rect x="25" y="15" rx="5" ry="5" width="220" height="6" /> 
+                    <circle cx="10" cy="50" r="8" /> 
+                    <rect x="25" y="45" rx="5" ry="5" width="220" height="6" /> 
+                    <circle cx="10" cy="80" r="8" /> 
+                    <rect x="25" y="75" rx="5" ry="5" width="220" height="6" /> 
+                    <circle cx="10" cy="110" r="8" /> 
+                    <rect x="25" y="105" rx="5" ry="5" width="220" height="6" />
+                </content-loader>
+            </div>
+        </div>
+
         <div class="row" v-if="transactions.length > 0">
             <div class="col-12">
-                <div class="table-responsive" >
+                <div class="table-responsive" style="max-height: 500px;">
                     <table id="transactions-table" class="table table-hover table-sm table-nowrap card-table">
                         <thead>
                             <tr>
@@ -67,7 +91,7 @@
                             </th>
                             </tr>
                         </thead>
-                        <tbody class="list">
+                        <tbody class="list" :key="transactions.length">
                             <tr v-for="(transaction, index ) in transactions" :key="index">
                             <td class="orders-order">
                                 #{{ index + 1 }}
@@ -97,40 +121,17 @@
 </template>
 
 <script>
+    import { ContentLoader } from 'vue-content-loader'
+
     export default {
-        props: ['user', 'transactions'],
+        props: ['user', 'account', 'transactions'],
+        components: {
+            ContentLoader
+        },
         methods: {
             generateTransactions() {
                 var self = this
                 let date = new Date()
-                let transactions = [{
-                    'category': 'shopping',
-                    'amount': 12.99,
-                    'type': 0,
-                    'vendor': 'Target',
-                    'account_id': 1,
-                    'user_id': this.user.id,
-                    'date': this.formatDate(date),
-                },{
-                    'category': 'utilities',
-                    'amount': 49.99,
-                    'type': 0,
-                    'vendor': 'Spectrum',
-                    'account_id': 1,
-                    'user_id': this.user.id,
-                    'date': this.formatDate(date.setDate(date.getDate() - 2)),
-                }, {
-                    'category': 'subscriptions',
-                    'amount': 16.99,
-                    'type': 0,
-                    'vendor': 'HBO',
-                    'account_id': 1,
-                    'user_id': this.user.id,
-                    'date': this.formatDate(date.setDate(date.getDate() - 2)),
-                }]
-                transactions.forEach( function( transaction ) {
-                    self.transactions.push(transaction)
-                })
             },
             formatDate(date) {
                 var d = new Date(date),
@@ -145,6 +146,9 @@
 
                 return [year, month, day].join('-');
             }
+        },
+        mounted() {
+            this.generateTransactions();
         }
     }
 </script>

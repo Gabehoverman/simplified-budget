@@ -20,8 +20,13 @@ Route::get('/', function () {
 
 Auth::routes(['verify' => true]);
 
+Route::get('/cron/daily-transactions', 'CronController@pullDailyTransactions');
+Route::get('/cron/map-institutions', 'CronController@mapInstitutions');
+
 // Route::post('/onboarding', 'OnboardingController@save');
-Route::resource('/onboarding', 'OnboardingController')->middleware('verified');;
+Route::put('onboarding', 'OnboardingController@update')->middleware('verified');
+Route::get('onboarding/transactions/{account_id}', 'OnboardingController@transactions')->middleware('verified');
+Route::resource('/onboarding', 'OnboardingController')->middleware('verified');
 
 Route::get('logout', 'Auth\LoginController@logout');
 
@@ -33,6 +38,8 @@ Route::resource('/transactions', 'TransactionsController');
 
 Route::get('/accounts/new', 'AccountsController@new')->name('account.new');
 Route::get('/accounts/new/{any}', 'AccountsController@new')->name('account.new');
+Route::get('/accounts/new/{any}/{id}', 'AccountsController@new')->name('account.new');
+Route::post('/accounts/{id}/sync', 'AccountsController@sync')->name('account.sync');
 
 Route::resource('/accounts', 'AccountsController');
 
@@ -52,4 +59,15 @@ Route::get('/search/accounts', 'SearchController@accounts');
 Route::get('/search/transactions', 'SearchController@transactions');
 Route::resource('/search', 'SearchController');
 
-
+Route::get('/mx/accounts', 'MXController@accounts');
+Route::get('/mx/institutions', 'MXController@institutions');
+Route::post('/mx/accounts', 'MXController@createAccount');
+Route::get('/mx/widget', 'MXController@widget');
+Route::get('/mx/members', 'MXController@members');
+Route::get('/mx/members/{guid}', 'MXController@members');
+Route::get('/mx/members/{member_guid}', 'MXController@showMember');
+Route::get('/mx/members/{member_guid}/remove', 'MXController@removeMember');
+Route::get('/mx/members/{member_guid}/remove/{user_guid}', 'MXController@removeMember');
+Route::get('/mx/members/{member_guid}/link', 'MXController@attachMemberAcount');
+Route::get('/mx/transactions/{member_guid}', 'MXController@transactions');
+Route::resource('/mx', 'MXController');

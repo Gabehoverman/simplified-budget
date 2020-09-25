@@ -13,6 +13,11 @@
     <script src="{{ asset('libs/quill/dist/quill.min.js') }}"></script>
     <script src="{{ asset('libs/dropzone/dist/min/dropzone.min.js') }}"></script>
     <script src="{{ asset('libs/select2/dist/js/select2.min.js') }}"></script>
+    <script src="https://atrium.mx.com/connect.js"></script>
 
     <!-- Theme JS -->
     <script src="{{ asset('js/theme.min.js') }}"></script>
+    <script src="{{ asset("js/dashkit.min.js") }}"></script>
+    <script src="{{ asset("js/list.js") }}"></script>
+
+

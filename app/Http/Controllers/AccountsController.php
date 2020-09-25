@@ -5,8 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Account;
 use App\Models\Institutions\InstitutionRepository;
-use Auth;
+use App\Models\MX\MXRepository;
 use Carbon\Carbon;
+use atrium\api\AtriumClient;
+use GuzzleHttp\Client;
+use Auth;
 
 class AccountsController extends Controller
 {
@@ -18,6 +21,11 @@ class AccountsController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->client = new AtriumClient(
+            env('MX_API_KEY'),
+            env('MX_CLIENT_ID'),
+            new Client()
+        );
     }
 
     /**
@@ -37,11 +45,15 @@ class AccountsController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function new(InstitutionRepository $institutionRepository)
+    public function new(InstitutionRepository $institutionRepository, $step = null, $id = null)
     {
+        $account = [];
+        if ( $id ) {
+            $account = Account::find( $id );
+        }
         $institutions = $institutionRepository->getInstitutions();
 
-        return view('user.new-account', compact( 'institutions'));
+        return view('user.new-account', compact( 'account', 'institutions'));
     }
 
     /**
@@ -75,7 +87,7 @@ class AccountsController extends Controller
      *
      * @return Account
      */
-    public function store( Request $request )
+    public function store( Request $request, $member_guid = null )
     {
         $account = new Account( $request->input() );
         $account->institution_id = $request->input( 'institution_id' );
@@ -107,8 +119,36 @@ class AccountsController extends Controller
     public function destroy( $id )
     {
         $account = Account::find($id);
+        $user_guid = $account->user->mx_user_guid; //"USR-5762d24b-d6ef-4667-9b6b-7c5c098f5034"; // string | The unique identifier for a `user`.
+
+        if ($account->mx_member_guid) {
+            try {
+                $result = $this->client->members->deleteMember($account->mx_member_guid, $user_guid);
+            } catch (\Exception $e) {
+                // continue
+            }
+        }
+        if ($account->transactions) {
+            $account->transactions()->delete();
+        }
         $account->delete();
 
         return response(200);
+    }
+
+    /**
+     * Updates an Account & pulls in new transactions from MX
+     *
+     * @return Account
+     */
+    public function sync( $id, Request $request, MXRepository $mXRepository )
+    {
+        $account = Account::find($id);
+        $account->update( $request->input() );
+        $account->institution;
+
+        $mXRepository->syncTransactions($account);
+
+        return response(json_encode($account), 200);
     }
 }

@@ -126,7 +126,7 @@
                     sum = parseFloat(sum) + parseFloat(expense.amount);
                 })
                 self.datalabels.push(key)
-                self.dataset.push(sum)
+                self.dataset.push(sum.toFixed(2))
             }
             return true;
       },

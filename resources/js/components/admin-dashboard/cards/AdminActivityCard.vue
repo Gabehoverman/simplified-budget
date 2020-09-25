@@ -16,6 +16,40 @@
 
             <!-- List group -->
             <div class="list-group list-group-flush list-group-activity my-n3">
+
+            <div class="list-group-item" v-for="log in activity" :key="log.id">
+                <div class="row">
+                    <div class="col-auto">
+
+                    <!-- Avatar -->
+                    <div class="avatar avatar-sm">
+                        <div class="avatar-title font-size-lg bg-primary-soft rounded-circle text-primary">
+                        <i class="fe fe-archive"></i>
+                        </div>
+                    </div>
+
+                    </div>
+                    <div class="col ml-n2">
+
+                    <!-- Heading -->
+                    <h5 class="mb-1">
+                        {{ formatLogName( log.log_name ) }}
+                    </h5>
+
+                    <!-- Text -->
+                    <p class="small text-gray-700 mb-0">
+                        {{ log.description }}:
+                        {{ Object.values(log.properties)[0] }}
+                    </p>
+
+                    <!-- Time -->
+                    <small class="text-muted">
+                        {{ log.created_at | moment("dddd, MMMM Do YYYY, h:mm:ss a") }}
+                    </small>
+
+                    </div>
+                </div> <!-- / .row -->
+                </div>
                 <div class="list-group-item">
                 <div class="row">
                     <div class="col-auto">
@@ -43,38 +77,6 @@
                     <!-- Time -->
                     <small class="text-muted">
                         2m ago
-                    </small>
-
-                    </div>
-                </div> <!-- / .row -->
-                </div>
-                <div class="list-group-item">
-                <div class="row">
-                    <div class="col-auto">
-
-                    <!-- Avatar -->
-                    <div class="avatar avatar-sm">
-                        <div class="avatar-title font-size-lg bg-primary-soft rounded-circle text-primary">
-                        <i class="fe fe-archive"></i>
-                        </div>
-                    </div>
-
-                    </div>
-                    <div class="col ml-n2">
-
-                    <!-- Heading -->
-                    <h5 class="mb-1">
-                        New Transactions
-                    </h5>
-
-                    <!-- Text -->
-                    <p class="small text-gray-700 mb-0">
-                        1,253 new transactions were added automatically
-                    </p>
-
-                    <!-- Time -->
-                    <small class="text-muted">
-                        2h ago
                     </small>
 
                     </div>
@@ -152,7 +154,7 @@
 
 <script>
 export default {
-    name: 'transactions-graph-card',
-    props: ['transactions']
+    name: 'admin-activity-card',
+    props: ['transactions', 'activity']
 }
 </script>

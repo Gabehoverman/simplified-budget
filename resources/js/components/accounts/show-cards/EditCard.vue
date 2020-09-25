@@ -1,5 +1,5 @@
 <template>
-    <div class="container col-12">
+    <div class="col-12">
         <div class="row">
             <div class="col">
                 <div class="card">
@@ -7,16 +7,16 @@
 
                     <div class="card-body">
 
-                        <bank-card
+                        <!-- <bank-card
                             :account="account"
                             :errors="$v.account"
                             :institutions="institutions"
-                        />
+                        /> -->
 
-                        <credentials-card
+                        <!-- <credentials-card
                             :account="account"
                             :errors="$v.account"
-                        />
+                        /> -->
 
                         <settings-card
                             :account="account"
@@ -54,7 +54,7 @@
                 var self = this;
                 this.$v.account.$touch()
 
-                if (!this.$v.$invalid) {
+                if (!this.$v.account.$invalid) {
                     this.$emit('saveAccount', account)
                 }
             }
@@ -71,15 +71,6 @@
                     required
                 },
                 tracking_options: {
-                    required
-                },
-                institution_id: {
-                    required
-                },
-                username: {
-                    required
-                },
-                password: {
                     required
                 }
             },

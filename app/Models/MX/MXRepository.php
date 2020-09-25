@@ -35,10 +35,10 @@ class MXRepository extends Model
             $data = json_decode($result);
         } catch (\Exception $e) {
             echo 'Exception when calling UsersApi->createUser: ', $e->getMessage(), PHP_EOL;
-            activity('mx_error')->withProperties(['transactionCount' => $e->getMessage()])->log('An MX error has occurred');
+            activity('mx_error')->withProperties(['message' => $e->getMessage()])->log('An MX error has occurred');
         }
 
-        if (!$data) {
+        if ( !isset( $data ) ) {
             return null;
         }
         return $data->user->guid;

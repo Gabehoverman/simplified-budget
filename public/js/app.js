@@ -87225,7 +87225,7 @@ var render = function() {
                         attrs: {
                           src: account.institution
                             ? account.institution.asset
-                            : _vm.asset("/img/logos/MX Bank Logo.png"),
+                            : _vm.asset("/img/logos/Mx Bank Logo.png"),
                           alt: "..."
                         }
                       })

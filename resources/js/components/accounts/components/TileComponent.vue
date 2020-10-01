@@ -74,7 +74,7 @@
                 <!-- Image -->
                 <a :href="'/accounts/'+account.id" class="avatar avatar-xl card-avatar text-center" style="width: 100%">
                 <img
-                    :src="account.institution ? account.institution.asset : asset('/img/logos/MX Bank Logo.png' )"
+                    :src="account.institution ? account.institution.asset : asset('/img/logos/Mx Bank Logo.png' )"
                     class="avatar-img rounded"
                     style="width: 250px; height: auto; max-height: 80px;"
                     alt="..."

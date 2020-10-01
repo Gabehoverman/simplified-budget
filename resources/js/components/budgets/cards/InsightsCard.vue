@@ -16,6 +16,9 @@
             message() {
                 let overBudget = 0;
                 let approachingBudgets = 0;
+                if (this.budgets.length == 0 ) {
+                    return "Set up your first budget to keep track of your spending."
+                }
                 this.budgets.forEach( function( budget ) {
                     if (budget.amount < budget.total ) {
                         overBudget++;

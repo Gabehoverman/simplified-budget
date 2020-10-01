@@ -17,7 +17,7 @@
     </div>
     <div class="card-body">
       <!-- Chart -->
-      <div class="chart">
+      <div class="chart" v-if="budgets.length > 0">
         <category-chart style="height: 300px" :chart-data="datacollection"></category-chart>
       </div>
     </div>

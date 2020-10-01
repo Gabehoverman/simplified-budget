@@ -4902,6 +4902,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['budgets'],
   data: function data() {
@@ -5093,6 +5096,11 @@ __webpack_require__.r(__webpack_exports__);
     message: function message() {
       var overBudget = 0;
       var approachingBudgets = 0;
+
+      if (this.budgets.length == 0) {
+        return "Set up your first budget to keep track of your spending.";
+      }
+
       this.budgets.forEach(function (budget) {
         if (budget.amount < budget.total) {
           overBudget++;
@@ -90297,110 +90305,128 @@ var render = function() {
       _c(
         "div",
         { staticClass: "list-group list-group-flush my-n3" },
-        _vm._l(_vm.dataBudgets, function(budget) {
-          return _c("div", { key: budget.id, staticClass: "list-group-item" }, [
-            _c(
+        [
+          _vm.dataBudgets.length == 0
+            ? _c("div", [_c("p", [_vm._v("No Budgets to show.")])])
+            : _vm._e(),
+          _vm._v(" "),
+          _vm._l(_vm.dataBudgets, function(budget) {
+            return _c(
               "div",
-              {
-                staticClass: "row",
-                on: {
-                  click: function($event) {
-                    return _vm.selectBudget(budget)
-                  }
-                }
-              },
+              { key: budget.id, staticClass: "list-group-item" },
               [
-                _c("div", { staticClass: "col-6 col-md-12 col-lg-6 mt-3" }, [
-                  _c("h4", { staticClass: "mb-1" }, [
-                    _c(
-                      "a",
-                      {
-                        staticClass: "item-name budget-name",
-                        attrs: {
-                          href: "#",
-                          "data-toggle": "modal",
-                          "data-target": "#budgetModal"
-                        },
-                        on: {
-                          click: function($event) {
-                            return _vm.selectBudget(budget)
-                          }
-                        }
-                      },
-                      [
-                        _vm._v(
-                          _vm._s(budget.name) +
-                            "\n                                "
-                        )
-                      ]
-                    )
-                  ])
-                ]),
-                _vm._v(" "),
                 _c(
                   "div",
                   {
-                    staticClass:
-                      "col-6 col-md-12 col-lg-6 mt-3 text-xs-right text-right text-md-left text-lg-right"
+                    staticClass: "row",
+                    on: {
+                      click: function($event) {
+                        return _vm.selectBudget(budget)
+                      }
+                    }
                   },
                   [
-                    _c("span", { staticClass: "text-muted" }, [
-                      _vm._v("$" + _vm._s(budget.total))
-                    ]),
-                    _vm._v(" "),
-                    _c("span", { staticClass: "text-muted" }, [
-                      _vm._v("| $" + _vm._s(budget.amount))
-                    ])
-                  ]
-                ),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-12" }, [
-                  _c("div", { staticClass: "row" }, [
-                    _c("div", { staticClass: "col-4 col-md-12 col-lg-4" }, [
-                      _c("small", { staticClass: "muted mr-2" }, [
-                        _vm._v(
-                          _vm._s(
-                            _vm.calculatePercentage(budget.amount, budget.total)
-                          ) + "%"
-                        )
-                      ])
-                    ]),
+                    _c(
+                      "div",
+                      { staticClass: "col-6 col-md-12 col-lg-6 mt-3" },
+                      [
+                        _c("h4", { staticClass: "mb-1" }, [
+                          _c(
+                            "a",
+                            {
+                              staticClass: "item-name budget-name",
+                              attrs: {
+                                href: "#",
+                                "data-toggle": "modal",
+                                "data-target": "#budgetModal"
+                              },
+                              on: {
+                                click: function($event) {
+                                  return _vm.selectBudget(budget)
+                                }
+                              }
+                            },
+                            [
+                              _vm._v(
+                                _vm._s(budget.name) +
+                                  "\n                                "
+                              )
+                            ]
+                          )
+                        ])
+                      ]
+                    ),
                     _vm._v(" "),
                     _c(
                       "div",
-                      { staticClass: "col-8 col-md-12 col-lg-8 mt-3" },
+                      {
+                        staticClass:
+                          "col-6 col-md-12 col-lg-6 mt-3 text-xs-right text-right text-md-left text-lg-right"
+                      },
                       [
-                        _c("div", { staticClass: "progress progress-sm" }, [
-                          _c("div", {
-                            class:
-                              "progress-bar " + _vm.getProgressClass(budget),
-                            style:
-                              "width: " +
-                              _vm.calculatePercentage(
-                                budget.amount,
-                                budget.total
-                              ) +
-                              "%",
-                            attrs: {
-                              role: "progressbar",
-                              "aria-valuenow": _vm.calculatePercentage(
-                                budget.amount,
-                                budget.total
-                              ),
-                              "aria-valuemin": "0",
-                              "aria-valuemax": "100"
-                            }
-                          })
+                        _c("span", { staticClass: "text-muted" }, [
+                          _vm._v("$" + _vm._s(budget.total))
+                        ]),
+                        _vm._v(" "),
+                        _c("span", { staticClass: "text-muted" }, [
+                          _vm._v("| $" + _vm._s(budget.amount))
                         ])
                       ]
-                    )
-                  ])
-                ])
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-12" }, [
+                      _c("div", { staticClass: "row" }, [
+                        _c("div", { staticClass: "col-4 col-md-12 col-lg-4" }, [
+                          _c("small", { staticClass: "muted mr-2" }, [
+                            _vm._v(
+                              _vm._s(
+                                _vm.calculatePercentage(
+                                  budget.amount,
+                                  budget.total
+                                )
+                              ) + "%"
+                            )
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticClass: "col-8 col-md-12 col-lg-8 mt-3" },
+                          [
+                            _c("div", { staticClass: "progress progress-sm" }, [
+                              _c("div", {
+                                class:
+                                  "progress-bar " +
+                                  _vm.getProgressClass(budget),
+                                style:
+                                  "width: " +
+                                  _vm.calculatePercentage(
+                                    budget.amount,
+                                    budget.total
+                                  ) +
+                                  "%",
+                                attrs: {
+                                  role: "progressbar",
+                                  "aria-valuenow": _vm.calculatePercentage(
+                                    budget.amount,
+                                    budget.total
+                                  ),
+                                  "aria-valuemin": "0",
+                                  "aria-valuemax": "100"
+                                }
+                              })
+                            ])
+                          ]
+                        )
+                      ])
+                    ])
+                  ]
+                )
               ]
             )
-          ])
-        }),
-        0
+          })
+        ],
+        2
       )
     ])
   ])
@@ -90411,7 +90437,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-header col-12" }, [
-      _c("h4", { staticClass: "card-header-title" }, [_vm._v("Breakdown")])
+      _c("h4", { staticClass: "card-header-title" }, [_vm._v("Budget Details")])
     ])
   }
 ]
@@ -90454,17 +90480,19 @@ var render = function() {
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "card-body" }, [
-      _c(
-        "div",
-        { staticClass: "chart" },
-        [
-          _c("category-chart", {
-            staticStyle: { height: "300px" },
-            attrs: { "chart-data": _vm.datacollection }
-          })
-        ],
-        1
-      )
+      _vm.budgets.length > 0
+        ? _c(
+            "div",
+            { staticClass: "chart" },
+            [
+              _c("category-chart", {
+                staticStyle: { height: "300px" },
+                attrs: { "chart-data": _vm.datacollection }
+              })
+            ],
+            1
+          )
+        : _vm._e()
     ])
   ])
 }

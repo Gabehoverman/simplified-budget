@@ -1,10 +1,13 @@
 <template>
     <div class="card">
         <div class="card-header col-12">
-            <h4 class="card-header-title">Breakdown</h4>
+            <h4 class="card-header-title">Budget Details</h4>
         </div>
         <div class='card-body'>
             <div class="list-group list-group-flush my-n3">
+                <div v-if="dataBudgets.length == 0">
+                    <p>No Budgets to show.</p>
+                </div>
                 <div class="list-group-item" v-for="(budget) in dataBudgets" :key="budget.id">
                     <div class="row" @click="selectBudget(budget)">
                         <!-- <div class="col-lg-3 col-md-12">

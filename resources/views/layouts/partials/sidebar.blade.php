@@ -75,6 +75,11 @@
             </a>
           </li>
           <li class="nav-item">
+            <a class="nav-link" href="/budgets">
+             <span class="fe fe-credit-card"></span> Budgets
+            </a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" href="/profile">
               <i class="fe fe-user"></i> Profile
             </a>

@@ -22,9 +22,11 @@ files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(
 
 import TransactionCategories from './enums/TransactionCategories';
 import TransactionCategoryColors from './enums/TransactionCategoryColors';
+import transactionCategoryIcons from './enums/TransactionCategoryIcons';
 
 Vue.prototype.$transactionCategories = TransactionCategories
 Vue.prototype.$transactionCategoryColors = TransactionCategoryColors
+Vue.prototype.$transactionCategoryIcons = transactionCategoryIcons
 
 import Vuelidate from 'vuelidate'
 Vue.use(Vuelidate)

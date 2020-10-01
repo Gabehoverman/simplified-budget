@@ -45,6 +45,9 @@ Route::resource('/accounts', 'AccountsController');
 
 Route::resource('/reporting', 'ReportingController');
 
+Route::resource('/budgets', 'BudgetsController');
+
+
 Route::resource('/profile', 'ProfileController');
 
 Route::resource('/settings', 'SettingsController');

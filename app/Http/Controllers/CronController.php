@@ -40,7 +40,6 @@ class CronController extends Controller
         foreach ( User::all() as $user ) {
             foreach ( $user->accounts()->whereNotNull('mx_member_guid')->where('active', true)->get() as $account ) {
                 $transactions = $this->mx->fetchDailyTransactions( $account );
-                var_dump( count( $transactions ) );
             }
         }
     }

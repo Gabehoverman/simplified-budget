@@ -1,7 +1,7 @@
 <template>
     <div class="card">
         <div class="card-header col-12">
-            <h3>Cashflow</h3>
+            <h4 class="card-header-title">Cashflow</h4>
         </div>
         <div class='card-body row'>
             <div class="col-9 mt-3">

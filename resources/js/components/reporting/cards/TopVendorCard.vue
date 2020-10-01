@@ -1,7 +1,7 @@
 <template>
     <div class="card">
         <div class="card-header col-12">
-            <h3>Top Places you Spent</h3>
+            <h4 class="card-header-title">Top Places you Spent</h4>
         </div>
         <div class='card-body'>
             <div class="list-group list-group-flush list-group-activity my-n3">

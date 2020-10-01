@@ -84,12 +84,12 @@
                         >Add Transaction
                     </button>
 
-                  <new-transaction-modal
-                    :key="modalKey"
-                    :transaction="selectedTransaction"
-                    :accounts="accounts"
-                    @saveTransaction="saveTransaction($event)"
-                  />
+                    <new-transaction-modal
+                        :key="modalKey"
+                        :transaction="selectedTransaction"
+                        :accounts="accounts"
+                        @saveTransaction="saveTransaction($event)"
+                    />
                 </div>
 
               </div>

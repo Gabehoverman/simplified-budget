@@ -1,7 +1,7 @@
 <template>
     <div class="card">
         <div class="card-header col-12">
-            <h3>Budget</h3>
+            <h4 class="card-header-title">Budget</h4>
         </div>
         <div class="card-body">
             <div class="col">

@@ -17742,3 +17742,7 @@ button:focus {
   background-clip: padding-box;
 }
 
+.hidden {
+  display: none;
+}
+

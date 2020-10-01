@@ -65,7 +65,7 @@ export default {
             })
             self.datalabels.push(this.formatString(key))
             self.dataColors.push(this.$transactionCategoryColors[key])
-            self.dataset.push(this.formatCurrency(sum))
+            self.dataset.push(sum)
         }
         return true;
       },

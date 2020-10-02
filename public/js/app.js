@@ -5764,6 +5764,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -5775,7 +5776,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'dashboard-page-component',
-  props: ['accounts', 'transactions', 'weekly-expenses', 'monthly-expenses', 'annual-expenses'],
+  props: ['accounts', 'transactions', 'budgets', 'weekly-expenses', 'monthly-expenses', 'annual-expenses'],
   components: {
     OverviewGraphCard: _cards_OverviewGraphCard__WEBPACK_IMPORTED_MODULE_0__["default"],
     AccountsGraphCard: _cards_AccountsGraphCard__WEBPACK_IMPORTED_MODULE_1__["default"],
@@ -6357,9 +6358,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'transactions-table-card',
   props: ['transactions'],
-  mounted: function mounted() {
-    console.log('Component mounted.');
-  },
+  mounted: function mounted() {},
   computed: {
     dataTransactions: function dataTransactions() {
       return this.transactions.slice(0, 5);
@@ -6422,7 +6421,67 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ __webpack_exports__["default"] = ({});
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['filter', 'user', 'budgets', 'transactions'],
+  computed: {
+    filterDate: function filterDate() {
+      var today = new Date();
+
+      switch (this.filter) {
+        case 'weekly':
+          var day = today.getDay(),
+              diff = today.getDate() - day + (day == 0 ? -6 : 0);
+          return new Date(today.setDate(diff));
+
+        case 'monthly':
+          return new Date(today.getFullYear(), today.getMonth(), 1);
+
+        case 'annual':
+          return new Date(new Date().getFullYear(), 0, 1);
+      }
+    },
+    expenses: function expenses() {
+      var sum = 0;
+      var date = this.filterDate;
+      this.transactions.forEach(function (transaction) {
+        if (transaction.type == 0 && new Date(transaction.date) >= date) {
+          sum += parseFloat(transaction.amount);
+        }
+      });
+      return sum.toFixed(2);
+    },
+    expensesPercentage: function expensesPercentage() {
+      var monthlyIncome = this.budgetTotal;
+      var sum = (this.expenses / monthlyIncome * 100).toFixed(2);
+
+      if (isNaN(sum)) {
+        return 0;
+      }
+
+      return sum;
+    },
+    budgetTotal: function budgetTotal() {
+      var sum = 0;
+      this.budgets.forEach(function (budget) {
+        sum += budget.amount;
+      });
+
+      switch (this.filter) {
+        case 'weekly': // todo: find current date, check number of days in month / current day, then multiple by that. eg. 15th day of 30 day month would be 50% of budget so far
+        // sum = sum / 4
+
+        case 'annual':
+          sum = sum * 2;
+        // todo: multiple by number of months in the current year that there are transactions reported
+      }
+
+      return sum;
+    },
+    budgetRemainder: function budgetRemainder() {
+      return (this.budgetTotal - this.expenses).toFixed(2);
+    }
+  }
+});
 
 /***/ }),
 
@@ -6582,12 +6641,11 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     transactionAverage: function transactionAverage() {
       var sum = 0;
-      var date = this.getFilterDate();
-      console.log(date);
-      console.log(this.transactions);
-      this.transactions.forEach(function (transaction) {
-        console.log(new Date(transaction.date));
+      var date = this.getFilterDate(); // console.log(date)
+      // console.log(this.transactions)
 
+      this.transactions.forEach(function (transaction) {
+        // console.log(new Date(transaction.date))
         if (transaction.type == 1 && new Date(transaction.date) >= date) {
           sum += parseFloat(transaction.amount);
         }
@@ -6665,6 +6723,7 @@ __webpack_require__.r(__webpack_exports__);
     transactionCount: function transactionCount() {
       var count = 0;
       var date = this.getFilterDate();
+      console.log(date);
       this.transactions.forEach(function (transaction) {
         if (new Date(transaction.date) >= date) {
           count++;
@@ -7842,6 +7901,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -7849,7 +7909,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['user', 'categories', 'vendors', 'income', 'expenses', 'monthlyTransactions', 'previousMonthlyTransactions'],
+  props: ['user', 'categories', 'budgets', 'vendors', 'income', 'expenses', 'monthlyTransactions', 'previousMonthlyTransactions'],
   components: {
     InsightsCard: _cards_InsightsCard__WEBPACK_IMPORTED_MODULE_0__["default"],
     MonthlyComparisonCard: _cards_MonthlyComparisonCard__WEBPACK_IMPORTED_MODULE_2__["default"],
@@ -7908,7 +7968,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['user', 'expenses'],
+  props: ['user', 'expenses', 'budgets'],
   computed: {
     incomePercentage: function incomePercentage() {
       var monthlyIncome = this.user.pay ? this.user.pay : this.user.income / 12;
@@ -7916,11 +7976,18 @@ __webpack_require__.r(__webpack_exports__);
     },
     expensesPercentage: function expensesPercentage() {
       var monthlyIncome = this.user.pay ? this.user.pay : this.user.income / 12;
+      monthlyIncome = this.budgetTotal;
       return this.expenses / monthlyIncome * 100;
     },
+    budgetTotal: function budgetTotal() {
+      var sum = 0;
+      this.budgets.forEach(function (budget) {
+        sum += budget.amount;
+      });
+      return sum;
+    },
     budgetRemainder: function budgetRemainder() {
-      var monthlyIncome = this.user.pay ? this.user.pay : this.user.income / 12;
-      return (monthlyIncome - this.expenses).toFixed(2);
+      return (this.budgetTotal - this.expenses).toFixed(2);
     }
   }
 });
@@ -9110,7 +9177,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       },
       category: {
         required: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["requiredIf"])(function () {
-          return this.transaction.type != 1;
+          return this.transaction.type == 0;
         })
       }
     }, _defineProperty(_transaction, "type", {
@@ -87218,7 +87285,8 @@ var render = function() {
                       _c("img", {
                         staticClass: "avatar-img rounded",
                         staticStyle: {
-                          width: "250px",
+                          style: "100%",
+                          "max-width": "250px",
                           height: "auto",
                           "max-height": "80px"
                         },
@@ -91412,6 +91480,7 @@ var render = function() {
               _c("budget-progress-widget", {
                 attrs: {
                   transactions: _vm.transactions,
+                  budgets: _vm.budgets,
                   filter: _vm.dataFilter
                 }
               })
@@ -92135,52 +92204,56 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "card" }, [
+    _c("div", { staticClass: "card-body" }, [
+      _c("div", { staticClass: "row align-items-center" }, [
+        _c("div", { staticClass: "col" }, [
+          _c(
+            "h6",
+            { staticClass: "card-title text-uppercase text-muted mb-2" },
+            [_vm._v("\n                Budget Progress\n            ")]
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "row align-items-center no-gutters" }, [
+            _c("div", { staticClass: "col-auto" }, [
+              _c("span", { staticClass: "h2 mr-2 mb-0" }, [
+                _vm._v(
+                  "\n                    " +
+                    _vm._s(_vm.expensesPercentage) +
+                    "%\n                "
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col" }, [
+              _c("div", { staticClass: "progress progress-sm" }, [
+                _c("div", {
+                  staticClass: "progress-bar",
+                  style: "width: " + _vm.expensesPercentage + "%",
+                  attrs: {
+                    role: "progressbar",
+                    "aria-valuenow": _vm.expensesPercentage,
+                    "aria-valuemin": "0",
+                    "aria-valuemax": "100"
+                  }
+                })
+              ])
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _vm._m(0)
+      ])
+    ])
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card" }, [
-      _c("div", { staticClass: "card-body" }, [
-        _c("div", { staticClass: "row align-items-center" }, [
-          _c("div", { staticClass: "col" }, [
-            _c(
-              "h6",
-              { staticClass: "card-title text-uppercase text-muted mb-2" },
-              [_vm._v("\n                Budget Progress\n            ")]
-            ),
-            _vm._v(" "),
-            _c("div", { staticClass: "row align-items-center no-gutters" }, [
-              _c("div", { staticClass: "col-auto" }, [
-                _c("span", { staticClass: "h2 mr-2 mb-0" }, [
-                  _vm._v("\n                    84.5%\n                ")
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "col" }, [
-                _c("div", { staticClass: "progress progress-sm" }, [
-                  _c("div", {
-                    staticClass: "progress-bar",
-                    staticStyle: { width: "85%" },
-                    attrs: {
-                      role: "progressbar",
-                      "aria-valuenow": "85",
-                      "aria-valuemin": "0",
-                      "aria-valuemax": "100"
-                    }
-                  })
-                ])
-              ])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-auto" }, [
-            _c("span", { staticClass: "h2 fe fe-clipboard text-muted mb-0" })
-          ])
-        ])
-      ])
+    return _c("div", { staticClass: "col-auto" }, [
+      _c("span", { staticClass: "h2 fe fe-clipboard text-muted mb-0" })
     ])
   }
 ]
@@ -94144,7 +94217,11 @@ var render = function() {
           { staticClass: "col-12 col-lg-6" },
           [
             _c("budget-card", {
-              attrs: { user: _vm.user, expenses: _vm.expenses }
+              attrs: {
+                user: _vm.user,
+                budgets: _vm.budgets,
+                expenses: _vm.expenses
+              }
             })
           ],
           1
@@ -94276,7 +94353,13 @@ var render = function() {
               _vm._v(" Spent\n                    ")
             ]),
             _vm._v(" "),
-            _vm._m(1),
+            _c("div", { staticClass: "col-4" }, [
+              _c("h5", [
+                _c("span", { staticClass: "text-info" }, [_vm._v("●")]),
+                _vm._v(" $" + _vm._s(_vm.budgetTotal))
+              ]),
+              _vm._v(" Total Budget\n                    ")
+            ]),
             _vm._v(" "),
             _c("div", { staticClass: "col-4" }, [
               _c("h5", [
@@ -94300,18 +94383,6 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-header col-12" }, [
       _c("h4", { staticClass: "card-header-title" }, [_vm._v("Budget")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-4" }, [
-      _c("h5", [
-        _c("span", { staticClass: "text-info" }, [_vm._v("●")]),
-        _vm._v(" $875")
-      ]),
-      _vm._v(" Upcoming\n                    ")
     ])
   }
 ]
@@ -95767,7 +95838,9 @@ var render = function() {
                     )
                   ]),
                   _vm._v(" "),
-                  _vm.transaction.type != 1
+                  _vm.transaction.type != 1 &&
+                  _vm.transaction.type != 2 &&
+                  _vm.transaction.type != 3
                     ? _c("div", { staticClass: "form-group" }, [
                         _c("label", { attrs: { for: "categorySelect" } }, [
                           _vm._v("Category")

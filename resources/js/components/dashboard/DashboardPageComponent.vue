@@ -50,6 +50,7 @@
 
               <budget-progress-widget
                 :transactions="transactions"
+                :budgets="budgets"
                 :filter="dataFilter"
               />
 
@@ -99,6 +100,7 @@
         props: [
             'accounts',
             'transactions',
+            'budgets',
             'weekly-expenses',
             'monthly-expenses',
             'annual-expenses'

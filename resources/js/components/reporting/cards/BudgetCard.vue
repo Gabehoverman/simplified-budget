@@ -20,7 +20,7 @@
                             <h5><span class="text-primary">●</span> ${{ formatCurrency(expenses) }}</h5> Spent
                         </div>
                         <div class="col-4">
-                            <h5><span class="text-info">●</span> $875</h5> Upcoming
+                            <h5><span class="text-info">●</span> ${{ budgetTotal}}</h5> Total Budget
                         </div>
                         <div class="col-4">
                             <h5><span style="color: #edf2f9">●</span> ${{ formatCurrency(budgetRemainder) }}</h5> Remaining
@@ -38,7 +38,8 @@
     export default {
         props: [
             'user',
-            'expenses'
+            'expenses',
+            'budgets'
         ],
          computed: {
             incomePercentage() {
@@ -47,12 +48,19 @@
             },
             expensesPercentage() {
                 let monthlyIncome = this.user.pay ? this.user.pay : (this.user.income / 12)
+                monthlyIncome = this.budgetTotal;
                 return ( this.expenses / monthlyIncome ) * 100;
             },
+            budgetTotal() {
+               let sum = 0;
+                this.budgets.forEach( function( budget ) {
+                    sum += budget.amount;
+                })
+                return sum;
+            },
             budgetRemainder() {
-                let monthlyIncome = this.user.pay ? this.user.pay : (this.user.income / 12)
-                return (monthlyIncome - this.expenses).toFixed(2);
-            }
+                return (this.budgetTotal - this.expenses).toFixed(2);
+            },
         }
     }
 </script>

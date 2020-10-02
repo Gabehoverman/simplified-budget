@@ -76,7 +76,7 @@
                 <img
                     :src="account.institution ? account.institution.asset : asset('/img/logos/Mx Bank Logo.png' )"
                     class="avatar-img rounded"
-                    style="width: 250px; height: auto; max-height: 80px;"
+                    style="style: 100%; max-width: 250px; height: auto; max-height: 80px;"
                     alt="..."
                 />
                 </a>

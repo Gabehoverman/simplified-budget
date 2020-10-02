@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Budgets\BudgetRepository;
 use Illuminate\Http\Request;
 use App\Models\Transactions\Transaction;
 use Carbon\Carbon;
@@ -13,9 +14,10 @@ class ReportingController extends Controller
      *
      * @return void
      */
-    public function __construct()
+    public function __construct( BudgetRepository $budgetRepository )
     {
         $this->middleware('auth');
+        $this->budgets = $budgetRepository;
     }
 
     /**
@@ -26,6 +28,7 @@ class ReportingController extends Controller
     public function index()
     {
         $categories = Transaction::toUser()->whereIn('type', [0,3])->where('date', '>=', Carbon::now()->firstOfMonth())->get()->groupBy('category');
+        $budgets = $this->budgets->getMappedBudgets();
         // $vendors = Transaction::toUser()->whereIn('type', [0,3])->where('date', '>=', Carbon::now()->firstOfMonth())->orderBy('amount')->get()->groupBy('vendor');
         $vendors = Transaction::groupBy('category')->toUser()->whereIn('type', [0,3])->where('date', '>=', Carbon::now()->firstOfMonth())->selectRaw('category, sum(amount) as sum')->orderBy('sum', 'desc')->get()->take(3);
         $income = Transaction::toUser()->where('type', 1)->where('date', '>=', Carbon::now()->firstOfMonth())->sum('amount');
@@ -36,6 +39,7 @@ class ReportingController extends Controller
                                                                 ->orderBy('date', 'ASC')
                                                                 ->get()->groupBy('date');
 
-        return view('user.reporting', compact('categories', 'vendors', 'income', 'expenses', 'monthlyTransactions', 'previousMonthlyTransactions'));
+
+        return view('user.reporting', compact('categories', 'budgets', 'vendors', 'income', 'expenses', 'monthlyTransactions', 'previousMonthlyTransactions'));
     }
 }

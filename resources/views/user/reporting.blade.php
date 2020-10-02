@@ -10,6 +10,7 @@
         :expenses="{{ json_encode($expenses) }}"
         :monthly-transactions="{{ json_encode($monthlyTransactions) }}"
         :previous-monthly-transactions="{{ json_encode($previousMonthlyTransactions) }}"
+        :budgets="{{ json_encode($budgets) }}"
     />
 
 @endsection

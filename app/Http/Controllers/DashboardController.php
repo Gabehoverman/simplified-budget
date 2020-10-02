@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Account;
+use App\Models\Budgets\BudgetRepository;
 use App\Models\Transactions\Transaction;
 use App\Models\Transactions\TransactionRepository;
 use App\Models\MX\MXRepository;
@@ -17,10 +18,11 @@ class DashboardController extends Controller
      *
      * @return void
      */
-    public function __construct( MXRepository $mXRepository )
+    public function __construct( MXRepository $mXRepository, BudgetRepository $budgetRepository )
     {
         $this->middleware('auth');
         $this->mx = $mXRepository;
+        $this->budgets = $budgetRepository;
     }
 
     /**
@@ -40,11 +42,12 @@ class DashboardController extends Controller
         }
         $transactions = Transaction::where('user_id', Auth::User()->id)->with('account')->orderBy('date', 'DESC')->get();
         $accounts = Account::where('user_id', Auth::User()->id)->limit(3)->with('transactions')->get();
+        $budgets = $this->budgets->getMappedBudgets();
 
         $weeklyExpenses = $transactionRepository->getWeeklyExpenses();
         $monthlyExpenses = $transactionRepository->getMonthlyExpenses();
         $annualExpenses = $transactionRepository->getAnnualExpenses();
 
-        return view('user.dashboard', compact('transactions', 'accounts', 'weeklyExpenses', 'monthlyExpenses', 'annualExpenses'));
+        return view('user.dashboard', compact('transactions', 'accounts', 'weeklyExpenses', 'budgets', 'monthlyExpenses', 'annualExpenses'));
     }
 }

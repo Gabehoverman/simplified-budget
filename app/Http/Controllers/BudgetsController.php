@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Budgets\Budget;
+use App\Models\Budgets\BudgetRepository;
 use App\Models\Account;
 use Auth;
 
@@ -14,9 +15,10 @@ class BudgetsController extends Controller
      *
      * @return void
      */
-    public function __construct()
+    public function __construct( BudgetRepository $budgetRepository)
     {
         $this->middleware('auth');
+        $this->budgets = $budgetRepository;
     }
 
     /**
@@ -26,16 +28,10 @@ class BudgetsController extends Controller
      */
     public function index()
     {
-        $budgets = Budget::where('user_id', Auth::User()->id)->get();
-        $mappedBudgets = [];
-        foreach( $budgets as $budget ) {
-            $budget->total = $budget->monthlyTotal();
-            $budget->total = count($budget->total) > 0 ? $budget->total[0]['sum'] : 0;
-            $mappedBudgets[] = $budget;
-        }
+        $budgets = $this->budgets->getMappedBudgets();
         $accounts = Account::where('user_id', Auth::User()->id)->get();
 
-        return view('user.budgets', array('budgets'=>$mappedBudgets, 'accounts' => $accounts));
+        return view('user.budgets', array('budgets'=>$budgets, 'accounts' => $accounts));
     }
 
     /**

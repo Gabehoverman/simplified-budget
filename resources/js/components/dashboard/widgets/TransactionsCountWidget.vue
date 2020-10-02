@@ -52,6 +52,7 @@ export default {
         transactionCount() {
             let count = 0;
             let date = this.getFilterDate()
+            console.log(date)
             this.transactions.forEach( function(transaction) {
                 if (new Date(transaction.date) >= date) {
                     count++;

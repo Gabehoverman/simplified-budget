@@ -104,7 +104,6 @@
         name:'transactions-table-card',
         props: ['transactions'],
         mounted() {
-            console.log('Component mounted.')
         },
         computed: {
             dataTransactions() {

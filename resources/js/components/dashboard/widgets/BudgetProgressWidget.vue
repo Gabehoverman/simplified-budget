@@ -15,7 +15,7 @@
 
                     <!-- Heading -->
                     <span class="h2 mr-2 mb-0">
-                        84.5%
+                        {{ expensesPercentage }}%
                     </span>
 
                     </div>
@@ -23,7 +23,7 @@
 
                     <!-- Progress -->
                     <div class="progress progress-sm">
-                        <div class="progress-bar" role="progressbar" style="width: 85%" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="progress-bar" role="progressbar" :style="'width: '+expensesPercentage+'%'" :aria-valuenow="expensesPercentage" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
 
                 </div>
@@ -44,6 +44,61 @@
 
 <script>
     export default {
+        props: [
+            'filter',
+            'user',
+            'budgets',
+            'transactions'
+        ],
+         computed: {
+            filterDate() {
+                let today = new Date();
+                switch(this.filter) {
+                    case 'weekly':
+                        let day = today.getDay(),
+                        diff = today.getDate() - day + (day == 0 ? -6:0)
+                        return new Date(today.setDate(diff));
+                    case 'monthly':
+                        return new Date(today.getFullYear(), today.getMonth(), 1);
+                    case 'annual':
+                        return new Date(new Date().getFullYear(), 0, 1);
+                }
+            },
 
+            expenses() {
+                let sum = 0;
+                let date = this.filterDate
+                this.transactions.forEach( function(transaction) {
+                    if (transaction.type == 0 && new Date(transaction.date) >= date) {
+                        sum += parseFloat(transaction.amount);
+                    }
+                })
+                return sum.toFixed(2);
+            },
+            expensesPercentage() {
+                let monthlyIncome = this.budgetTotal;
+                let sum = (( this.expenses / monthlyIncome ) * 100).toFixed(2);
+                if (isNaN(sum)) {
+                    return 0;
+                }
+                return sum;
+            },
+            budgetTotal() {
+               let sum = 0;
+                this.budgets.forEach( function( budget ) {
+                    sum += budget.amount;
+                })
+                switch(this.filter) {
+                    case 'weekly': // todo: find current date, check number of days in month / current day, then multiple by that. eg. 15th day of 30 day month would be 50% of budget so far
+                        // sum = sum / 4
+                    case 'annual':
+                        sum = sum * 2; // todo: multiple by number of months in the current year that there are transactions reported
+                }
+                return sum;
+            },
+            budgetRemainder() {
+                return (this.budgetTotal - this.expenses).toFixed(2);
+            },
+        }
     }
 </script>

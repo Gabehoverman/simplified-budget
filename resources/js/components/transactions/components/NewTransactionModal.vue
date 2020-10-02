@@ -40,7 +40,7 @@
                     </select>
                 </div>
 
-                  <div class="form-group" v-if="transaction.type != 1">
+                  <div class="form-group" v-if="transaction.type != 1 && transaction.type != 2 && transaction.type != 3">
                     <label for="categorySelect">Category</label>
                     <select v-model="transaction.category"
                                 :class="'form-control '+($v.transaction.category.$error ? 'is-invalid ' : '')"
@@ -117,7 +117,7 @@ export default {
         },
         category: {
             required: requiredIf(function() {
-                return this.transaction.type != 1;
+                return this.transaction.type == 0;
             })
         },
         type: {

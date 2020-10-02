@@ -56,9 +56,17 @@ class TransactionsController extends Controller
     {
         $transaction = new Transaction($request->input());
         $transaction->user_id = \Auth::User()->id;
-        if (!$transaction->category) {
+
+        if ($transaction->type == 1) {
             $transaction->category = TransactionCategory::INCOME;
         }
+        if ($transaction->type == 2) {
+            $transaction->category = TransactionCategory::TRANSFER;
+        }
+        if ($transaction->type == 3) {
+            $transaction->category = TransactionCategory::FEES_CHARGES;
+        }
+
         $transaction->save();
         $transaction->account;
 

@@ -11599,7 +11599,7 @@ button:focus {
     background-size: 100% auto;
 }
 .main-content {
-    padding-top: 70px;
+    padding-top: 62px;
 }
 .navbar-vertical ~ .main-content.bg-fixed-bottom {
     background-size: 100%;

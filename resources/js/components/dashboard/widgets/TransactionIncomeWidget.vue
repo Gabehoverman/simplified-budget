@@ -58,10 +58,10 @@ export default {
         transactionAverage() {
             let sum = 0;
             let date = this.getFilterDate()
-            console.log(date)
-            console.log(this.transactions)
+            // console.log(date)
+            // console.log(this.transactions)
             this.transactions.forEach( function(transaction) {
-                console.log(new Date(transaction.date))
+                // console.log(new Date(transaction.date))
                 if (transaction.type == 1 && new Date(transaction.date) >= date) {
                     sum += parseFloat(transaction.amount);
                 }

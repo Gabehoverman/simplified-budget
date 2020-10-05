@@ -17746,3 +17746,7 @@ button:focus {
   display: none;
 }
 
+#transactions-table .excluded {
+  background: #f8f8f8;
+}
+

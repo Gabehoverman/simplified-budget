@@ -18,8 +18,9 @@
       var listPaginationNext = list.querySelector('.list-pagination-next');
       var listFilters = document.querySelectorAll('.list-filter')
       var listOptions = list.dataset.list && JSON.parse(list.dataset.list);
-
-      console.log(listFilters)
+      var additionalFilterBtn = list.querySelector('.addl-filter-btn');
+      var additionalFilters = $('.addl-filter');
+      var clearFiltersBtn = $('.clear-filters-btn')[0]
 
       var defaultOptions = {
         listClass: 'list',
@@ -104,26 +105,64 @@
           listFilters.forEach( function( filter ) {
             filter.addEventListener('click', function(e, filter) {
                 e.preventDefault();
-                console.log($(this))
-                var text = $(this).text()
-                console.log(text)
-                if (text != 'All Accounts') {
-                listObj.filter(function(item) {
-                    if (item.values()['orders-account'].includes( text ) ) {
-                        return true;
-                    } else {
-                        return false;
-                    }
-                  }); // Only items with id > 1 are shown in list
-                } else {
-                  listObj.filter();
-                }
-
+                filterList()
             })
           })
         }
 
+        if (additionalFilters) {
+            additionalFilters.each( function( filter ) {
+                $(this)[0].addEventListener('change', function( e, filter ) {
+                    e.preventDefault();
+                    filterList()
+                })
+            })
+        }
+
+        if (clearFiltersBtn) {
+            clearFiltersBtn.addEventListener('click', function( e, filter ) {
+                e.preventDefault();
+                additionalFilters.each( function() {
+                    $(this).val('any')
+                })
+                filterList()
+            })
+        }
+
+
+        function filterList() {
+            var text = $('.list-filter.active').text();
+            var filters = [];
+
+            if (additionalFilters) {
+                additionalFilters.each( function( filter) {
+                    filters.push({
+                        'value': $(this).val(),
+                        'key': $(this).data('filter-key')
+                    })
+                })
+            }
+
+            listObj.filter(function(item) {
+                let valid = true
+                if (item.values()['orders-account'] != text && text != 'All Accounts' ) {
+                    // Check addl filters here
+                    valid = false
+                }
+
+                if (filters) {
+                    filters.forEach( function( filter) {
+                        if (!item.values()[filter.key].includes( filter.value ) && !item.values()[filter.key].replace(/&amp;/g, '&').includes( filter.value ) && filter.value != 'any' ) {
+                            valid = false
+                        }
+                    })
+                }
+
+                return valid;
+            });
+        }
     };
+
 
     function countCheckboxes(listCheckboxes, listAlert, listAlertCount) {
       var checked = [].slice.call(listCheckboxes).filter(function(checkbox) {

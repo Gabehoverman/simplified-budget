@@ -14,7 +14,7 @@ class Transaction extends Model
      */
     protected $fillable = [
         'account_id', 'user_id', 'type', 'amount', 'vendor', 'category', 'date',
-        'mx_transaction_guid'
+        'mx_transaction_guid', 'exclude'
     ];
 
     /**

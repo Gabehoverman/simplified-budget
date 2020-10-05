@@ -34,6 +34,6 @@ class Budget extends Model
 
     public function monthlyTotal()
     {
-        return Transaction::groupBy('category')->toUser()->where('category', $this->category)->where('date', '>=', \Carbon\Carbon::now()->firstOfMonth())->selectRaw('sum(amount) as sum')->orderBy('sum', 'desc')->get();
+        return Transaction::groupBy('category')->toUser()->where('category', $this->category)->where('exclude', 0)->where('date', '>=', \Carbon\Carbon::now()->firstOfMonth())->selectRaw('sum(amount) as sum')->orderBy('sum', 'desc')->get();
     }
 }

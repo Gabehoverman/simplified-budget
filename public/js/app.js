@@ -8972,6 +8972,87 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'transactions-page-component',
@@ -9063,6 +9144,14 @@ var _transaction;
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -95238,13 +95327,141 @@ var render = function() {
                 id: "list",
                 "data-toggle": "lists",
                 "data-list":
-                  '{"valueNames": ["orders-order", "orders-category", "orders-amount", "orders-vendor", "orders-account", "orders-method", "orders-date"], "page": 10, "pagination": {"paginationClass": "list-pagination"}}'
+                  '{"valueNames": ["orders-order", "orders-category", "orders-amount", "orders-vendor", "orders-account", "orders-method", "orders-date","orders-type"], "page": 10, "pagination": {"paginationClass": "list-pagination"}}'
               }
             },
             [
               _c("div", { staticClass: "card-header" }, [
                 _c("div", { staticClass: "row align-items-center" }, [
                   _vm._m(1),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-auto" }, [
+                    _c(
+                      "div",
+                      {
+                        staticClass: "col-auto",
+                        attrs: { "data-select2-id": "18" }
+                      },
+                      [
+                        _c(
+                          "div",
+                          {
+                            staticClass: "dropdown",
+                            attrs: { "data-select2-id": "17" }
+                          },
+                          [
+                            _vm._m(2),
+                            _vm._v(" "),
+                            _c(
+                              "form",
+                              {
+                                staticClass:
+                                  "dropdown-menu dropdown-menu-right dropdown-menu-card",
+                                attrs: { "data-select2-id": "16" }
+                              },
+                              [
+                                _vm._m(3),
+                                _vm._v(" "),
+                                _c(
+                                  "div",
+                                  {
+                                    staticClass: "card-body",
+                                    attrs: { "data-select2-id": "15" }
+                                  },
+                                  [
+                                    _c(
+                                      "div",
+                                      {
+                                        staticClass:
+                                          "list-group list-group-flush mt-n4",
+                                        attrs: { "data-select2-id": "14" }
+                                      },
+                                      [
+                                        _c(
+                                          "div",
+                                          { staticClass: "list-group-item" },
+                                          [
+                                            _c("div", { staticClass: "row" }, [
+                                              _vm._m(4),
+                                              _vm._v(" "),
+                                              _c(
+                                                "div",
+                                                { staticClass: "col-8" },
+                                                [
+                                                  _c(
+                                                    "select",
+                                                    {
+                                                      staticClass:
+                                                        "custom-select custom-select-sm addl-filter",
+                                                      attrs: {
+                                                        "data-filter-key":
+                                                          "orders-category",
+                                                        name: "item-title",
+                                                        "data-toggle": "select",
+                                                        "data-options":
+                                                          "{'minimumResultsForSearch': -1}",
+                                                        "data-select2-id": "4",
+                                                        tabindex: "-1",
+                                                        "aria-hidden": "true"
+                                                      }
+                                                    },
+                                                    [
+                                                      _c(
+                                                        "option",
+                                                        {
+                                                          attrs: {
+                                                            value: "any",
+                                                            selected: "",
+                                                            "data-select2-id":
+                                                              "6"
+                                                          }
+                                                        },
+                                                        [_vm._v("Any")]
+                                                      ),
+                                                      _vm._v(" "),
+                                                      _vm._l(
+                                                        _vm.$transactionCategories,
+                                                        function(
+                                                          key,
+                                                          category
+                                                        ) {
+                                                          return _c(
+                                                            "option",
+                                                            {
+                                                              key: key,
+                                                              domProps: {
+                                                                value: key
+                                                              }
+                                                            },
+                                                            [
+                                                              _vm._v(
+                                                                _vm._s(category)
+                                                              )
+                                                            ]
+                                                          )
+                                                        }
+                                                      )
+                                                    ],
+                                                    2
+                                                  )
+                                                ]
+                                              )
+                                            ])
+                                          ]
+                                        ),
+                                        _vm._v(" "),
+                                        _vm._m(5)
+                                      ]
+                                    )
+                                  ]
+                                )
+                              ]
+                            )
+                          ]
+                        )
+                      ]
+                    )
+                  ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "col-auto" }, [
                     _c(
@@ -95298,7 +95515,7 @@ var render = function() {
                     attrs: { id: "transactions-table" }
                   },
                   [
-                    _vm._m(2),
+                    _vm._m(6),
                     _vm._v(" "),
                     _c(
                       "tbody",
@@ -95307,126 +95524,137 @@ var render = function() {
                         transaction,
                         index
                       ) {
-                        return _c("tr", { key: index }, [
-                          _c("td", { staticClass: "orders-order" }, [
-                            _vm._v(
-                              "\n                    #" +
-                                _vm._s(index + 1) +
-                                "\n                  "
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("td", { staticClass: "orders-category" }, [
-                            _vm._v(
-                              "\n                    " +
-                                _vm._s(_vm.formatString(transaction.category)) +
-                                "\n                  "
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("td", { staticClass: "orders-amount" }, [
-                            _c(
-                              "div",
-                              {
-                                class: "badge " + _vm.getBadgeType(transaction)
-                              },
-                              [
-                                _vm._v(
-                                  "\n                        $" +
-                                    _vm._s(transaction.amount) +
-                                    "\n                    "
-                                )
-                              ]
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("td", { staticClass: "orders-vendor" }, [
-                            _vm._v(
-                              "\n                      " +
-                                _vm._s(transaction.vendor) +
-                                "\n                  "
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("td", { staticClass: "orders-account" }, [
-                            _vm._v(
-                              "\n                    " +
-                                _vm._s(transaction.account.name) +
-                                "\n                  "
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("td", { staticClass: "orders-date" }, [
-                            _c(
-                              "time",
-                              { attrs: { datetime: transaction.date } },
-                              [
-                                _vm._v(
-                                  _vm._s(_vm.getFormattedDate(transaction.date))
-                                )
-                              ]
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("td", { staticClass: "text-right" }, [
-                            _c("div", { staticClass: "dropdown" }, [
-                              _vm._m(3, true),
-                              _vm._v(" "),
+                        return _c(
+                          "tr",
+                          {
+                            key: index,
+                            class: transaction.exclude ? "excluded" : ""
+                          },
+                          [
+                            _c("td", { staticClass: "orders-order" }, [
+                              _vm._v(
+                                "\n                    #" +
+                                  _vm._s(index + 1) +
+                                  "\n                  "
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("td", {
+                              staticClass: "orders-category",
+                              domProps: {
+                                innerHTML: _vm._s(transaction.category)
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("td", { staticClass: "orders-amount" }, [
                               _c(
                                 "div",
                                 {
-                                  staticClass:
-                                    "dropdown-menu dropdown-menu-right"
+                                  class:
+                                    "badge " + _vm.getBadgeType(transaction)
                                 },
                                 [
-                                  _c(
-                                    "a",
-                                    {
-                                      staticClass: "dropdown-item",
-                                      attrs: {
-                                        href: "#!",
-                                        "data-toggle": "modal",
-                                        "data-target": "#newTransactionModal"
-                                      },
-                                      on: {
-                                        click: function($event) {
-                                          return _vm.editTransaction(
-                                            transaction
-                                          )
-                                        }
-                                      }
-                                    },
-                                    [
-                                      _vm._v(
-                                        "\n                          Edit\n                        "
-                                      )
-                                    ]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "a",
-                                    {
-                                      staticClass: "dropdown-item",
-                                      attrs: { href: "#!" },
-                                      on: {
-                                        click: function($event) {
-                                          return _vm.deleteTransaction(
-                                            transaction
-                                          )
-                                        }
-                                      }
-                                    },
-                                    [
-                                      _vm._v(
-                                        "\n                          Delete\n                        "
-                                      )
-                                    ]
+                                  _vm._v(
+                                    "\n                        $" +
+                                      _vm._s(transaction.amount) +
+                                      "\n                    "
                                   )
                                 ]
                               )
+                            ]),
+                            _vm._v(" "),
+                            _c("td", { staticClass: "orders-vendor" }, [
+                              _vm._v(
+                                "\n                      " +
+                                  _vm._s(transaction.vendor) +
+                                  "\n                  "
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("td", { staticClass: "orders-account" }, [
+                              _vm._v(_vm._s(transaction.account.name))
+                            ]),
+                            _vm._v(" "),
+                            _c("td", { staticClass: "orders-date" }, [
+                              _c(
+                                "time",
+                                { attrs: { datetime: transaction.date } },
+                                [
+                                  _vm._v(
+                                    _vm._s(
+                                      _vm.getFormattedDate(transaction.date)
+                                    )
+                                  )
+                                ]
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("td", { staticClass: "orders-type hidden" }, [
+                              _vm._v(
+                                _vm._s(_vm.getTransactionType(transaction.type))
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("td", { staticClass: "text-right" }, [
+                              _c("div", { staticClass: "dropdown" }, [
+                                _vm._m(7, true),
+                                _vm._v(" "),
+                                _c(
+                                  "div",
+                                  {
+                                    staticClass:
+                                      "dropdown-menu dropdown-menu-right"
+                                  },
+                                  [
+                                    _c(
+                                      "a",
+                                      {
+                                        staticClass: "dropdown-item",
+                                        attrs: {
+                                          href: "#!",
+                                          "data-toggle": "modal",
+                                          "data-target": "#newTransactionModal"
+                                        },
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.editTransaction(
+                                              transaction
+                                            )
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _vm._v(
+                                          "\n                          Edit\n                        "
+                                        )
+                                      ]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "a",
+                                      {
+                                        staticClass: "dropdown-item",
+                                        attrs: { href: "#!" },
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.deleteTransaction(
+                                              transaction
+                                            )
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _vm._v(
+                                          "\n                          Delete\n                        "
+                                        )
+                                      ]
+                                    )
+                                  ]
+                                )
+                              ])
                             ])
-                          ])
-                        ])
+                          ]
+                        )
                       }),
                       0
                     )
@@ -95434,7 +95662,7 @@ var render = function() {
                 )
               ]),
               _vm._v(" "),
-              _vm._m(4)
+              _vm._m(8)
             ]
           )
         ])
@@ -95486,6 +95714,132 @@ var staticRenderFns = [
         ])
       ])
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "btn btn-sm btn-white",
+        attrs: {
+          type: "button",
+          "data-toggle": "dropdown",
+          "aria-haspopup": "true",
+          "aria-expanded": "false"
+        }
+      },
+      [
+        _c("i", { staticClass: "fe fe-sliders mr-1" }),
+        _vm._v(" Filter "),
+        _c("span", { staticClass: "badge badge-primary ml-1 d-none" }, [
+          _vm._v("0")
+        ])
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-header" }, [
+      _c("h4", { staticClass: "card-header-title" }, [
+        _vm._v(
+          "\n                            Filters\n                            "
+        )
+      ]),
+      _vm._v(" "),
+      _c(
+        "a",
+        {
+          staticClass: "btn btn-sm btn-link text-reset clear-filters-btn",
+          attrs: { href: "#", type: "reset" }
+        },
+        [_c("small", [_vm._v("Clear filters")])]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col" }, [
+      _c("small", [_vm._v("Category")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      { staticClass: "list-group-item", attrs: { "data-select2-id": "13" } },
+      [
+        _c("div", { staticClass: "row", attrs: { "data-select2-id": "12" } }, [
+          _c("div", { staticClass: "col" }, [_c("small", [_vm._v("Type")])]),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "col-8", attrs: { "data-select2-id": "11" } },
+            [
+              _c(
+                "select",
+                {
+                  staticClass: "custom-select custom-select-sm addl-filter",
+                  attrs: {
+                    "data-filter-key": "orders-type",
+                    name: "item-score",
+                    "data-toggle": "select",
+                    "data-options": "{'minimumResultsForSearch': -1}",
+                    "data-select2-id": "7",
+                    tabindex: "-1",
+                    "aria-hidden": "true"
+                  }
+                },
+                [
+                  _c(
+                    "option",
+                    {
+                      attrs: {
+                        value: "any",
+                        selected: "",
+                        "data-select2-id": "9"
+                      }
+                    },
+                    [_vm._v("Any")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "option",
+                    { attrs: { value: "Expense", "data-select2-id": "24" } },
+                    [_vm._v("Expense")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "option",
+                    { attrs: { value: "Income", "data-select2-id": "24" } },
+                    [_vm._v("Income")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "option",
+                    { attrs: { value: "Transfer", "data-select2-id": "24" } },
+                    [_vm._v("Transfer")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "option",
+                    { attrs: { value: "Fee", "data-select2-id": "24" } },
+                    [_vm._v("Fee")]
+                  )
+                ]
+              )
+            ]
+          )
+        ])
+      ]
+    )
   },
   function() {
     var _vm = this
@@ -96016,7 +96370,73 @@ var render = function() {
                         }
                       }
                     })
-                  ])
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "custom-control custom-checkbox form-group mt-5 mb-0"
+                    },
+                    [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.transaction.exclude,
+                            expression: "transaction.exclude"
+                          }
+                        ],
+                        staticClass: "custom-control-input",
+                        attrs: { id: "checklistTwo", type: "checkbox" },
+                        domProps: {
+                          checked: Array.isArray(_vm.transaction.exclude)
+                            ? _vm._i(_vm.transaction.exclude, null) > -1
+                            : _vm.transaction.exclude
+                        },
+                        on: {
+                          change: function($event) {
+                            var $$a = _vm.transaction.exclude,
+                              $$el = $event.target,
+                              $$c = $$el.checked ? true : false
+                            if (Array.isArray($$a)) {
+                              var $$v = null,
+                                $$i = _vm._i($$a, $$v)
+                              if ($$el.checked) {
+                                $$i < 0 &&
+                                  _vm.$set(
+                                    _vm.transaction,
+                                    "exclude",
+                                    $$a.concat([$$v])
+                                  )
+                              } else {
+                                $$i > -1 &&
+                                  _vm.$set(
+                                    _vm.transaction,
+                                    "exclude",
+                                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                                  )
+                              }
+                            } else {
+                              _vm.$set(_vm.transaction, "exclude", $$c)
+                            }
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("label", {
+                        staticClass: "custom-control-label",
+                        attrs: { for: "checklistTwo" }
+                      }),
+                      _vm._v(" "),
+                      _c("span", { staticClass: "custom-control-caption" }, [
+                        _vm._v(
+                          "\n                  Exclude from Calculations\n                  "
+                        )
+                      ])
+                    ]
+                  )
                 ])
               ]),
               _vm._v(" "),
@@ -119434,6 +119854,22 @@ Vue.mixin({
         case 0:
         default:
           return 'Income & Expenses';
+      }
+    },
+    getTransactionType: function getTransactionType(type) {
+      switch (parseInt(type)) {
+        case 3:
+          return "Fee";
+
+        case 2:
+          return 'Transfer';
+
+        case 1:
+          return 'Income';
+
+        case 0:
+        default:
+          return 'Expense';
       }
     },
     getTrackingTypeLabel: function getTrackingTypeLabel(type) {

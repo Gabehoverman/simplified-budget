@@ -40,7 +40,7 @@ class DashboardController extends Controller
             $user->mx_user_guid = $this->mx->generateUserGuid( $user );
             $user->save();
         }
-        $transactions = Transaction::where('user_id', Auth::User()->id)->with('account')->orderBy('date', 'DESC')->get();
+        $transactions = Transaction::where('user_id', Auth::User()->id)->where('exclude', 0)->with('account')->orderBy('date', 'DESC')->get();
         $accounts = Account::where('user_id', Auth::User()->id)->limit(3)->with('transactions')->get();
         $budgets = $this->budgets->getMappedBudgets();
 

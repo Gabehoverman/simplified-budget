@@ -101,6 +101,19 @@ Vue.mixin({
                     return 'Income & Expenses'
             }
         },
+        getTransactionType( type ) {
+            switch( parseInt( type ) ) {
+                case 3:
+                    return "Fee"
+                case 2:
+                    return 'Transfer'
+                case 1:
+                    return 'Income'
+                case 0:
+                default:
+                    return 'Expense'
+            }
+        },
         getTrackingTypeLabel( type ) {
             switch( parseInt( type ) ) {
                 case 1:

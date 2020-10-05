@@ -67,6 +67,14 @@
                     <input v-model="transaction.date" type="date"
                                 :class="'form-control '+($v.transaction.date.$error ? 'is-invalid ' : '')" id="dateInput" placeholder="">
                 </div>
+
+               <div class="custom-control custom-checkbox form-group mt-5 mb-0">
+                    <input v-model="transaction.exclude" class="custom-control-input" id="checklistTwo" type="checkbox" />
+                    <label class="custom-control-label" for="checklistTwo"></label>
+                    <span class="custom-control-caption">
+                    Exclude from Calculations
+                    </span>
+                </div>
             </form>
 
 

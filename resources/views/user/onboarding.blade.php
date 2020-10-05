@@ -8,6 +8,7 @@
                 :user="{{ Auth::User() }}"
                 :institutions="{{ json_encode($institutions) }}"
                 :account="{{ json_encode( $account ) }}"
+                :budgets="{{ json_encode( $budgets ) }}"
             />
         </main>
     </div>

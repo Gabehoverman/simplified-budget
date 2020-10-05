@@ -30,7 +30,16 @@
                     <step-four-card
                         v-if="currentStep == 3"
                         :user="user"
+                        :account="account"
+                        :budgets="budgets"
+                        :transactions="transactions"
                     />
+
+                    <step-five-card
+                        v-if="currentStep == 4"
+                        :user="user"
+                    />
+
                 </transition>
 
                 <!-- Footer -->
@@ -44,14 +53,14 @@
                     <div class="col text-center">
 
                     <!-- Step -->
-                    <h6 class="text-uppercase text-muted mb-0">Step {{ currentStep + 1 }} of 4</h6>
+                    <h6 class="text-uppercase text-muted mb-0">Step {{ currentStep + 1 }} of 5</h6>
 
                     </div>
                     <div class="col-auto">
 
                         <!-- Button -->
-                        <a class="btn btn-lg btn-primary text-white" @click="nextStep" v-if="currentStep < 3">Next</a>
-                        <a class="btn btn-lg btn-primary text-white" @click="saveData" v-if="currentStep == 3">Go To Dashboard</a>
+                        <a class="btn btn-lg btn-primary text-white" @click="nextStep" v-if="currentStep < 4">Next</a>
+                        <a class="btn btn-lg btn-primary text-white" @click="saveData" v-if="currentStep == 4">Go To Dashboard</a>
 
                     </div>
                 </div>
@@ -67,8 +76,9 @@ import StepOneCard from './cards/StepOneCard'
 import StepTwoCard from './cards/StepTwoCard'
 import StepThreeCard from './cards/StepThreeCard'
 import StepFourCard from './cards/StepFourCard'
+import StepFiveCard from './cards/StepFiveCard'
 
-import { required, minLength, between } from 'vuelidate/lib/validators'
+import { required, minLength, between, optional } from 'vuelidate/lib/validators'
 
 export default {
     props: ['user', 'account', 'institutions'],
@@ -78,19 +88,21 @@ export default {
             // user: {},
             // account: {},
             transactions: [],
+            budgets: [],
         }
     },
     components: {
         StepOneCard,
         StepTwoCard,
         StepThreeCard,
-        StepFourCard
+        StepFourCard,
+        StepFiveCard
     },
     methods: {
         nextStep() {
             eval('this.$v.'+ this.getValidations( this.currentStep ) + 'Group.$touch()')
             let invalid = eval('this.$v.'+ this.getValidations( this.currentStep ) + 'Group.$invalid')
-            if (!invalid && this.currentStep < 4) {
+            if (!invalid && this.currentStep < 5) {
                 this.updateData()
                 this.currentStep++;
                 console.log(this.currentStep)
@@ -112,6 +124,8 @@ export default {
                     return 'StepTwo';
                 case 2:
                     return 'StepThree'
+                case 3:
+                    return 'StepFour'
             }
         },
         updateAccount( account ) {
@@ -133,6 +147,7 @@ export default {
             let data = {
                 'user': this.user,
                 'account': this.account,
+                'budgets': this.budgets
             }
             this.asyncSendData(data, '/onboarding', 'PUT').then( function( response ) {
                 window.location.href = "/dashboard"
@@ -141,7 +156,6 @@ export default {
         fetchTransactions() {
             var self = this;
             this.asyncFetchData('/onboarding/transactions/'+this.account.id+'', 'GET').then( function( response ) {
-                console.log( response )
                 self.transactions = response;
                 Vue.set(self.transactions, response)
             })
@@ -192,10 +206,14 @@ export default {
             required,
             minLength: minLength(1)
         },
+        budgets: {
+            optional
+        },
         StepOneGroup: ['user.first_name', 'user.last_name', 'user.email', 'user.phone', 'user.income', 'user.pay', 'user.goals'],
         StepTwoGroup: ['account.institution_id', 'account.name', 'account.tracking_type', 'account.tracking_options', 'account.type'],
         StepThreeGroup: ['transactions'],
         BankGroup: ['account.institution'],
+        StepFourGroup: [],
         // CredentialsGroup: ['account.username', 'account.password'],
         SettingsGroup: ['account.name', 'account.tracking_type', 'account.tracking_options', 'account.type']
     }

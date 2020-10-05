@@ -7,7 +7,7 @@
 
             <!-- Pretitle -->
             <h6 class="mb-4 text-uppercase text-muted">
-                Step 3 of 4
+                Step 3 of 5
             </h6>
 
             <!-- Title -->
@@ -46,13 +46,13 @@
                     primaryColor="#f3f3f3"
                     secondaryColor="#ecebeb"
                 >
-                    <circle cx="10" cy="20" r="8" /> 
-                    <rect x="25" y="15" rx="5" ry="5" width="220" height="6" /> 
-                    <circle cx="10" cy="50" r="8" /> 
-                    <rect x="25" y="45" rx="5" ry="5" width="220" height="6" /> 
-                    <circle cx="10" cy="80" r="8" /> 
-                    <rect x="25" y="75" rx="5" ry="5" width="220" height="6" /> 
-                    <circle cx="10" cy="110" r="8" /> 
+                    <circle cx="10" cy="20" r="8" />
+                    <rect x="25" y="15" rx="5" ry="5" width="220" height="6" />
+                    <circle cx="10" cy="50" r="8" />
+                    <rect x="25" y="45" rx="5" ry="5" width="220" height="6" />
+                    <circle cx="10" cy="80" r="8" />
+                    <rect x="25" y="75" rx="5" ry="5" width="220" height="6" />
+                    <circle cx="10" cy="110" r="8" />
                     <rect x="25" y="105" rx="5" ry="5" width="220" height="6" />
                 </content-loader>
             </div>
@@ -60,7 +60,7 @@
 
         <div class="row" v-if="transactions.length > 0">
             <div class="col-12">
-                <div class="table-responsive" style="max-height: 500px;">
+                <div class="table-responsive" style="max-height: 400px;">
                     <table id="transactions-table" class="table table-hover table-sm table-nowrap card-table">
                         <thead>
                             <tr>

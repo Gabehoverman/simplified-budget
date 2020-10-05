@@ -8,7 +8,7 @@
 
                 <!-- Pretitle -->
                 <h6 class="mb-4 text-uppercase text-muted">
-                    Step 1 of 4
+                    Step 1 of 5
                 </h6>
 
                 <!-- Title -->

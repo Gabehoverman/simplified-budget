@@ -4,7 +4,7 @@
             <h4 class="card-header-title">Budget Details</h4>
         </div>
         <div class='card-body'>
-            <div class="list-group list-group-flush my-n3">
+            <div class="list-group list-group-flush my-n3" style="max-height: 520px; overflow: auto;">
                 <div v-if="dataBudgets.length == 0">
                     <p>No Budgets to show.</p>
                 </div>

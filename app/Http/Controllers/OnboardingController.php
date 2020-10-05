@@ -7,6 +7,7 @@ use App\Models\Account;
 use App\Models\Transactions\Transaction;
 use App\Models\Institutions\InstitutionRepository;
 use App\Models\MX\MXRepository;
+use App\Models\Budgets\Budget;
 use App\User;
 
 class OnboardingController extends Controller
@@ -30,17 +31,18 @@ class OnboardingController extends Controller
     {
         $institutions = $institutionRepository->getInstitutions();
         $account = \Auth::User()->accounts()->first();
+        $budgets = Budget::where('user_id', \Auth::User()->id)->get();
         if (!$account) {
             $account = new Account();
         }
 
-        return view('user.onboarding', compact('institutions', 'account'));
+        return view('user.onboarding', compact('institutions', 'account', 'budgets'));
     }
 
     public function update( Request $request )
     {
         $user = \Auth::User()->update( $request->input('user') );
-        
+
         $accData = $request->input('account');
         if ( isset( $accData['id'] ) ) {
             $account = Account::find( $accData['id']);
@@ -49,12 +51,21 @@ class OnboardingController extends Controller
         } else {
             $account = new Account();
         }
-
+        $budgetData = $request->input('budgets');
+        if ($budgetData) {
+            foreach ($budgetData as $data) {
+                $budget = new Budget($data);
+                $budget->name = $data['category'];
+                $budget->user_id = \Auth::User()->id;
+                $budget->account_id = $account->id;
+                $budget->save();
+            }
+        }
 
         return response( json_encode( array('user' => $user, 'account' => $account ) ), 200 );
     }
 
-    public function transactions ( $account_id, MXRepository $mXRepository ) 
+    public function transactions ( $account_id, MXRepository $mXRepository )
     {
         $account = Account::find( $account_id );
         $transactions = $mXRepository->syncTransactions( $account );

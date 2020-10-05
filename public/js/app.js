@@ -6906,8 +6906,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _cards_StepTwoCard__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./cards/StepTwoCard */ "./resources/js/components/onboarding/cards/StepTwoCard.vue");
 /* harmony import */ var _cards_StepThreeCard__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./cards/StepThreeCard */ "./resources/js/components/onboarding/cards/StepThreeCard.vue");
 /* harmony import */ var _cards_StepFourCard__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./cards/StepFourCard */ "./resources/js/components/onboarding/cards/StepFourCard.vue");
-/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
-/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _cards_StepFiveCard__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./cards/StepFiveCard */ "./resources/js/components/onboarding/cards/StepFiveCard.vue");
+/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
+/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_5__);
 //
 //
 //
@@ -6972,6 +6973,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
@@ -6984,21 +6995,23 @@ __webpack_require__.r(__webpack_exports__);
       currentStep: 0,
       // user: {},
       // account: {},
-      transactions: []
+      transactions: [],
+      budgets: []
     };
   },
   components: {
     StepOneCard: _cards_StepOneCard__WEBPACK_IMPORTED_MODULE_0__["default"],
     StepTwoCard: _cards_StepTwoCard__WEBPACK_IMPORTED_MODULE_1__["default"],
     StepThreeCard: _cards_StepThreeCard__WEBPACK_IMPORTED_MODULE_2__["default"],
-    StepFourCard: _cards_StepFourCard__WEBPACK_IMPORTED_MODULE_3__["default"]
+    StepFourCard: _cards_StepFourCard__WEBPACK_IMPORTED_MODULE_3__["default"],
+    StepFiveCard: _cards_StepFiveCard__WEBPACK_IMPORTED_MODULE_4__["default"]
   },
   methods: {
     nextStep: function nextStep() {
       eval('this.$v.' + this.getValidations(this.currentStep) + 'Group.$touch()');
       var invalid = eval('this.$v.' + this.getValidations(this.currentStep) + 'Group.$invalid');
 
-      if (!invalid && this.currentStep < 4) {
+      if (!invalid && this.currentStep < 5) {
         this.updateData();
         this.currentStep++;
         console.log(this.currentStep);
@@ -7023,6 +7036,9 @@ __webpack_require__.r(__webpack_exports__);
 
         case 2:
           return 'StepThree';
+
+        case 3:
+          return 'StepFour';
       }
     },
     updateAccount: function updateAccount(account) {
@@ -7045,7 +7061,8 @@ __webpack_require__.r(__webpack_exports__);
     saveData: function saveData() {
       var data = {
         'user': this.user,
-        'account': this.account
+        'account': this.account,
+        'budgets': this.budgets
       };
       this.asyncSendData(data, '/onboarding', 'PUT').then(function (response) {
         window.location.href = "/dashboard";
@@ -7054,7 +7071,6 @@ __webpack_require__.r(__webpack_exports__);
     fetchTransactions: function fetchTransactions() {
       var self = this;
       this.asyncFetchData('/onboarding/transactions/' + this.account.id + '', 'GET').then(function (response) {
-        console.log(response);
         self.transactions = response;
         Vue.set(self.transactions, response);
       });
@@ -7063,55 +7079,151 @@ __webpack_require__.r(__webpack_exports__);
   validations: {
     user: {
       first_name: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__["required"]
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_5__["required"]
       },
       last_name: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__["required"]
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_5__["required"]
       },
       email: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__["required"]
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_5__["required"]
       },
       phone: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__["required"]
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_5__["required"]
       },
       income: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__["required"]
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_5__["required"]
       },
       pay: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__["required"]
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_5__["required"]
       },
       goals: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__["required"]
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_5__["required"]
       }
     },
     account: {
       name: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__["required"]
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_5__["required"]
       },
       type: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__["required"]
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_5__["required"]
       },
       tracking_type: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__["required"]
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_5__["required"]
       },
       tracking_options: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__["required"]
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_5__["required"]
       },
       institution_id: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__["required"]
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_5__["required"]
       }
     },
     transactions: {
-      required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__["required"],
-      minLength: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_4__["minLength"])(1)
+      required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_5__["required"],
+      minLength: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_5__["minLength"])(1)
+    },
+    budgets: {
+      optional: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_5__["optional"]
     },
     StepOneGroup: ['user.first_name', 'user.last_name', 'user.email', 'user.phone', 'user.income', 'user.pay', 'user.goals'],
     StepTwoGroup: ['account.institution_id', 'account.name', 'account.tracking_type', 'account.tracking_options', 'account.type'],
     StepThreeGroup: ['transactions'],
     BankGroup: ['account.institution'],
+    StepFourGroup: [],
     // CredentialsGroup: ['account.username', 'account.password'],
     SettingsGroup: ['account.name', 'account.tracking_type', 'account.tracking_options', 'account.type']
   }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/onboarding/cards/StepFiveCard.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/onboarding/cards/StepFiveCard.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _accounts_step_cards_BankCard__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../accounts/step-cards/BankCard */ "./resources/js/components/accounts/step-cards/BankCard.vue");
+/* harmony import */ var _accounts_step_cards_CredentialsCard__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../accounts/step-cards/CredentialsCard */ "./resources/js/components/accounts/step-cards/CredentialsCard.vue");
+/* harmony import */ var _accounts_step_cards_SettingsCard__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../accounts/step-cards/SettingsCard */ "./resources/js/components/accounts/step-cards/SettingsCard.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['account', 'errors']
 });
 
 /***/ }),
@@ -7191,11 +7303,39 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['account', 'errors']
+  props: ['account', 'budgets', 'errors'],
+  data: function data() {},
+  methods: {
+    addBudget: function addBudget() {
+      this.budgets.push({
+        'category': '',
+        'amount': ''
+      });
+    },
+    deleteBudget: function deleteBudget(index) {
+      this.$delete(this.budgets, index);
+    }
+  },
+  mounted: function mounted() {
+    if (!this.budgets) {
+      this.addBudget();
+    }
+  }
 });
 
 /***/ }),
@@ -30063,6 +30203,25 @@ exports.push([module.i, "\n.wizard[data-v-596930ca] {\n    padding: 25px;\n}\n.f
 
 /***/ }),
 
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/onboarding/cards/StepFiveCard.vue?vue&type=style&index=0&id=5947d35a&scoped=true&lang=css&":
+/*!***********************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/onboarding/cards/StepFiveCard.vue?vue&type=style&index=0&id=5947d35a&scoped=true&lang=css& ***!
+  \***********************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.fade-enter-active[data-v-5947d35a], .fade-leave-active[data-v-5947d35a] {\n    transition: opacity .5s;\n}\n.fade-enter[data-v-5947d35a], .fade-leave-to[data-v-5947d35a] /* .fade-leave-active below version 2.1.8 */ {\n    opacity: 0;\n    transition: opacity .5s\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/onboarding/cards/StepFourCard.vue?vue&type=style&index=0&id=382f0e72&scoped=true&lang=css&":
 /*!***********************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/onboarding/cards/StepFourCard.vue?vue&type=style&index=0&id=382f0e72&scoped=true&lang=css& ***!
@@ -30075,7 +30234,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.fade-enter-active[data-v-382f0e72], .fade-leave-active[data-v-382f0e72] {\n    transition: opacity .5s;\n}\n.fade-enter[data-v-382f0e72], .fade-leave-to[data-v-382f0e72] /* .fade-leave-active below version 2.1.8 */ {\n    opacity: 0;\n    transition: opacity .5s\n}\n", ""]);
+exports.push([module.i, "\n.fade-enter-active[data-v-382f0e72], .fade-leave-active[data-v-382f0e72] {\n    transition: opacity .5s;\n}\n.fade-enter[data-v-382f0e72], .fade-leave-to[data-v-382f0e72] /* .fade-leave-active below version 2.1.8 */ {\n    opacity: 0;\n    transition: opacity .5s\n}\ntr[data-v-382f0e72] {\n    width: 100%;\n    display: inline-table;\n    table-layout: fixed;\n}\ntable[data-v-382f0e72] {\n    height: 350px;\n    display: -moz-groupbox;\n}\ntbody[data-v-382f0e72] {\n    overflow-y: scroll;\n    height: 300px;\n    width: 97%;\n    position: absolute;\n}\n", ""]);
 
 // exports
 
@@ -84076,6 +84235,36 @@ if(false) {}
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/onboarding/cards/StepFiveCard.vue?vue&type=style&index=0&id=5947d35a&scoped=true&lang=css&":
+/*!***************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/onboarding/cards/StepFiveCard.vue?vue&type=style&index=0&id=5947d35a&scoped=true&lang=css& ***!
+  \***************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../../../node_modules/css-loader??ref--6-1!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/src??ref--6-2!../../../../../node_modules/vue-loader/lib??vue-loader-options!./StepFiveCard.vue?vue&type=style&index=0&id=5947d35a&scoped=true&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/onboarding/cards/StepFiveCard.vue?vue&type=style&index=0&id=5947d35a&scoped=true&lang=css&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/onboarding/cards/StepFourCard.vue?vue&type=style&index=0&id=382f0e72&scoped=true&lang=css&":
 /*!***************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/onboarding/cards/StepFourCard.vue?vue&type=style&index=0&id=382f0e72&scoped=true&lang=css& ***!
@@ -90461,7 +90650,10 @@ var render = function() {
     _c("div", { staticClass: "card-body" }, [
       _c(
         "div",
-        { staticClass: "list-group list-group-flush my-n3" },
+        {
+          staticClass: "list-group list-group-flush my-n3",
+          staticStyle: { "max-height": "520px", overflow: "auto" }
+        },
         [
           _vm.dataBudgets.length == 0
             ? _c("div", [_c("p", [_vm._v("No Budgets to show.")])])
@@ -92844,7 +93036,18 @@ var render = function() {
                   : _vm._e(),
                 _vm._v(" "),
                 _vm.currentStep == 3
-                  ? _c("step-four-card", { attrs: { user: _vm.user } })
+                  ? _c("step-four-card", {
+                      attrs: {
+                        user: _vm.user,
+                        account: _vm.account,
+                        budgets: _vm.budgets,
+                        transactions: _vm.transactions
+                      }
+                    })
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.currentStep == 4
+                  ? _c("step-five-card", { attrs: { user: _vm.user } })
                   : _vm._e()
               ],
               1
@@ -92866,12 +93069,12 @@ var render = function() {
               _vm._v(" "),
               _c("div", { staticClass: "col text-center" }, [
                 _c("h6", { staticClass: "text-uppercase text-muted mb-0" }, [
-                  _vm._v("Step " + _vm._s(_vm.currentStep + 1) + " of 4")
+                  _vm._v("Step " + _vm._s(_vm.currentStep + 1) + " of 5")
                 ])
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "col-auto" }, [
-                _vm.currentStep < 3
+                _vm.currentStep < 4
                   ? _c(
                       "a",
                       {
@@ -92882,7 +93085,7 @@ var render = function() {
                     )
                   : _vm._e(),
                 _vm._v(" "),
-                _vm.currentStep == 3
+                _vm.currentStep == 4
                   ? _c(
                       "a",
                       {
@@ -92908,9 +93111,9 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/onboarding/cards/StepFourCard.vue?vue&type=template&id=382f0e72&scoped=true&":
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/onboarding/cards/StepFiveCard.vue?vue&type=template&id=5947d35a&scoped=true&":
 /*!********************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/onboarding/cards/StepFourCard.vue?vue&type=template&id=382f0e72&scoped=true& ***!
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/onboarding/cards/StepFiveCard.vue?vue&type=template&id=5947d35a&scoped=true& ***!
   \********************************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -92944,7 +93147,7 @@ var staticRenderFns = [
         _c("div", { staticClass: "row justify-content-center" }, [
           _c("div", { staticClass: "col-12 col-md-12 text-center" }, [
             _c("h6", { staticClass: "mb-4 text-uppercase text-muted" }, [
-              _vm._v("\n                Step 4 of 4\n            ")
+              _vm._v("\n                Step 5 of 5\n            ")
             ]),
             _vm._v(" "),
             _c("h1", { staticClass: "mb-3" }, [
@@ -93088,6 +93291,37 @@ var staticRenderFns = [
                         )
                       ])
                     ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "custom-control custom-checkbox checklist-control",
+                      attrs: { tabindex: "0" }
+                    },
+                    [
+                      _c("input", {
+                        staticClass: "custom-control-input",
+                        attrs: {
+                          id: "checklistFour",
+                          type: "checkbox",
+                          checked: "",
+                          disabled: ""
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("label", {
+                        staticClass: "custom-control-label",
+                        attrs: { for: "checklistFour" }
+                      }),
+                      _vm._v(" "),
+                      _c("span", { staticClass: "custom-control-caption" }, [
+                        _vm._v(
+                          "\n                            Setup some budgets\n                        "
+                        )
+                      ])
+                    ]
                   )
                 ]
               )
@@ -93096,6 +93330,242 @@ var staticRenderFns = [
         ])
       ]
     )
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/onboarding/cards/StepFourCard.vue?vue&type=template&id=382f0e72&scoped=true&":
+/*!********************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/onboarding/cards/StepFourCard.vue?vue&type=template&id=382f0e72&scoped=true& ***!
+  \********************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    {
+      staticClass: "tab-pane fade show active mb-5",
+      attrs: {
+        id: "wizardStepTwo",
+        role: "tabpanel",
+        "aria-labelledby": "wizardTabTwo"
+      }
+    },
+    [
+      _c("div", { staticClass: "row justify-content-center" }, [
+        _vm._m(0),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-12" }, [
+          _c("div", { staticClass: "table-responsive" }, [
+            _c(
+              "table",
+              {
+                staticClass:
+                  "table table-hover table-sm table-nowrap card-table",
+                attrs: { id: "budgets-table" }
+              },
+              [
+                _c("thead", [
+                  _c("tr", [
+                    _vm._m(1),
+                    _vm._v(" "),
+                    _vm._m(2),
+                    _vm._v(" "),
+                    _c("th", { staticStyle: { width: "20%" } }, [
+                      _c(
+                        "a",
+                        {
+                          staticClass: "btn btn-sm btn-primary pull-right",
+                          attrs: { href: "#" },
+                          on: {
+                            click: function($event) {
+                              return _vm.addBudget()
+                            }
+                          }
+                        },
+                        [_vm._v("Add Budget")]
+                      )
+                    ])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c(
+                  "tbody",
+                  { key: _vm.budgets.length, staticClass: "list" },
+                  _vm._l(_vm.budgets, function(budget, index) {
+                    return _c("tr", { key: index }, [
+                      _c("td", { staticClass: "orders-category" }, [
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: budget.category,
+                                expression: "budget.category"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            staticStyle: { "background-color": "transparent" },
+                            attrs: { name: "category" },
+                            on: {
+                              change: function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.$set(
+                                  budget,
+                                  "category",
+                                  $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                )
+                              }
+                            }
+                          },
+                          _vm._l(_vm.$transactionCategories, function(
+                            category,
+                            key
+                          ) {
+                            return _c(
+                              "option",
+                              { key: key, domProps: { value: key } },
+                              [_vm._v(" " + _vm._s(category))]
+                            )
+                          }),
+                          0
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("td", { staticClass: "orders-amount" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: budget.amount,
+                              expression: "budget.amount"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          staticStyle: { "background-color": "transparent" },
+                          attrs: { type: "text" },
+                          domProps: { value: budget.amount },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(budget, "amount", $event.target.value)
+                            }
+                          }
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _c("td", { staticClass: "pull-right text-right" }, [
+                        _c(
+                          "a",
+                          {
+                            attrs: { href: "#" },
+                            on: {
+                              click: function($event) {
+                                return _vm.deleteBudget(index)
+                              }
+                            }
+                          },
+                          [_vm._v("X")]
+                        )
+                      ])
+                    ])
+                  }),
+                  0
+                )
+              ]
+            )
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-auto text-right" })
+      ])
+    ]
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-12 col-md-12 text-center" }, [
+      _c("h6", { staticClass: "mb-4 text-uppercase text-muted" }, [
+        _vm._v("\n                Step 4 of 5\n            ")
+      ]),
+      _vm._v(" "),
+      _c("h1", { staticClass: "mb-3" }, [
+        _vm._v("\n                Let's set up some budgets.\n            ")
+      ]),
+      _vm._v(" "),
+      _c("p", { staticClass: "mb-5 text-muted" }, [
+        _vm._v(
+          "\n                Budgets help us get an idea of your overall financial health.\n            "
+        )
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("th", { staticStyle: { width: "40%" } }, [
+      _c(
+        "a",
+        {
+          staticClass: "text-muted sort",
+          attrs: { href: "#", "data-sort": "orders-category" }
+        },
+        [
+          _vm._v(
+            "\n                            Category\n                            "
+          )
+        ]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("th", { staticStyle: { width: "40%" } }, [
+      _c(
+        "a",
+        {
+          staticClass: "text-muted sort",
+          attrs: { href: "#", "data-sort": "orders-amount" }
+        },
+        [
+          _vm._v(
+            "\n                            Amount\n                            "
+          )
+        ]
+      )
+    ])
   }
 ]
 render._withStripped = true
@@ -93382,7 +93852,7 @@ var staticRenderFns = [
         { staticClass: "col-12 col-md-10 col-lg-8 col-xl-6 text-center" },
         [
           _c("h6", { staticClass: "mb-4 text-uppercase text-muted" }, [
-            _vm._v("\n                Step 1 of 4\n            ")
+            _vm._v("\n                Step 1 of 5\n            ")
           ]),
           _vm._v(" "),
           _c("h1", { staticClass: "mb-3" }, [
@@ -93439,7 +93909,7 @@ var render = function() {
           { staticClass: "col-12 col-md-10 col-lg-8 col-xl-6 text-center" },
           [
             _c("h6", { staticClass: "mb-4 text-uppercase text-muted" }, [
-              _vm._v("\n            Step 3 of 4\n        ")
+              _vm._v("\n            Step 3 of 5\n        ")
             ]),
             _vm._v(" "),
             _c("h1", { staticClass: "mb-3" }, [
@@ -93551,7 +94021,7 @@ var render = function() {
                 "div",
                 {
                   staticClass: "table-responsive",
-                  staticStyle: { "max-height": "500px" }
+                  staticStyle: { "max-height": "400px" }
                 },
                 [
                   _c(
@@ -93806,7 +94276,7 @@ var staticRenderFns = [
         { staticClass: "col-12 col-md-10 col-lg-8 col-xl-6 text-center" },
         [
           _c("h6", { staticClass: "mb-4 text-uppercase text-muted" }, [
-            _vm._v("\n                Step 2 of 4\n            ")
+            _vm._v("\n                Step 2 of 5\n            ")
           ]),
           _vm._v(" "),
           _c("h1", { staticClass: "mb-3" }, [
@@ -94834,7 +95304,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-header col-12" }, [
       _c("h4", { staticClass: "card-header-title" }, [
-        _vm._v("Top Places you Spent")
+        _vm._v("Top Places You Spent")
       ])
     ])
   },
@@ -119674,6 +120144,7 @@ var map = {
 	"./components/dashboard/widgets/TransactionsCountWidget.vue": "./resources/js/components/dashboard/widgets/TransactionsCountWidget.vue",
 	"./components/layout/SearchBarComponent.vue": "./resources/js/components/layout/SearchBarComponent.vue",
 	"./components/onboarding/OnboardingPageComponent.vue": "./resources/js/components/onboarding/OnboardingPageComponent.vue",
+	"./components/onboarding/cards/StepFiveCard.vue": "./resources/js/components/onboarding/cards/StepFiveCard.vue",
 	"./components/onboarding/cards/StepFourCard.vue": "./resources/js/components/onboarding/cards/StepFourCard.vue",
 	"./components/onboarding/cards/StepOneCard.vue": "./resources/js/components/onboarding/cards/StepOneCard.vue",
 	"./components/onboarding/cards/StepThreeCard.vue": "./resources/js/components/onboarding/cards/StepThreeCard.vue",
@@ -123462,6 +123933,93 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_OnboardingPageComponent_vue_vue_type_template_id_596930ca_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_OnboardingPageComponent_vue_vue_type_template_id_596930ca_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/onboarding/cards/StepFiveCard.vue":
+/*!*******************************************************************!*\
+  !*** ./resources/js/components/onboarding/cards/StepFiveCard.vue ***!
+  \*******************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _StepFiveCard_vue_vue_type_template_id_5947d35a_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./StepFiveCard.vue?vue&type=template&id=5947d35a&scoped=true& */ "./resources/js/components/onboarding/cards/StepFiveCard.vue?vue&type=template&id=5947d35a&scoped=true&");
+/* harmony import */ var _StepFiveCard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./StepFiveCard.vue?vue&type=script&lang=js& */ "./resources/js/components/onboarding/cards/StepFiveCard.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _StepFiveCard_vue_vue_type_style_index_0_id_5947d35a_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./StepFiveCard.vue?vue&type=style&index=0&id=5947d35a&scoped=true&lang=css& */ "./resources/js/components/onboarding/cards/StepFiveCard.vue?vue&type=style&index=0&id=5947d35a&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _StepFiveCard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _StepFiveCard_vue_vue_type_template_id_5947d35a_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _StepFiveCard_vue_vue_type_template_id_5947d35a_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "5947d35a",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/onboarding/cards/StepFiveCard.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/onboarding/cards/StepFiveCard.vue?vue&type=script&lang=js&":
+/*!********************************************************************************************!*\
+  !*** ./resources/js/components/onboarding/cards/StepFiveCard.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_StepFiveCard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./StepFiveCard.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/onboarding/cards/StepFiveCard.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_StepFiveCard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/onboarding/cards/StepFiveCard.vue?vue&type=style&index=0&id=5947d35a&scoped=true&lang=css&":
+/*!****************************************************************************************************************************!*\
+  !*** ./resources/js/components/onboarding/cards/StepFiveCard.vue?vue&type=style&index=0&id=5947d35a&scoped=true&lang=css& ***!
+  \****************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_StepFiveCard_vue_vue_type_style_index_0_id_5947d35a_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/style-loader!../../../../../node_modules/css-loader??ref--6-1!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/src??ref--6-2!../../../../../node_modules/vue-loader/lib??vue-loader-options!./StepFiveCard.vue?vue&type=style&index=0&id=5947d35a&scoped=true&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/onboarding/cards/StepFiveCard.vue?vue&type=style&index=0&id=5947d35a&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_StepFiveCard_vue_vue_type_style_index_0_id_5947d35a_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_StepFiveCard_vue_vue_type_style_index_0_id_5947d35a_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_StepFiveCard_vue_vue_type_style_index_0_id_5947d35a_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_StepFiveCard_vue_vue_type_style_index_0_id_5947d35a_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_StepFiveCard_vue_vue_type_style_index_0_id_5947d35a_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
+/***/ }),
+
+/***/ "./resources/js/components/onboarding/cards/StepFiveCard.vue?vue&type=template&id=5947d35a&scoped=true&":
+/*!**************************************************************************************************************!*\
+  !*** ./resources/js/components/onboarding/cards/StepFiveCard.vue?vue&type=template&id=5947d35a&scoped=true& ***!
+  \**************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_StepFiveCard_vue_vue_type_template_id_5947d35a_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./StepFiveCard.vue?vue&type=template&id=5947d35a&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/onboarding/cards/StepFiveCard.vue?vue&type=template&id=5947d35a&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_StepFiveCard_vue_vue_type_template_id_5947d35a_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_StepFiveCard_vue_vue_type_template_id_5947d35a_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

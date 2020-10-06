@@ -4806,6 +4806,10 @@ __webpack_require__.r(__webpack_exports__);
           self.$set(self.budgets, self.budgets.length, response);
           self.showNotification('success', 'Budget Created Successfully!');
         } else {
+          var index = self.budgets.map(function (x) {
+            return x.id;
+          }).indexOf(response.id);
+          self.$set(self.budgets, index, response);
           self.showNotification('success', 'Budget Updated Successfully!');
         }
 
@@ -4999,6 +5003,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
   },
   data: function data() {
     return {
+      toggle: false,
       datacollection: {},
       dataset: [],
       datalabels: [],
@@ -5025,6 +5030,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
     parseData: function parseData(data) {
       this.dataset = [];
       this.datalabels = [];
+      this.dataColors = [];
       var self = this;
 
       for (var _i = 0, _Object$entries = Object.entries(data); _i < _Object$entries.length; _i++) {
@@ -5055,6 +5061,13 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       } else {
         return '#2C7BE5';
       }
+    }
+  },
+  watch: {
+    budgets: function budgets() {
+      console.log('budgets');
+      this.fillData();
+      this.toggle = !this.toggle;
     }
   },
   computed: {
@@ -6454,7 +6467,7 @@ __webpack_require__.r(__webpack_exports__);
       var monthlyIncome = this.budgetTotal;
       var sum = (this.expenses / monthlyIncome * 100).toFixed(2);
 
-      if (isNaN(sum)) {
+      if (isNaN(sum) || !isFinite(sum)) {
         return 0;
       }
 
@@ -8902,6 +8915,40 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_NewTransactionModal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/NewTransactionModal */ "./resources/js/components/transactions/components/NewTransactionModal.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -90835,6 +90882,7 @@ var render = function() {
             { staticClass: "chart" },
             [
               _c("category-chart", {
+                key: _vm.toggle,
                 staticStyle: { height: "300px" },
                 attrs: { "chart-data": _vm.datacollection }
               })
@@ -95797,7 +95845,7 @@ var render = function() {
                 id: "list",
                 "data-toggle": "lists",
                 "data-list":
-                  '{"valueNames": ["orders-order", "orders-category", "orders-amount", "orders-vendor", "orders-account", "orders-method", "orders-date","orders-type"], "page": 10, "pagination": {"paginationClass": "list-pagination"}}'
+                  '{"valueNames": ["orders-order", "orders-category", "orders-amount", "orders-vendor", "orders-account", "orders-method", "orders-date","orders-type", "orders-filter-date"], "page": 10, "pagination": {"paginationClass": "list-pagination"}}'
               }
             },
             [
@@ -95920,7 +95968,11 @@ var render = function() {
                                           ]
                                         ),
                                         _vm._v(" "),
-                                        _vm._m(5)
+                                        _vm._m(5),
+                                        _vm._v(" "),
+                                        _vm._m(6),
+                                        _vm._v(" "),
+                                        _vm._m(7)
                                       ]
                                     )
                                   ]
@@ -95985,7 +96037,7 @@ var render = function() {
                     attrs: { id: "transactions-table" }
                   },
                   [
-                    _vm._m(6),
+                    _vm._m(8),
                     _vm._v(" "),
                     _c(
                       "tbody",
@@ -96059,6 +96111,12 @@ var render = function() {
                               )
                             ]),
                             _vm._v(" "),
+                            _c(
+                              "td",
+                              { staticClass: "hidden orders-filter-date" },
+                              [_vm._v(_vm._s(transaction.date))]
+                            ),
+                            _vm._v(" "),
                             _c("td", { staticClass: "orders-type hidden" }, [
                               _vm._v(
                                 _vm._s(_vm.getTransactionType(transaction.type))
@@ -96067,7 +96125,7 @@ var render = function() {
                             _vm._v(" "),
                             _c("td", { staticClass: "text-right" }, [
                               _c("div", { staticClass: "dropdown" }, [
-                                _vm._m(7, true),
+                                _vm._m(9, true),
                                 _vm._v(" "),
                                 _c(
                                   "div",
@@ -96132,7 +96190,7 @@ var render = function() {
                 )
               ]),
               _vm._v(" "),
-              _vm._m(8)
+              _vm._m(10)
             ]
           )
         ])
@@ -96305,6 +96363,72 @@ var staticRenderFns = [
                   )
                 ]
               )
+            ]
+          )
+        ])
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      { staticClass: "list-group-item", attrs: { "data-select2-id": "13" } },
+      [
+        _c("div", { staticClass: "row", attrs: { "data-select2-id": "12" } }, [
+          _c("div", { staticClass: "col" }, [
+            _c("small", [_vm._v("Start Date")])
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "col-8", attrs: { "data-select2-id": "11" } },
+            [
+              _c("input", {
+                staticClass: "form-control addl-filter",
+                attrs: {
+                  type: "date",
+                  "data-filter-key": "start-date",
+                  name: "start_date",
+                  "data-date": "true",
+                  "data-date-type": "start"
+                }
+              })
+            ]
+          )
+        ])
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      { staticClass: "list-group-item", attrs: { "data-select2-id": "13" } },
+      [
+        _c("div", { staticClass: "row", attrs: { "data-select2-id": "12" } }, [
+          _c("div", { staticClass: "col" }, [
+            _c("small", [_vm._v("End Date")])
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "col-8", attrs: { "data-select2-id": "11" } },
+            [
+              _c("input", {
+                staticClass: "form-control addl-filter",
+                attrs: {
+                  type: "date",
+                  "data-filter-key": "end-date",
+                  name: "end-date",
+                  "data-date": "true",
+                  "data-date-type": "start"
+                }
+              })
             ]
           )
         ])

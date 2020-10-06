@@ -75,6 +75,9 @@ class BudgetsController extends Controller
         $budget->update( $request->input() );
         $budget->transactions;
 
+        $budget->total = $budget->monthlyTotal();
+        $budget->total = count($budget->total) > 0 ? $budget->total[0]['sum'] : 0;
+
         return response(json_encode($budget), 200);
     }
 

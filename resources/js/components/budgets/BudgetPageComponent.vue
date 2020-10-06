@@ -114,6 +114,8 @@
                         self.$set(self.budgets, self.budgets.length, response)
                         self.showNotification('success', 'Budget Created Successfully!')
                     } else {
+                        let index = self.budgets.map(function (x) { return x.id; }).indexOf(response.id);
+                        self.$set(self.budgets, index, response)
                         self.showNotification('success', 'Budget Updated Successfully!')
                     }
                     self.modalKey += 1;

@@ -52,7 +52,7 @@
         </div>
 
         <!-- Card -->
-        <div id="list" class="card list" data-toggle="lists" data-list='{"valueNames": ["orders-order", "orders-category", "orders-amount", "orders-vendor", "orders-account", "orders-method", "orders-date","orders-type"], "page": 10, "pagination": {"paginationClass": "list-pagination"}}'>
+        <div id="list" class="card list" data-toggle="lists" data-list='{"valueNames": ["orders-order", "orders-category", "orders-amount", "orders-vendor", "orders-account", "orders-method", "orders-date","orders-type", "orders-filter-date"], "page": 10, "pagination": {"paginationClass": "list-pagination"}}'>
           <div class="card-header">
             <div class="row align-items-center">
               <div class="col">
@@ -134,6 +134,39 @@
                                                 <option value="Transfer" data-select2-id="24">Transfer</option>
                                                 <option value="Fee" data-select2-id="24">Fee</option>
                                             </select>
+                                        </div>
+                                    </div> <!-- / .row -->
+                                </div>
+                                <div class="list-group-item" data-select2-id="13">
+                                    <div class="row" data-select2-id="12">
+                                        <div class="col">
+
+                                            <!-- Text -->
+                                            <small>Start Date</small>
+
+                                        </div>
+                                        <div class="col-8" data-select2-id="11">
+
+                                            <!-- Select -->
+                                            <input type="date" class="form-control addl-filter" data-filter-key="start-date" name="start_date" data-date="true" data-date-type="start">
+
+                                        </div>
+                                    </div> <!-- / .row -->
+                                </div>
+
+                                <div class="list-group-item" data-select2-id="13">
+                                    <div class="row" data-select2-id="12">
+                                        <div class="col">
+
+                                            <!-- Text -->
+                                            <small>End Date</small>
+
+                                        </div>
+                                        <div class="col-8" data-select2-id="11">
+
+                                            <!-- Select -->
+                                            <input type="date" class="form-control addl-filter" data-filter-key="end-date" name="end-date" data-date="true" data-date-type="start">
+
                                         </div>
                                     </div> <!-- / .row -->
                                 </div>
@@ -238,6 +271,7 @@
                   <td class="orders-date">
                     <time :datetime="transaction.date">{{ getFormattedDate( transaction.date ) }}</time>
                   </td>
+                  <td class="hidden orders-filter-date">{{ transaction.date }}</td>
                   <td class="orders-type hidden">{{ getTransactionType(transaction.type) }}</td>
                   <td class="text-right">
                     <div class="dropdown">

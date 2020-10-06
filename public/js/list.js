@@ -208,7 +208,11 @@
         clearFiltersBtn.addEventListener('click', function (e, filter) {
           e.preventDefault();
           additionalFilters.each(function () {
-            $(this).val('any');
+            if ($(this).data('date') == true) {
+              $(this).val("");
+            } else {
+              $(this).val('any');
+            }
           });
           filterList();
         });
@@ -222,7 +226,8 @@
           additionalFilters.each(function (filter) {
             filters.push({
               'value': $(this).val(),
-              'key': $(this).data('filter-key')
+              'key': $(this).data('filter-key'),
+              'date': $(this).data('date')
             });
           });
         }
@@ -237,7 +242,19 @@
 
           if (filters) {
             filters.forEach(function (filter) {
-              if (!item.values()[filter.key].includes(filter.value) && !item.values()[filter.key].replace(/&amp;/g, '&').includes(filter.value) && filter.value != 'any') {
+              if (filter.date == true) {
+                if (filter.value != "") {
+                  if (filter.key == 'end-date') {
+                    if (new Date(item.values()['orders-filter-date']) > new Date(filter.value) && filter.value != "") {
+                      valid = false;
+                    }
+                  } else {
+                    if (new Date(item.values()['orders-filter-date']) < new Date(filter.value) && filter.value != "") {
+                      valid = false;
+                    }
+                  }
+                }
+              } else if (!item.values()[filter.key].includes(filter.value) && !item.values()[filter.key].replace(/&amp;/g, '&').includes(filter.value) && filter.value != 'any') {
                 valid = false;
               }
             });

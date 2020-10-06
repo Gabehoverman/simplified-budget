@@ -64,8 +64,8 @@ class AccountsController extends Controller
     {
         $account = Account::where('id', $id)->with('institution')->first();
         $transactions = $account->transactions->groupBy(function($date) {
-            return Carbon::parse($date->date)->format('m'); // grouping by month
-        });
+            return Carbon::parse($date->date)->format('F'); // grouping by month
+        })->reverse();
         $institutions = $institutionRepository->getInstitutions();
 
         return view('user.show-account', compact('account', 'transactions', 'institutions'));

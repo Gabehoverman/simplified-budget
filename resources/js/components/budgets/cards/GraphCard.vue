@@ -18,7 +18,7 @@
     <div class="card-body">
       <!-- Chart -->
       <div class="chart" v-if="budgets.length > 0">
-        <category-chart style="height: 300px" :chart-data="datacollection"></category-chart>
+        <category-chart :key="toggle" style="height: 300px" :chart-data="datacollection"></category-chart>
       </div>
     </div>
   </div>
@@ -34,6 +34,7 @@ export default {
   },
   data() {
     return {
+      toggle: false,
       datacollection: {},
       dataset: [],
       datalabels: [],
@@ -62,6 +63,7 @@ export default {
     parseData( data ) {
         this.dataset = [];
         this.datalabels = [];
+        this.dataColors = [];
         var self = this;
         for (const [key, value] of Object.entries(data)) {
             let sum = 0;
@@ -85,6 +87,13 @@ export default {
         } else {
             return '#2C7BE5'
         }
+      }
+  },
+  watch: {
+      budgets() {
+          console.log('budgets')
+           this.fillData();
+           this.toggle = !this.toggle;
       }
   },
   computed: {

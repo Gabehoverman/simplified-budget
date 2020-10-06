@@ -78,7 +78,7 @@
             expensesPercentage() {
                 let monthlyIncome = this.budgetTotal;
                 let sum = (( this.expenses / monthlyIncome ) * 100).toFixed(2);
-                if (isNaN(sum)) {
+                if (isNaN(sum) || !isFinite(sum)) {
                     return 0;
                 }
                 return sum;

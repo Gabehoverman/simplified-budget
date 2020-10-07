@@ -27,4 +27,16 @@ class BudgetRepository extends Model
         return $mappedBudgets;
     }
 
+    public function generateNotifications( $budgets )
+    {
+        foreach( $budgets as $budget ) {
+            $percent = $budget->getMonthlyPercentage();
+
+            if ( $percent >= 85 && $percent < 100 ) {
+                $budget->createNotification('Your '.$budget->name.' budget is approaching the monthly limit');
+            } else if ($percent >= 100) {
+                $budget->createNotification('Your '.$budget->name.' budget exceeded the monthly limit');
+            }
+        }
+    }
 }

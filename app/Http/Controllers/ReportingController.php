@@ -17,6 +17,7 @@ class ReportingController extends Controller
     public function __construct( BudgetRepository $budgetRepository )
     {
         $this->middleware('auth');
+        $this->middleware('notifications');
         $this->budgets = $budgetRepository;
     }
 

@@ -5,6 +5,8 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use \Spatie\Activitylog\Models\Activity;
+
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -41,5 +43,10 @@ class User extends Authenticatable implements MustVerifyEmail
     public function accounts()
     {
         return $this->hasMany('App\Models\Account');
+    }
+
+    public function notifications()
+    {
+        return $this->hasMany('\Spatie\Activitylog\Models\Activity', 'causer_id');
     }
 }

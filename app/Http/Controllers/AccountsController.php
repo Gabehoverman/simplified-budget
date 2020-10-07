@@ -21,6 +21,7 @@ class AccountsController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('notifications');
         $this->client = new AtriumClient(
             env('MX_API_KEY'),
             env('MX_CLIENT_ID'),

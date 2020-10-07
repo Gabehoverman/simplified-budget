@@ -34,5 +34,4 @@ class TransactionRepository extends Model
     public function syncTransactions( $account ) {
 
     }
-
 }

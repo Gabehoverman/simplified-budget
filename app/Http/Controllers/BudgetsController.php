@@ -18,6 +18,7 @@ class BudgetsController extends Controller
     public function __construct( BudgetRepository $budgetRepository)
     {
         $this->middleware('auth');
+        $this->middleware('notifications');
         $this->budgets = $budgetRepository;
     }
 
@@ -77,6 +78,8 @@ class BudgetsController extends Controller
 
         $budget->total = $budget->monthlyTotal();
         $budget->total = count($budget->total) > 0 ? $budget->total[0]['sum'] : 0;
+
+        $this->budgets->generateNotifications([$budget]);
 
         return response(json_encode($budget), 200);
     }

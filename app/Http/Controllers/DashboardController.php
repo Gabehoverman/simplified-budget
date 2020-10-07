@@ -21,6 +21,7 @@ class DashboardController extends Controller
     public function __construct( MXRepository $mXRepository, BudgetRepository $budgetRepository )
     {
         $this->middleware('auth');
+        $this->middleware('notifications');
         $this->mx = $mXRepository;
         $this->budgets = $budgetRepository;
     }

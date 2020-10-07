@@ -120733,10 +120733,10 @@ Vue.mixin({
   }), _defineProperty(_methods, "getLogIcon", function getLogIcon(log_name) {
     switch (log_name) {
       case 'budgets':
-        return '<svg viewBox="0 0 24 24" width="35" height="35" stroke="white" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>';
+        return '<svg viewBox="0 0 24 24" width="20" height="20" stroke="white" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>';
 
       default:
-        return 'Bell Icon';
+        return '<svg viewBox="0 0 24 24" width="19" height="19" stroke="white" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>';
     }
   }), _defineProperty(_methods, "asyncFetchData", function asyncFetchData(url) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {

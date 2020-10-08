@@ -12,7 +12,18 @@ return [
      * to learn how to get this file. You can also pass the credentials as an array
      * instead of a file path.
      */
-    'service_account_credentials_json' => storage_path('app/analytics/simplified-budget-0a58b9983cce.json'),
+    'service_account_credentials_json' => [ // storage_path('app/analytics/simplified-budget-0a58b9983cce.json'),
+        "type"=> "service_account",
+        "project_id"=> "simplified-budget",
+        "private_key_id"=> env('ANALYTICS_PRIV_KEY_ID'),
+        "private_key"=> env('ANALYTICS_PRIV_KEY'),
+        "client_email"=> env('ANALYTICS_CLIENT_EMAIL'),
+        "client_id"=> env('ANALYTICS_CLIENT_ID'),
+        "client_x509_cert_url"=> env('ANAYTLICS_CLIENT_URL'),
+        "auth_uri"=> "https://accounts.google.com/o/oauth2/auth",
+        "token_uri"=> "https://oauth2.googleapis.com/token",
+        "auth_provider_x509_cert_url"=> "https://www.googleapis.com/oauth2/v1/certs",
+    ],
 
     /*
      * The amount of minutes the Google API responses will be cached.

@@ -20,4 +20,15 @@
     <script src="{{ asset("js/dashkit.min.js") }}"></script>
     <script src="{{ asset("js/list.js") }}"></script>
 
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-180134412-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', '{{ env('ANALYTICS_GTAG_ID')}}'
+        );
+    </script>
+
 

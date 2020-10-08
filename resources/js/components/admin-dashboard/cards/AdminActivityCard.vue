@@ -12,7 +12,7 @@
             <a class="small text-right" href="#!">View all</a>
 
         </div>
-        <div class="card-body">
+        <div class="card-body" style="height: 618px">
 
             <!-- List group -->
             <div class="list-group list-group-flush list-group-activity my-n3">
@@ -24,7 +24,7 @@
                     <!-- Avatar -->
                     <div class="avatar avatar-sm">
                         <div class="avatar-title font-size-lg bg-primary-soft rounded-circle text-primary">
-                        <i class="fe fe-archive"></i>
+                            <i class="fe fe-archive"></i>
                         </div>
                     </div>
 

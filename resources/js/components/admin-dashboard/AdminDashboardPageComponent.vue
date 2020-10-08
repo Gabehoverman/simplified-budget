@@ -16,9 +16,9 @@
                         :filter="dataFilter"
                     />
 
-                    <!-- <admin-user-graph-card
-
-                    /> -->
+                    <admin-user-graph-card
+                        :analyticsData="analyticsData"
+                    />
                 </div>
                 <!-- <div class="col-12 col-xl-3">
                     <admin-growth-graph-card
@@ -52,7 +52,8 @@
             'weeklyNewUsers',
             'monthlyNewUsers',
             'annualNewUsers',
-            'activity'
+            'activity',
+            'analyticsData'
         ],
         components: {
             AdminOverviewGraphCard,

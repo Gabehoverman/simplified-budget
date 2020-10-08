@@ -8,6 +8,7 @@
         :monthly-new-users="{{ json_encode($monthlyNewUsers) }}"
         :annual-new-users="{{ json_encode($annualNewUsers) }}"
         :activity="{{ json_encode( $activity ) }}"
+        :analytics-data="{{ json_encode( $analyticsData ) }}"
     />
 
 @endsection

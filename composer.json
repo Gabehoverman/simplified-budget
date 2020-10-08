@@ -22,7 +22,8 @@
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.0",
         "mxenabled/atrium-php": "*@dev",
-        "spatie/laravel-activitylog": "^3.16"
+        "spatie/laravel-activitylog": "^3.16",
+        "spatie/laravel-analytics": "^3.10"
     },
     "require-dev": {
         "facade/ignition": "^2.0",

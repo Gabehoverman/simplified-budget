@@ -3520,7 +3520,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'admin-dashboard-page-component',
-  props: ['users', 'accounts', 'transactions', 'weeklyNewUsers', 'monthlyNewUsers', 'annualNewUsers', 'activity'],
+  props: ['users', 'accounts', 'transactions', 'weeklyNewUsers', 'monthlyNewUsers', 'annualNewUsers', 'activity', 'analyticsData'],
   components: {
     AdminOverviewGraphCard: _cards_AdminOverviewGraphCard__WEBPACK_IMPORTED_MODULE_0__["default"],
     AdminUserGraphCard: _cards_AdminUserGraphCard__WEBPACK_IMPORTED_MODULE_1__["default"],
@@ -4053,9 +4053,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'accounts-graph-card',
-  props: ['accounts']
+  props: ['analyticsData']
 });
 
 /***/ }),
@@ -89028,6 +89039,10 @@ var render = function() {
             [
               _c("admin-widget-row", {
                 attrs: { users: _vm.users, filter: _vm.dataFilter }
+              }),
+              _vm._v(" "),
+              _c("admin-user-graph-card", {
+                attrs: { analyticsData: _vm.analyticsData }
               })
             ],
             1
@@ -89070,7 +89085,7 @@ var render = function() {
   return _c("div", { staticClass: "card" }, [
     _vm._m(0),
     _vm._v(" "),
-    _c("div", { staticClass: "card-body" }, [
+    _c("div", { staticClass: "card-body", staticStyle: { height: "618px" } }, [
       _c(
         "div",
         {
@@ -89578,63 +89593,64 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "card" }, [
+    _vm._m(0),
+    _vm._v(" "),
+    _c("div", { staticClass: "card-body" }, [
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col" }, [
+          _c("h6", { staticClass: "text-uppercase text-muted" }, [
+            _vm._v("Total User Sessions")
+          ]),
+          _vm._v(" "),
+          _c("span", { staticClass: "h2" }, [
+            _vm._v(_vm._s(_vm.analyticsData.totalsForAllResults["ga:sessions"]))
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col" }, [
+          _c("h6", { staticClass: "text-uppercase text-muted" }, [
+            _vm._v("Total Page Views")
+          ]),
+          _vm._v(" "),
+          _c("span", { staticClass: "h2" }, [
+            _vm._v(
+              _vm._s(_vm.analyticsData.totalsForAllResults["ga:pageviews"])
+            )
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _vm._m(1)
+    ])
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card" }, [
-      _c("div", { staticClass: "card-header" }, [
-        _c("div", { staticClass: "row align-items-center" }, [
-          _c("div", { staticClass: "col" }, [
-            _c("h4", { staticClass: "card-header-title" }, [
-              _vm._v("\n            Orders\n        ")
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-auto mr--3" }, [
-            _c("span", { staticClass: "text-muted" }, [
-              _vm._v("\n            Show affiliate:\n        ")
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-auto" }, [
-            _c(
-              "div",
-              { staticClass: "custom-control custom-checkbox-toggle" },
-              [
-                _c("input", {
-                  staticClass: "custom-control-input",
-                  attrs: {
-                    type: "checkbox",
-                    id: "cardToggle",
-                    "data-toggle": "chart",
-                    "data-target": "#ordersChart",
-                    "data-add":
-                      '{"data":{"datasets":[{"data":[15,10,20,12,7,0,8,16,18,16,10,22],"backgroundColor":"#d2ddec","label":"Affiliate"}]'
-                  }
-                }),
-                _vm._v(" "),
-                _c("label", {
-                  staticClass: "custom-control-label",
-                  attrs: { for: "cardToggle" }
-                })
-              ]
-            )
+    return _c("div", { staticClass: "card-header" }, [
+      _c("div", { staticClass: "row align-items-center" }, [
+        _c("div", { staticClass: "col" }, [
+          _c("h4", { staticClass: "card-header-title" }, [
+            _vm._v("\n            Analytics\n        ")
           ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "card-body" }, [
-        _c("div", { staticClass: "chart" }, [
-          _c("canvas", {
-            staticClass: "chart-canvas",
-            attrs: { id: "ordersChart" }
-          })
-        ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-auto mr--3" })
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "chart" }, [
+      _c("canvas", {
+        staticClass: "chart-canvas",
+        attrs: { id: "ordersChart" }
+      })
     ])
   }
 ]

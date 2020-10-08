@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "simplified-budget",
+  "private_key_id": "0a58b9983cceb2655f4546950d2c2711d59b9b1b",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQC4ziu3BFfIOHRe\nnCUv/d30Xlr4Bqlfs/s/HmX25UEe2oP9iPvwramty5YoRgaFIs+Nr+/u9ZA9HoJK\nIufKFdaOjA7fEWnpHKRGRVgaLxCAaz8+ik7y8Aef2e6/QQGnzCcIiRaIHZ2Ddo4l\nIhczrW5iqWMQHzgTJVsMPkHPgvrNYaHWxdDZIT8T6rSeh6TdPC3FVN2fwsRQEk6W\niP+smtuG9+xNkq9yZvisPgXYbGkjtK60qJy/uspXESVrIcSikToAcc5j8hWwB0Np\nOmuwB8PrxnmgXIfZtXLWvohCOsQjMDMDdgfV7W3bpUqKEIXOdMeW2GXNc/lLrSQI\n3e2+qEHFAgMBAAECggEABicOfYWdW+DWWJIj15sNroNziTOz11LC6P36n5a2mAlv\na4H4y/WvWpt9E8GjMruCOS9/pW8d4fOQeUhzabzPUfkyZYztQ9+pTcUTYL78HR+5\nM01s0mI/owAYjez0Hn00azTcpl+4KwWdSAJmzxRM7U4Xbr9Oh64/w+CVInLvvynY\nSpqsEYqdoe9CzUTE/2SCLPjNc8sKPeZjHlF90tHvjX2m5OrTlizKdrhAufRVGhqW\n0BLLAwmZCn3rrcs/fgfAWCiZyfFcDRqGac9PkX4ZGuPf0oQ9X4RQz0kmAT33iiOz\n4vN70uuRdDNqNaov3X0wgiYCwGXN1FkuIpnwcRJO4QKBgQDqQQ5QGciKSFHS1xDP\nzEZEhIrz6bWj2xqFgeQl7acLZGM0znlPZKGpAtq3a5tzoW0nMuHB/1XXuNhszwXe\n7a6ZyNB0zHVIBlBKF3HHF1meQ0CcYQTQhpFKv3gQr221RVOq48/0w7AQwn0AiF25\nTB8O6NtF1V2m8WDHXDJNxx/gcwKBgQDJ9fyuLyMc05iTlySXYNGu4iL80icjibtn\nqQjsw4x4qHJpOZAGA5bN94o7NJef5nAYr0TllN0NzAYvseLlTmlLD7iGaS/hzh0P\ntrx3cng24EHmoozbParIXVGcVpMVTK3kxPyi3w+bk5x+AY7bYLOSFcn8/OcozL3V\noQXA13ve5wKBgE324QCf1DLR5wm5Mos2fZyIUIblneKvJaCRnpFRC2urOal1nsJh\nx7wsiwbI9bACZgXJ1YFvre5iQwXT0SxlBtuADoERG2ehUk+WhfOxPc6Cq5pgX+3X\nG7w5BYjoGider34M3EWma47obBolSKxHPX8E2RXg8Y6Cf6dadBOW1nEpAoGAXpTY\n9SoWI5XkypnqBQrOqDw3bnds5PPH1FARYfBihM8+ZZETpf1gTq0zC28h4zykGqta\ndLo2nBOEgimovQLvxLtkC26PggxpB8bolHgDXI/BzSUrGjHTHWq2oaTZ1QvIFG88\ncXpNcOq8SzanlI3BCxUxN02pZC4eaUGz1BAWbtkCgYAKBJKwuxnmeiWd9HniSG+L\nuisq+K6aFibeuNwbpqGWb+aJhS5UEvNtZOc3JAlFVYt51dZ4lvT1fTfHL+ChxdVg\nUEirOs/9Kw18lr+RbYzt68wLSQ3EUyMsqBuaqW/0+VgNmmUAe2n8wXbl1gJu6CKb\nKNTUnnrEn9IF46ikz9LJhw==\n-----END PRIVATE KEY-----\n",
+  "client_email": "simplified-budget-api@simplified-budget.iam.gserviceaccount.com",
+  "client_id": "117938060239076815588",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/simplified-budget-api%40simplified-budget.iam.gserviceaccount.com"
+}

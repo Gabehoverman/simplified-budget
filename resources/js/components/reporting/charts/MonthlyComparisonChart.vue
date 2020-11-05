@@ -33,7 +33,15 @@ export default {
             height: '100px',
             style: {
                 height: '100px'
-            }
+            },
+              layout: {
+                padding: {
+                    top: 10,
+                    left: 10,
+                    right: 10,
+                    bottom: 10
+                }
+            },
         }
     }
   },

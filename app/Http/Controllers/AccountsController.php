@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Account;
+use App\Models\Institutions\Institution;
 use App\Models\Institutions\InstitutionRepository;
 use App\Models\MX\MXRepository;
 use Carbon\Carbon;
@@ -148,8 +149,28 @@ class AccountsController extends Controller
         $account->update( $request->input() );
         $account->institution;
 
-        $mXRepository->syncTransactions($account);
+        if ($account->mx_account_guid && $account->tracking_options != 0) {
+            $mXRepository->syncTransactions($account);
+        }
 
         return response(json_encode($account), 200);
+    }
+
+    public function manualAccount( Request $request )
+    {
+        $account = new Account();
+        $account->user_id = Auth::User()->id;
+        $account->name = Institution::find( $request->input('institution_id'))->name;
+        $account->mx_member_guid = null; //Auth::User()->mx_user_guid;
+        $account->mx_institution_code = null;
+        $account->institution_id = $request->input('institution_id');
+        $account->type = 0;
+        $account->tracking_type = 0;
+        $account->tracking_options = 0;
+        $account->save();
+
+        $account->instutution;
+
+        return $account;
     }
 }

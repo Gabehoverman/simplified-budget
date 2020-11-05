@@ -74,8 +74,8 @@
               data: this.monthlydataset
             }, {
               label: 'Previous Months Transactions',
-              backgroundColor: 'rgba(255, 255, 255, .75)',
-              borderColor: 'rgba(255, 255, 255, 1)',
+              backgroundColor: 'rgba(230, 239, 252, .75)',
+              borderColor: '#e6effc',
               data: this.previousdataset
             }
           ]
@@ -84,6 +84,10 @@
       parseData( ) {
         this.dataset = [];
         this.datalabels = [];
+
+        var date = new Date()
+        var lastMonth = new Date()
+        lastMonth.setMonth( date.getMonth > 0 ? date.getMonth - 1 : 0)
         var self = this;
         let sum = 0;
         for (const [key, value] of Object.entries(this.monthlyTransactions)) {
@@ -101,6 +105,20 @@
             self.previousdatalabels.push(key)
             self.previousdataset.push(previousSum.toFixed(2))
         }
+        console.log(this.previousdatalabels.indexOf)
+        console.log(this.previousdataset)
+
+        // Push first day of month if no transactions for that day
+        if (!self.monthlydatalabels.includes(date.getFullYear()+'-'+(date.getMonth()+1)+'-01') ) {
+            self.monthlydatalabels.unshift(date.getFullYear()+'-'+(date.getMonth()+1)+'-01')
+            self.monthlydataset.unshift(0)
+        }
+
+        if (!self.previousdatalabels.includes(lastMonth.getFullYear()+'-'+(lastMonth.getMonth()+1)+'-01') ) {
+            self.previousdatalabels.unshift(lastMonth.getFullYear()+'-'+(lastMonth.getMonth()+1)+'-01')
+            self.previousdataset.unshift(0)
+        }
+
         this.monthlyTotal = sum.toFixed(2);
         this.previousMonthlyTotal = previousSum.toFixed(2);
         return true;

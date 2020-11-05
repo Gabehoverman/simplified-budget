@@ -2,82 +2,160 @@
     <div class="card">
         <div class="card-header col-12">
             <h4 class="card-header-title">Budget Details</h4>
+            <a href="#" class="pull-right text-right" @click="unselectBudget()">
+                x
+            </a>
         </div>
         <div class='card-body'>
-            <div class="list-group list-group-flush my-n3" style="max-height: 520px; overflow: auto;">
-                <div v-if="dataBudgets.length == 0">
-                    <p>No Budgets to show.</p>
-                </div>
-                <div class="list-group-item" v-for="(budget) in dataBudgets" :key="budget.id">
-                    <div class="row" @click="selectBudget(budget)">
-                        <!-- <div class="col-lg-3 col-md-12">
-                            <div :style="'width: 50px; height: 50px; border-radius: 50%; background: '+$transactionCategoryColors[budget.category]">
-                                <div style="padding-top: 10px;" v-html="$transactionCategoryIcons[budget.category]"></div>
-                            </div>
+            <div class="list-group list-group-flush my-n3" style="min-height: 520px; overflow-x: none;">
+                        <!-- <div class="col-6 col-md-12 col-lg-6 mt-3">
+                            <h4 class="mb-1">
+
+                            </h4>
+                        </div>
+                        <div class="col-6 col-md-12 col-lg-6 mt-3 text-xs-right text-right text-md-left text-lg-right">
+                            <span class="text-muted">${{ selectedBudget.total }}</span>
+
+                            <span class="text-muted">| ${{ selectedBudget.amount }}</span>
                         </div> -->
-                            <div class="col-6 col-md-12 col-lg-6 mt-3">
 
-                                <!-- Heading -->
-                                <h4 class="mb-1">
-                                      <a href="#" class="item-name budget-name"
-                                        data-toggle="modal"
-                                        data-target="#budgetModal"
-                                        @click="selectBudget(budget)"
-                                    >{{ budget.name }}
-                                    </a>
-                                </h4>
+                        <!-- progress bar -->
 
-                            </div>
-                            <div class="col-6 col-md-12 col-lg-6 mt-3 text-xs-right text-right text-md-left text-lg-right">
-                                <span class="text-muted">${{ budget.total }}</span>
-
-                                <span class="text-muted">| ${{ budget.amount }}</span>
-
-                                <!-- todo: Add in progress bar -->
-                            </div>
-
-                            <!-- progress bar -->
-                            <div class="col-12">
-                                <div class="row">
-                                <div class="col-4 col-md-12 col-lg-4">
-                                    <!-- Value -->
-                                    <small class="muted mr-2">{{ calculatePercentage( budget.amount, budget.total ) }}%</small>
+                        <div class="list-group-item">
+                            <div class="row">
+                                <div class="col-8">
+                                    <small class="muted mr-2">{{ calculatePercentage( selectedBudget ) }}%</small>
                                 </div>
-                                <div class="col-8 col-md-12 col-lg-8 mt-3">
+                                <div class="col-4 text-right">
+                                    <span :class="'badge badge-pill badge-soft-' + (dataRemainder > 0 ? 'success' : 'danger')">
+                                        ${{  formatCurrency( dataRemainder )  }}
+                                    </span>
+                                </div>
+                                <div class="col-12  col-md-12 col-lg-12 mt-3">
                                     <!-- Progress -->
                                     <div class="progress progress-sm">
-                                    <div
-                                        :class="'progress-bar ' + getProgressClass( budget )"
-                                        role="progressbar"
-                                        :style="'width: '+ calculatePercentage( budget.amount, budget.total ) +'%'"
-                                        :aria-valuenow="calculatePercentage( budget.amount, budget.total )"
-                                        aria-valuemin="0"
-                                        aria-valuemax="100"
-                                    ></div>
+                                        <div
+                                            :class="'progress-bar ' + getProgressClass( selectedBudget )"
+                                            role="progressbar"
+                                            :style="'width: '+ calculatePercentage( selectedBudget ) +'%'"
+                                            :aria-valuenow="calculatePercentage( selectedBudget )"
+                                            aria-valuemin="0"
+                                            aria-valuemax="100"
+                                        >
+                                        </div>
                                     </div>
                                 </div>
-                                </div>
-                            <!-- / progress bar -->
-
+                            </div>
                         </div>
-                    </div> <!-- / .row -->
-                </div>
-            </div>
-        </div>
+
+                        <!-- / progress bar -->
+
+                        <div class="list-group-item">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    Category:
+                                </div>
+                                <div class="col-md-6">
+                                    {{ selectedBudget.category }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="list-group-item">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    Budget Total:
+                                </div>
+                                <div class="col-md-6">
+                                    ${{ formatCurrency( selectedBudget.amount ) }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="list-group-item">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    Timeframe:
+                                </div>
+                                <div class="col-md-6">
+                                    {{ selectedBudget.timeframe == 1 ? 'Annually' : 'Monthly' }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="list-group-item">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    Monthly Spend:
+                                </div>
+                                <div class="col-md-6">
+                                    ${{ formatCurrency( selectedBudget.total ) }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="list-group-item">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    Budget Remainder:
+                                </div>
+                                <div class="col-md-6">
+                                    ${{  formatCurrency( dataRemainder )  }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="list-group-item">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <b>Previous Month</b>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="list-group-item">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    Monthly Spend:
+                                </div>
+                                <div class="col-md-6">
+                                    ${{ formatCurrency( selectedBudget.previousMonthlyTotal ) }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="list-group-item">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    Monthly Remainder:
+                                </div>
+                                <div class="col-md-6">
+                                    ${{ formatCurrency( dataPreviousRemainder ) }}
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div> <!-- / .row -->
     </div>
 </template>
 
 <script>
     export default {
-        props: ['budgets'],
+        props: ['budgets', 'selectedBudget'],
         data() {
             return {
-                dataBudgets: this.budgets
+                dataBudgets: this.budgets,
             }
         },
         methods: {
             selectBudget( budget ) {
+                event.preventDefault()
                 this.$emit('selectBudget', budget)
+            },
+            unselectBudget( ) {
+                event.preventDefault()
+                this.$emit('unselectBudget')
             },
             getTotal( vendorData ) {
                 let sum = 0;
@@ -86,12 +164,38 @@
                 });
                 return sum.toFixed(2);
             },
-            calculatePercentage( amount, total ) {
-                let percent = ((total / amount) * 100)
+            getRemainder( budget ) {
+                if (budget.timeframe == 1) {
+                    return parseFloat( ( budget.amount / 12 ) - budget.total )
+                } else {
+                    return budget.amount - budget.total
+                }
+            },
+            getPreviousRemainder( budget ) {
+                if (!budget.previousMonthlyTotal) {
+                    return 0;
+                }
+                if (budget.timeframe == 1) {
+                    return parseFloat( ( budget.amount / 12 ) - budget.previousMonthlyTotal )
+                } else {
+                    return budget.amount - budget.previousMonthlyTotal
+                }
+            },
+            calculatePercentage( budget ) {
+                let percent = 0;
+                if (budget.timeframe == 1) {
+                    percent = ((budget.total / ( budget.amount / 12) ) * 100)
+                } else {
+                    percent = ((budget.total / budget.amount) * 100)
+                }
+                console.log(percent)
+                if ( isNaN(percent) ) {
+                    return 0;
+                }
                 return percent.toFixed(2)
             },
             getProgressClass( budget ) {
-                let percent = this.calculatePercentage(budget.amount, budget.total)
+                let percent = this.calculatePercentage(budget)
                 if ( percent >= 100) {
                     return 'bg-danger'
                 } else if (percent >= 85) {
@@ -100,6 +204,14 @@
                     return 'bg-primary'
                 }
             },
+        },
+        computed: {
+            dataRemainder() {
+                return this.getRemainder(this.selectedBudget)
+            },
+            dataPreviousRemainder() {
+                return this.getPreviousRemainder(this.selectedBudget)
+            }
         }
     }
 </script>

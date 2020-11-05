@@ -195,17 +195,21 @@
                         type="button"
                         class="btn btn-sm btn-primary"
                         data-toggle="modal"
-                        data-target="#newTransactionModal"
+                        data-target="#transactionModal"
                         :disabled="accounts.length < 1 ? true : false"
                         >Add Transaction
                     </button>
 
-                    <new-transaction-modal
+                    <transaction-modal
                         :key="modalKey"
                         :transaction="selectedTransaction"
                         :accounts="accounts"
+                        :modalType="modal"
+                        :rules="rules"
+                        @changeModal="changeModal($event)"
                         @saveTransaction="saveTransaction($event)"
                     />
+
                 </div>
 
               </div>
@@ -253,12 +257,16 @@
                 </tr>
               </thead>
               <tbody class="list">
-                <tr v-for="(transaction, index ) in filteredTransactions" :key="index" :class="transaction.exclude ? 'excluded' : ''">
+                <tr v-for="(transaction, index ) in dataTransactions" :key="transaction.id" :class="transaction.exclude ? 'excluded' : ''">
                   <td class="orders-order">
                     #{{ index + 1 }}
                   </td>
-                  <td class="orders-category" v-html="transaction.category">
-                  </td>
+                  <!-- <td class="orders-category" v-html="transaction.category">
+                </td> -->
+                 <td class="orders-category" @click="editTransaction( transaction, 'min' )">
+                    <a  href="#!" class="dropdown-item" data-toggle="modal" data-target="#transactionModal" v-html="transaction.category">
+                    </a>
+                    </td>
                   <td class="orders-amount">
                     <div :class="'badge '+getBadgeType( transaction )">
                         ${{ transaction.amount }}
@@ -279,7 +287,7 @@
                         <i class="fe fe-more-vertical"></i>
                       </a>
                       <div class="dropdown-menu dropdown-menu-right">
-                        <a @click="editTransaction( transaction )" href="#!" class="dropdown-item" data-toggle="modal" data-target="#newTransactionModal">
+                        <a @click="editTransaction( transaction, 'min' )" href="#!" class="dropdown-item" data-toggle="modal" data-target="#transactionModal">
                           Edit
                         </a>
                         <a @click="deleteTransaction( transaction )" href="#!" class="dropdown-item">
@@ -315,32 +323,32 @@
                     </li>
                 </ul>
            </div>
-
         </div>
-
       </div>
     </div> <!-- / .row -->
   </div>
 </template>
 
 <script>
-    import NewTransactionModal from './components/NewTransactionModal'
+    import TransactionModal from './components/TransactionModal'
 
     export default {
         name: 'transactions-page-component',
         props: [
             'accounts',
-            'transactions'
+            'transactions',
+            'rules'
         ],
         components: {
-            NewTransactionModal
+            TransactionModal
         },
         data() {
             return {
                 selectedAccount: null,
                 selectedTransaction: {},
                 dataTransactions: this.transactions,
-                modalKey: 0
+                modalKey: 0,
+                modal: 'full'
             }
         },
         methods: {
@@ -350,11 +358,17 @@
             selectAccount( account ) {
                 this.selectedAccount = account;
             },
-            editTransaction ( transaction ) {
+            editTransaction ( transaction, modal ) {
                 this.selectedTransaction = transaction
+                this.modal = modal
             },
             newTransaction() {
+                this.modal = 'full'
                 this.selectedTransaction = {};
+            },
+            changeModal( type ) {
+                console.log(type)
+                this.modal = type;
             },
             saveTransaction( transaction ) {
                 var self = this;
@@ -362,9 +376,15 @@
                 let method = transaction.id ? 'PUT' : 'POST'
                 this.asyncSendData(transaction, url, method).then( function( response ) {
                     if (!transaction.id) {
-                        self.$set(self.transactions, self.transactions.length, response)
+                        self.$set(self.dataTransactions, self.dataTransactions.length, response)
                         self.showNotification('success', 'Transaction Posted Successfully!')
                     } else {
+                        let index = self.dataTransactions.map(function (x) { return x.id; }).indexOf(response.id);
+                        //todo: figure out why table won't update via Vue.$set
+                        self.dataTransactions.splice(index, 1);
+                        setTimeout( function() {
+                            self.dataTransactions.splice(index, 0, response)
+                        }, 100)
                         self.showNotification('success', 'Transaction Updated Successfully!')
                     }
                     self.modalKey += 1;

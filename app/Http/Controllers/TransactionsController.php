@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Transactions\Transaction;
 use App\Models\Transactions\TransactionCategory;
+use App\Models\Rules\RuleRepository;
 use App\Models\Account;
 use Auth;
 
@@ -15,10 +16,11 @@ class TransactionsController extends Controller
      *
      * @return void
      */
-    public function __construct()
+    public function __construct( RuleRepository $ruleRepository )
     {
         $this->middleware('auth');
         $this->middleware('notifications');
+        $this->rules = $ruleRepository;
     }
 
     /**
@@ -30,8 +32,9 @@ class TransactionsController extends Controller
     {
         $transactions = Transaction::where('user_id', Auth::User()->id)->with('account')->orderBy('created_at', 'DESC')->get();
         $accounts = Account::where('user_id', Auth::User()->id)->get();
+        $rules = $this->rules->getUserRules( Auth::User() );
 
-        return view('user.transactions', array('transactions'=>$transactions, 'accounts' => $accounts));
+        return view('user.transactions', array('transactions'=>$transactions, 'accounts' => $accounts, 'rules' => $rules));
     }
 
 
@@ -68,6 +71,10 @@ class TransactionsController extends Controller
             $transaction->category = TransactionCategory::FEES_CHARGES;
         }
 
+        if ($request->input('create_rule') == 1) {
+            $this->rules->createRule( $transaction->vendor, $transaction->category );
+        }
+
         $transaction->save();
         $transaction->account;
 
@@ -83,6 +90,11 @@ class TransactionsController extends Controller
     {
         $transaction = Transaction::find($id);
         $transaction->update( $request->input() );
+
+        if ($request->input('create_rule') == 1) {
+            $this->rules->createRule( $transaction->vendor, $transaction->category );
+        }
+
         $transaction->account;
 
         return response(json_encode($transaction), 200);

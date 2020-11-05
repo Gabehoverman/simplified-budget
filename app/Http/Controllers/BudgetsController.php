@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Budgets\Budget;
 use App\Models\Budgets\BudgetRepository;
+use App\Models\Transactions\TransactionRepository;
 use App\Models\Account;
 use Auth;
 
@@ -15,11 +16,12 @@ class BudgetsController extends Controller
      *
      * @return void
      */
-    public function __construct( BudgetRepository $budgetRepository)
+    public function __construct( BudgetRepository $budgetRepository, TransactionRepository $transactionRepository )
     {
         $this->middleware('auth');
         $this->middleware('notifications');
         $this->budgets = $budgetRepository;
+        $this->transactions = $transactionRepository;
     }
 
     /**
@@ -31,8 +33,13 @@ class BudgetsController extends Controller
     {
         $budgets = $this->budgets->getMappedBudgets();
         $accounts = Account::where('user_id', Auth::User()->id)->get();
+        $totals = array(
+            'income' => $this->transactions->getMonthlyTotalIncome(),
+            'spending' => $this->transactions->getMonthlyTotalSpending(),
+            'estimated_income' => Auth::User()->pay
+        );
 
-        return view('user.budgets', array('budgets'=>$budgets, 'accounts' => $accounts));
+        return view('user.budgets', array('budgets'=>$budgets, 'accounts' => $accounts, 'totals' => $totals));
     }
 
     /**
@@ -60,7 +67,7 @@ class BudgetsController extends Controller
         $budget->save();
 
         $budget->total = $budget->monthlyTotal();
-        $budget->total = count($budget->total) > 0 ? $budget->total[0]['sum'] : 0;
+        $budget->previousMonthlyTotal = $budget->previousMonthlyTotal();
 
         return response(json_encode($budget), 200);
     }
@@ -77,7 +84,7 @@ class BudgetsController extends Controller
         $budget->transactions;
 
         $budget->total = $budget->monthlyTotal();
-        $budget->total = count($budget->total) > 0 ? $budget->total[0]['sum'] : 0;
+        $budget->previousMonthlyTotal = $budget->previousMonthlyTotal();
 
         $this->budgets->generateNotifications([$budget]);
 

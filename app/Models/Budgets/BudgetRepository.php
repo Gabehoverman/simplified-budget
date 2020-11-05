@@ -20,7 +20,7 @@ class BudgetRepository extends Model
         $mappedBudgets = [];
         foreach( $budgets as $budget ) {
             $budget->total = $budget->monthlyTotal();
-            $budget->total = count($budget->total) > 0 ? $budget->total[0]['sum'] : 0;
+            $budget->previousMonthlyTotal = $budget->previousMonthlyTotal();
             $mappedBudgets[] = $budget;
         }
 

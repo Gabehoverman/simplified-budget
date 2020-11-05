@@ -124,7 +124,7 @@
                     data-toggle="modal"
                     data-target="#budgetModal"
                     @click="selectBudget(budget)"
-                  >{{ budget.name }}</a
+                  >{{ budget.category }}</a
                 >
               </h2>
               <!-- <br /> -->
@@ -149,12 +149,27 @@
                 <div class="row">
                   <div class="col">
                     <!-- Text -->
-                    <small>Monthly Budget</small>
+                    <small>Budgeted Amount</small>
                   </div>
                   <div class="col-auto">
                     <!-- Text -->
                     <small class="item-industry">{{
-                      budget.amount ? '$'+budget.amount : "$100,000"
+                      budget.amount ? '$'+budget.amount : ""
+                    }}</small>
+                  </div>
+                </div>
+                <!-- / .row -->
+              </div>
+              <div class="list-group-item">
+                <div class="row">
+                  <div class="col">
+                    <!-- Text -->
+                    <small>Timeframe</small>
+                  </div>
+                  <div class="col-auto">
+                    <!-- Text -->
+                    <small class="item-industry">{{
+                      budget.timeframe == 1 ? 'Annually' : "Monthly"
                     }}</small>
                   </div>
                 </div>

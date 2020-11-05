@@ -46,7 +46,7 @@
                                     <div class="row text-right" v-if="account.institution_id">
                                         <!-- Project name -->
                                         <!-- <img width="300px" :src=" '/img/logos/' + institutions.filter( institution => institution.id == account.institution_id )+ ' Logo.png'" style="position: absolute; right: 0px; top: -30px"> -->
-                                        <!-- <img width="300px" :src=" institutions.filter( institution => institution.id == account.institution_id )[0].asset " style="position: absolute; right: 0px; top: -30px"> -->
+                                        <img width="300px" :src=" institutions.filter( institution => institution.id == account.institution_id )[0].asset " style="position: absolute; right: 0px; top: -30px">
                                     </div>
 
                                 </div>
@@ -56,7 +56,6 @@
                 </div>
                 <!-- Form -->
                 <div class="col-md-4 col-lg-4 col-sm-4">
-
                     <ul class="progress-tracker progress-tracker--vertical">
                         <li :class="'progress-step ' + (step == 1 ? 'is-active' : step > 1 ? 'is-complete' : '')">
                             <div class="progress-text">
@@ -101,6 +100,7 @@
                                 :account="account"
                                 :institutions="institutions"
                                 :errors="$v.account"
+                                @manualAccount="manualAccount( $event )"
                                 @updateAccount="updateAccount( $event )"
                             />
                         </transition>
@@ -155,7 +155,7 @@
     });
 
    export default {
-        name: 'accounts-page-component',
+        name: 'new-accounts-component',
         router,
         props: [
             'selectedAccount',
@@ -177,12 +177,18 @@
                 this.step = index - 1;
             },
             nextStep() {
+                console.log( this.$router.currentRoute.name )
                 eval('this.$v.'+ this.$router.currentRoute.name + 'Group.$touch()')
                 let invalid = eval('this.$v.'+ this.$router.currentRoute.name + 'Group.$invalid')
+
                 if (!invalid) {
-                    let index = this.$router.options.routes.map(function(x) {return x.name; }).indexOf(this.$router.currentRoute.name);
-                    this.$router.push({name: this.$router.options.routes[index+1].name, params: {id: this.account.id} });
-                    this.step = index + 1;
+                    if (this.step == 1 && this.account.manual_account == true && this.account.id == null) {
+                        this.createManualAccount()
+                    } else {
+                        let index = this.$router.options.routes.map(function(x) {return x.name; }).indexOf(this.$router.currentRoute.name);
+                        this.$router.push({name: this.$router.options.routes[index+1].name, params: {id: this.account.id} });
+                        this.step = index + 1;
+                    }
                 }
             },
             updateAccount( account ) {
@@ -194,6 +200,13 @@
                 console.log(this.account)
                 this.nextStep();
                 // this.$router.push({name: this.$router.options.routes[2].name, params: { id: this.account.id } });
+            },
+            createManualAccount() {
+                var self = this
+                this.asyncSendData(this.account, '/accounts/manual', 'POST').then( function( response ) {
+                    self.account = response;
+                    self.nextStep();
+                })
             },
             unselectAccount() {
                 this.selectedAccount = null
@@ -236,9 +249,9 @@
                 tracking_options: {
                     required
                 },
-                // institution_id: {
-                //     required
-                // },
+                institution_id: {
+                    required
+                },
                 // username: {
                 //     required
                 // },
@@ -246,7 +259,7 @@
                 //     required
                 // }
             },
-            BankGroup: [],
+            BankGroup: ['account.institution_id'],
             // CredentialsGroup: ['account.username', 'account.password'],
             SettingsGroup: ['account.name', 'account.tracking_type', 'account.tracking_options', 'account.type']
         }

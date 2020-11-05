@@ -10,7 +10,7 @@
                 <label>
                     Institution Name:
                 </label>
-                {{ account.mx_institution_code }}
+                {{ institutions.filter( institution => institution.id == account.institution_id )[0].name }}
             </div>
 
             <div class="form-group col-md-6">
@@ -47,7 +47,7 @@
 
 <script>
     export default {
-        props: ['account', 'errors'],
+        props: ['account', 'institutions', 'errors'],
         mounted() {
             console.log('Component mounted.')
         }

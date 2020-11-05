@@ -20,7 +20,7 @@
                             <h5><span class="text-primary">●</span> ${{ formatCurrency(expenses) }}</h5> Spent
                         </div>
                         <div class="col-4">
-                            <h5><span class="text-info">●</span> ${{ budgetTotal}}</h5> Total Budget
+                            <h5><span class="text-info">●</span> ${{ formatCurrency( budgetTotal ) }}</h5> Total Budget
                         </div>
                         <div class="col-4">
                             <h5><span style="color: #edf2f9">●</span> ${{ formatCurrency(budgetRemainder) }}</h5> Remaining
@@ -54,7 +54,11 @@
             budgetTotal() {
                let sum = 0;
                 this.budgets.forEach( function( budget ) {
-                    sum += budget.amount;
+                    if ( budget.timeframe == 1 ) {
+                        sum += budget.amount / 12;
+                    } else {
+                        sum += budget.amount;
+                    }
                 })
                 return sum;
             },

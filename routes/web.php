@@ -39,6 +39,7 @@ Route::resource('/transactions', 'TransactionsController');
 Route::get('/accounts/new', 'AccountsController@new')->name('account.new');
 Route::get('/accounts/new/{any}', 'AccountsController@new')->name('account.new');
 Route::get('/accounts/new/{any}/{id}', 'AccountsController@new')->name('account.new');
+Route::post('/accounts/manual', 'AccountsController@manualAccount')->name('accounts.manual');
 Route::post('/accounts/{id}/sync', 'AccountsController@sync')->name('account.sync');
 
 Route::resource('/accounts', 'AccountsController');

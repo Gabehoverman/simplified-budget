@@ -81,6 +81,11 @@ Vue.mixin({
             formattedDate.setDate( formattedDate.getDate() + 1)
             return formattedDate.toDateString()
         },
+        getMonthDayYear( timestamp ) {
+            let formattedDate = new Date( timestamp )
+            formattedDate.setDate( formattedDate.getDate() + 1)
+            return formattedDate.getMonth()+1+'/'+formattedDate.getDate() +'/'+formattedDate.getFullYear()
+        },
         getAccountLabel( type ) {
             switch( parseInt( type ) ) {
                 case 1:

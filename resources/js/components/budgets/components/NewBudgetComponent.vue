@@ -19,11 +19,11 @@
           </div>
           <div class="modal-body">
             <form>
-                <div class="form-group">
+                <!-- <div class="form-group">
                     <label for="vendorInput">Name</label>
                     <input v-model="budget.name" type="text"
                                 :class="'form-control '+($v.budget.name.$error ? 'is-invalid ' : '')" id="nameInput" placeholder="Groceries Budget">
-                </div>
+                </div> -->
 
                 <div class="form-group">
                     <label for="accountSelect">Account</label>
@@ -34,18 +34,29 @@
                     </select>
                 </div>
 
-                  <div class="form-group" v-if="budget.type != 1">
+                  <div class="form-group">
                     <label for="categorySelect">Category</label>
                     <select v-model="budget.category"
                                 :class="'form-control '+($v.budget.category.$error ? 'is-invalid ' : '')"
                                 id="categorySelect" name="category">
                         <option value="undefined" selected disabled>Select a Category</option>
-                        <option v-for="(category, key) in $transactionCategories" :key="key" :value="key"> {{ category }}</option>
+                        <option v-for="(category, key) in categories" :key="key" :value="category"> {{ category }}</option>
                     </select>
                 </div>
 
                 <div class="form-group">
-                    <label for="amountInput">Monthly Budget</label>
+                    <label for="categorySelect">Timeframe</label>
+                    <select v-model="budget.timeframe"
+                                :class="'form-control '+($v.budget.category.$error ? 'is-invalid ' : '')"
+                                id="categorySelect" name="timeframe">
+                        <option value="undefined" disabled>Select a Timeframe</option>
+                        <option value="0" selected>Monthly</option>
+                        <option value="1">Annual</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="amountInput">Budgeted Amount</label>
                     <input v-model="budget.amount" type="text"
                                 :class="'form-control '+($v.budget.amount.$error ? 'is-invalid ' : '')" id="amountInput" placeholder="$250.00">
                 </div>
@@ -68,7 +79,8 @@ export default {
   name: 'new-budget-model',
   props: [
       'accounts',
-      'budget'
+      'budget',
+      'categories'
   ],
   data() {
       return {
@@ -87,9 +99,6 @@ export default {
   validations: {
       budget: {
         account_id: {
-            required
-        },
-        name: {
             required
         },
         category: {

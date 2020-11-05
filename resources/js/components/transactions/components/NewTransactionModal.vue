@@ -1,92 +1,75 @@
 <template>
-  <div>
-    <!-- Modal -->
-    <div
-      class="modal fade"
-      id="newTransactionModal"
-      tabindex="-1"
-      role="dialog"
-      aria-labelledby="newTransactionModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h3 class="modal-title" id="newTransactionModalLabel">Add Transaction</h3>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-
-            <form>
-                <div class="form-group">
-                    <label for="accountSelect">Account</label>
-                    <select v-model="transaction.account_id" :class="'form-control '+($v.transaction.account_id.$error ? 'is-invalid ' : '')" id="accountSelect">
-                        <option value="undefined" selected disabled>Select an Account</option>
-                        <option v-for="( account ) in accounts" :key="account.id" :value="account.id">{{ account.name }}</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="transactionTypeSelect">Transaction Type</label>
-                    <select v-model="transaction.type"
-                                :class="'form-control '+($v.transaction.type.$error ? 'is-invalid ' : '')" id="transactionTypeSelect">
-                        <option value="undefined" selected disabled>Select a Type</option>
-                        <option value="0">Expense</option>
-                        <option value="1">Income</option>
-                        <option value="2">Transfer</option>
-                        <option value="3">Fee</option>
-                    </select>
-                </div>
-
-                  <div class="form-group" v-if="transaction.type != 1 && transaction.type != 2 && transaction.type != 3">
-                    <label for="categorySelect">Category</label>
-                    <select v-model="transaction.category"
-                                :class="'form-control '+($v.transaction.category.$error ? 'is-invalid ' : '')"
-                                id="categorySelect" name="category">
-                        <option value="undefined" selected disabled>Select a Category</option>
-                        <option v-for="(category, key) in $transactionCategories" :key="key" :value="key"> {{ category }}</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="amountInput">Amount</label>
-                    <input v-model="transaction.amount" type="text"
-                                :class="'form-control '+($v.transaction.amount.$error ? 'is-invalid ' : '')" id="amountInput" placeholder="$12.34">
-                </div>
-
-                <div class="form-group">
-                    <label for="vendorInput">Vendor</label>
-                    <input v-model="transaction.vendor" type="text"
-                                :class="'form-control '+($v.transaction.vendor.$error ? 'is-invalid ' : '')" id="vendorInput" placeholder="Target">
-                </div>
-
-                <div class="form-group">
-                    <label for="vendorInput">Transaction Date</label>
-                    <input v-model="transaction.date" type="date"
-                                :class="'form-control '+($v.transaction.date.$error ? 'is-invalid ' : '')" id="dateInput" placeholder="">
-                </div>
-
-               <div class="custom-control custom-checkbox form-group mt-5 mb-0">
-                    <input v-model="transaction.exclude" class="custom-control-input" id="checklistTwo" type="checkbox" />
-                    <label class="custom-control-label" for="checklistTwo"></label>
-                    <span class="custom-control-caption">
-                    Exclude from Calculations
-                    </span>
-                </div>
-            </form>
-
-
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary close-modal" data-dismiss="modal">Close</button>
-            <button @click="saveTransaction()" type="button" class="btn btn-primary">Save changes</button>
-          </div>
+    <form>
+        <div class="form-group">
+            <label for="accountSelect">Account</label>
+            <select v-model="transaction.account_id" :class="'form-control '+($v.transaction.account_id.$error ? 'is-invalid ' : '')" id="accountSelect">
+                <option value="undefined" selected disabled>Select an Account</option>
+                <option v-for="( account ) in accounts" :key="account.id" :value="account.id">{{ account.name }}</option>
+            </select>
         </div>
-      </div>
-    </div>
-  </div>
+
+        <div class="form-group">
+            <label for="transactionTypeSelect">Transaction Type</label>
+            <select v-model="transaction.type"
+                        :class="'form-control '+($v.transaction.type.$error ? 'is-invalid ' : '')" id="transactionTypeSelect">
+                <option value="undefined" selected disabled>Select a Type</option>
+                <option value="0">Expense</option>
+                <option value="1">Income</option>
+                <option value="2">Transfer</option>
+                <option value="3">Fee</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="amountInput">Amount</label>
+            <input v-model="transaction.amount" type="text"
+                        :class="'form-control '+($v.transaction.amount.$error ? 'is-invalid ' : '')" id="amountInput" placeholder="$12.34">
+        </div>
+
+        <div class="form-group">
+            <label for="vendorInput">Vendor</label>
+            <input v-model="transaction.vendor" type="text"
+                        :class="'form-control '+($v.transaction.vendor.$error ? 'is-invalid ' : '')" id="vendorInput" placeholder="Target" @change="checkForRule()">
+        </div>
+
+        <div class="form-group">
+            <label for="vendorInput">Transaction Date</label>
+            <input v-model="transaction.date" type="date"
+                        :class="'form-control '+($v.transaction.date.$error ? 'is-invalid ' : '')" id="dateInput" placeholder="">
+        </div>
+
+        <div class="form-group" v-if="transaction.type != 1 && transaction.type != 2 && transaction.type != 3">
+            <label for="categorySelect">Category</label>
+            <select v-model="transaction.category"
+                        :class="'form-control '+($v.transaction.category.$error ? 'is-invalid ' : '')"
+                        id="categorySelect" name="category">
+                <option value="undefined" selected disabled>Select a Category</option>
+                <option v-for="(category, key) in $transactionCategories" :key="key" :value="key"> {{ category }}</option>
+            </select>
+        </div>
+
+        <div class="custom-control custom-checkbox form-group mt-5 mb-0" v-if="transaction.vendor && transaction.category" @change="checkForRule()">
+            <input v-model="transaction.create_rule" class="custom-control-input" id="checklistOne" type="checkbox" />
+            <label class="custom-control-label" for="checklistOne"></label>
+            <span class="custom-control-caption">
+                Categorize all transactions from {{ transaction.vendor }} as {{ transaction.category }}
+            </span>
+        </div>
+
+        <div class="custom-control form-group mt-3 mb-0 text-muted" v-if="rule != null">
+            <span class="custom-control-caption">
+                The existing rule for {{ transaction.vendor }} will be overwritten
+            </span>
+        </div>
+
+        <div class="custom-control custom-checkbox form-group mt-5 mb-0">
+            <input v-model="transaction.exclude" class="custom-control-input" id="checklistTwo" type="checkbox" />
+            <label class="custom-control-label" for="checklistTwo"></label>
+            <span class="custom-control-caption">
+                Exclude from Calculations
+            </span>
+        </div>
+    </form>
 </template>
 
 <script>
@@ -96,11 +79,12 @@ export default {
   name: 'new-transaction-model',
   props: [
       'accounts',
-      'transaction'
+      'transaction',
+      'rules'
   ],
   data() {
       return {
-        //   transaction: {}
+            rule: null
       }
   },
   methods: {
@@ -108,8 +92,21 @@ export default {
         this.$v.transaction.$touch()
         if (!this.$v.$invalid) {
             this.$emit('saveTransaction', this.transaction)
-            $('#newTransactionModal').modal('hide')
         }
+      },
+    checkForRule() {
+            console.log(this.transaction.create_rule)
+            if ( !this.transaction.create_rule ) {
+                return this.rule = null;
+            }
+            console.log(this.rules)
+            console.log(this.transaction.vendor)
+            let index = this.rules.map(function (x) { return x.vendor.toLowerCase(); }).indexOf(this.transaction.vendor.toLowerCase());
+            console.log( index )
+            if (index < 0) {
+                return this.rule = null;
+            }
+            this.rule = this.rules[index]
       }
   },
   validations: {
@@ -140,6 +137,7 @@ export default {
       }
   },
   mounted() {
+      this.checkForRule()
   }
 };
 </script>

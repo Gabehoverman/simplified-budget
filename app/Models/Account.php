@@ -12,7 +12,8 @@ class Account extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id', 'institution_id', 'name', 'type', 'tracking_type', 'tracking_options', 'active',
+        'user_id', 'institution_id', 'name', 'type', 'tracking_type', 'tracking_options',
+        'balance', 'active',
         'mx_member_guid', 'mx_institution_code'
     ];
 

@@ -64,7 +64,6 @@
                         return new Date(new Date().getFullYear(), 0, 1);
                 }
             },
-
             expenses() {
                 let sum = 0;
                 let date = this.filterDate
@@ -85,14 +84,23 @@
             },
             budgetTotal() {
                let sum = 0;
+                let date = new Date()
                 this.budgets.forEach( function( budget ) {
-                    sum += budget.amount;
+                    if (budget.timeframe == 1) {
+                        sum += budget.amount / 12
+                    } else {
+                        sum += budget.amount;
+                    }
                 })
-                switch(this.filter) {
-                    case 'weekly': // todo: find current date, check number of days in month / current day, then multiple by that. eg. 15th day of 30 day month would be 50% of budget so far
-                        // sum = sum / 4
+                switch( this.filter ) {
+                    case 'weekly':
+                        // todo: find current date, check number of days in month / current day, then multiple by that. eg. 15th day of 30 day month would be 50% of budget so far
+                        // sum = sum / ( Math.floor(date.getDate() / 7) + 1 )
+                        sum = sum / 4;
                     case 'annual':
-                        sum = sum * 2; // todo: multiple by number of months in the current year that there are transactions reported
+                         // todo: multiple by number of months in the current year that there are transactions reported
+                        sum = sum * ( date.getMonth() + 1 )
+                        // sum = sum * 2;
                 }
                 return sum;
             },

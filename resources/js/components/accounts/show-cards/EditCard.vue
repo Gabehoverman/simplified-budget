@@ -20,6 +20,7 @@
 
                         <settings-card
                             :account="account"
+                            :institutions="institutions"
                             :errors="$v.account"
                         />
 
@@ -43,7 +44,7 @@
     import SettingsCard from '../step-cards/SettingsCard'
 
     export default {
-        props: ['account', 'institutions'],
+        props: ['account', 'institutions', 'institutions'],
         components: {
             BankCard,
             CredentialsCard,

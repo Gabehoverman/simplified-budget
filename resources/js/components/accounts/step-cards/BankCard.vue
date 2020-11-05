@@ -5,17 +5,28 @@
         <div class="row">
 
             <!-- Project tags -->
-            <div class="form-group col-md-12">
-                <!-- <label>
-                    Account Type
-                </label>
+            <div class="form-group col-md-12 text-right">
+                <div class="custom-control custom-checkbox form-group mb-0">
+                    <input v-model="dataAccount.manual_account" class="custom-control-input" id="checklistOne" type="checkbox" />
+                    <label class="custom-control-label" for="checklistOne"></label>
+                    <span class="custom-control-caption">
+                        Create A Manual Account
+                    </span>
+                </div>
+            </div>
 
-                <select v-model="account.institution_id" name="institution" :class="'form-control '+(errors.institution_id.$error ? 'is-invalid ' : '')" data-toggle="select">
-                    <option value="undefined" disabled>Select an Option</option>
-                    <option v-for="institution in institutions" :key="institution.id" :value="institution.id">{{ institution.name }}</option>
-                </select> -->
+                <div class="form-group col-md-12" v-if="dataAccount.manual_account == true">
+                    <label>
+                        Institution
+                    </label>
+                    <select v-model="dataAccount.institution_id" name="type" :class="'form-control '+(errors.institution_id.$error ? 'is-invalid ' : '')" data-toggle="select">
+                        <option value="null">Select Institution</option>
+                        <option v-for="institution in institutions" :key="institution.id" :value="institution.id">{{ institution.name }}</option>
+                    </select>
+                </div>
 
                 <frame-widget-component
+                    v-if="dataAccount.manual_account != true"
                     :account="account"
                     @updateAccount="updateAccount( $event )"
                 />
@@ -45,6 +56,10 @@
                 // this.dataAccount = $event;
 
                 this.$emit('updateAccount', $event)
+            },
+            manualAccount() {
+                var self = this;
+                //todo: post to /accounts to create a new account, then pass that up
             }
         },
         mounted() {

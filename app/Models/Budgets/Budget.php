@@ -15,7 +15,7 @@ class Budget extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'category', 'amount', 'user_id', 'account_id'
+        'category', 'amount', 'user_id', 'account_id', 'timeframe'
     ];
 
     /**
@@ -41,16 +41,29 @@ class Budget extends Model
 
     public function monthlyTotal()
     {
-        return Transaction::groupBy('category')->toUser()->where('category', $this->category)->where('exclude', 0)->where('date', '>=', \Carbon\Carbon::now()->firstOfMonth())->selectRaw('sum(amount) as sum')->orderBy('sum', 'desc')->get();
+        return Transaction::toUser()->where('category', $this->category)->where('exclude', 0)->where('date', '>=', \Carbon\Carbon::now()->firstOfMonth())->get()->sum('amount');
+    }
+
+    public function previousMonthlyTotal()
+    {
+        return Transaction::toUser()->where('category', $this->category)->where('exclude', 0)->where('date', '<=', \Carbon\Carbon::now()->firstOfMonth())
+                    ->where('date', '>=', \Carbon\Carbon::now()->subMonths(1)->firstOfMonth())
+                    ->get()
+                    ->sum('amount');
     }
 
     public function getMonthlyPercentage()
     {
         if (!$this->total) {
             $this->total = $this->monthlyTotal();
-            $this->total = count($this->total) > 0 ? $this->total[0]['sum'] : 0;
         }
 
+        if ( !$this->total || !$this->amount ) {
+            return 0;
+        }
+        if ( $this->timeframe == 1) {
+            return ($this->total / ( $this->amount / 12 ) ) * 100;
+        }
         return ($this->total / $this->amount ) * 100;
     }
 

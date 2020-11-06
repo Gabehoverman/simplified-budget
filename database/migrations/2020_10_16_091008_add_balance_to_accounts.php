@@ -14,7 +14,7 @@ class AddBalanceToAccounts extends Migration
     public function up()
     {
         Schema::table('accounts', function (Blueprint $table) {
-            $table->decimal('balance');
+            $table->decimal('balance')->nullable();
         });
     }
 

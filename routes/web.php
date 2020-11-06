@@ -51,6 +51,7 @@ Route::resource('/budgets', 'BudgetsController');
 
 Route::resource('/profile', 'ProfileController');
 
+Route::get('/settings/billing', 'SettingsController@billingPortal');
 Route::resource('/settings', 'SettingsController');
 
 Route::resource('/admin/dashboard', 'Admin\DashboardController');

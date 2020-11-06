@@ -40,6 +40,7 @@
             /> -->
             <settings-card
                 v-if="dataAccount.mx_institution_code"
+                :institutions="institutions"
                 :key="2"
                 :account="dataAccount"
                 :errors="errors"

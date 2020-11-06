@@ -40,7 +40,7 @@
                                 :class="'form-control '+($v.budget.category.$error ? 'is-invalid ' : '')"
                                 id="categorySelect" name="category">
                         <option value="undefined" selected disabled>Select a Category</option>
-                        <option v-for="(category, key) in categories" :key="key" :value="category"> {{ category }}</option>
+                        <option v-for="(category, key) in computedCategories" :key="key" :value="category"> {{ category }}</option>
                     </select>
                 </div>
 
@@ -94,6 +94,15 @@ export default {
             this.$emit('saveBudget', this.budget)
             $('#budgetModal').modal('hide')
         }
+      }
+  },
+  computed: {
+      computedCategories() {
+          if (!this.budget.id) {
+              return this.categories
+          } else {
+              return this.$transactionCategories
+          }
       }
   },
   validations: {

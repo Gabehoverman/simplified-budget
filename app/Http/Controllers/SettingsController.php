@@ -26,4 +26,9 @@ class SettingsController extends Controller
     {
         return view('user.settings');
     }
+
+    public function billingPortal(Request $request)
+    {
+        return \Auth::User()->redirectToBillingPortal();
+    }
 }

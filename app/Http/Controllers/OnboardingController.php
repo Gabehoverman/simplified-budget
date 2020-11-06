@@ -33,6 +33,7 @@ class OnboardingController extends Controller
         $institutions = $institutionRepository->getInstitutions();
         $account = \Auth::User()->accounts()->first();
         $budgets = Budget::where('user_id', \Auth::User()->id)->get();
+
         if (!$account) {
             $account = new Account();
         }
@@ -52,15 +53,19 @@ class OnboardingController extends Controller
         } else {
             $account = new Account();
         }
+
         $budgetData = $request->input('budgets');
         if ($budgetData) {
             foreach ($budgetData as $data) {
                 $budget = new Budget($data);
-                $budget->name = $data['category'];
                 $budget->user_id = \Auth::User()->id;
-                $budget->account_id = $account->id;
+                $budget->account_id = 0;
                 $budget->save();
             }
+        }
+
+        if (!\Auth::User()->stripe_id) {
+            $stripeCustomer = \Auth::User()->createAsStripeCustomer();
         }
 
         return response( json_encode( array('user' => $user, 'account' => $account ) ), 200 );

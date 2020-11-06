@@ -23,7 +23,7 @@ class MXRepository extends Model
 
     public function generateUserGuid( $user = null ) {
         $user = array(
-            'identifier' => $user ? $user->id : Auth::User()->id,
+            'identifier' => $user ? env('MX_PREFIX') . $user->id : env('MX_PREFIX') . Auth::User()->id,
             'is_disabled' => false,
             'metadata' => null
         );

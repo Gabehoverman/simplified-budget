@@ -36,10 +36,15 @@ class DashboardController extends Controller
         if (Auth::User()->income == null) {
             return redirect('/onboarding');
         }
+
         if (!Auth::User()->mx_user_guid) {
             $user = Auth::User();
             $user->mx_user_guid = $this->mx->generateUserGuid( $user );
             $user->save();
+        }
+
+        if (!Auth::User()->stripe_id) {
+            $stripeCustomer = Auth::User()->createAsStripeCustomer();
         }
 
         $transactions = Transaction::where('user_id', Auth::User()->id)->where('exclude', 0)->with('account')->orderBy('date', 'DESC')->get();

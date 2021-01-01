@@ -25,10 +25,13 @@
                             <div class="col text-right">
                                 <div class="nav btn-group d-inline-flex" role="tablist" style="margin-right: 20px;">
                                     <button :class="'btn btn-white '+(selectedTab == 'table' ? 'active' : '')"  @click="selectTab('table')">
-                                        <span class="fe fe-list"></span>
+                                        <span class="fe fe-calendar"></span>
                                     </button>
-                                    <button :class="'btn btn-white '+(selectedTab == 'tiles' ? 'active' : '')" @click="selectTab('tiles')">
+                                    <!-- <button :class="'btn btn-white '+(selectedTab == 'tiles' ? 'active' : '')" @click="selectTab('tiles')">
                                         <span class="fe fe-grid"></span>
+                                    </button> -->
+                                      <button :class="'btn btn-white '+(selectedTab == 'annual' ? 'active' : '')" @click="selectTab('annual')">
+                                        <span class="fe fe-list"></span>
                                     </button>
                                 </div>
 
@@ -41,11 +44,21 @@
                                     :disabled="accounts.length < 1 ? true : false"
                                     >New Budget
                                 </button>
-
                             </div>
                         </div>
                     </div> <!-- / .row -->
                 </div>
+
+                <budget-annual-component
+                    :class="(selectedTab == 'annual' ? '' : 'hidden')"
+                    :budgets="dataBudgets"
+                    :computed-budgets="computedBudgets"
+                    @saveBudget="saveBudget($event)"
+                    @selectBudget="selectBudget($event)"
+                    @editBudget="editBudget($event)"
+                    @unselectBudget="unselectBudget($event)"
+                    @deleteBudget="deleteBudget($event)"
+                />
 
                 <budget-tile-component
                     :class="(selectedTab == 'tiles' ? '' : 'hidden')"
@@ -57,11 +70,13 @@
                 <budget-table-component
                     :class="(selectedTab == 'table' ? '' : 'hidden')"
                     :budgets="budgets"
+                    :computed-budgets="computedBudgets"
                     :categories="budgetCategories"
                     :totals="totals"
                     :selectedBudget="selectedBudget"
                     @saveBudget="saveBudget($event)"
                     @selectBudget="selectBudget($event)"
+                    @editBudget="editBudget($event)"
                     @unselectBudget="unselectBudget($event)"
                     @deleteBudget="deleteBudget($event)"
                 />
@@ -71,6 +86,7 @@
                     :budget="selectedBudget"
                     :accounts="accounts"
                     :categories="budgetCategories"
+                    :computed-budgets="computedBudgets"
                     @saveBudget="saveBudget($event)"
                     @deleteBudget="deleteBudget($event)"
                   />
@@ -84,6 +100,7 @@
     import NewBudgetComponent from './components/NewBudgetComponent'
     import BudgetBreakdownComponent from './components/BudgetBreakdownComponent'
     import BudgetTableComponent from './components/BudgetTableComponent'
+    import BudgetAnnualComponent from './components/BudgetAnnualComponent'
 
     export default {
         props: ['user', 'budgets', 'accounts', 'totals'],
@@ -91,22 +108,30 @@
             return {
                 modalKey: 0,
                 selectedBudget: {},
-                selectedTab: 'table'
+                selectedTab: 'table',
+                dataBudgets: this.budgets,
             }
         },
         components: {
             BudgetTileComponent,
             NewBudgetComponent,
             BudgetBreakdownComponent,
-            BudgetTableComponent
+            BudgetTableComponent,
+            BudgetAnnualComponent
         },
         methods: {
             selectBudget( budget ) {
+                this.modalKey++;
                 console.log(this.selectedBudget)
                 this.selectedBudget = budget;
             },
             editBudget ( budget ) {
+                this.modalKey++;
                 this.selectedBudget = budget
+                console.log('edit')
+                setTimeout( function() {
+                    $('#budgetModal').modal('show')
+                }, 200)
             },
             unselectBudget() {
                 this.selectedBudget = {};
@@ -115,7 +140,7 @@
                 this.selectedTab = tab;
             },
             saveBudget( budget ) {
-                console.log('save')
+                console.log( budget )
                 var self = this;
                 let url = '/budgets' + ( budget.id ? '/'+budget.id : '')
                 let method = budget.id ? 'PUT' : 'POST'
@@ -154,7 +179,44 @@
                     }
                 })
                 return categories
+            },
+            computedBudgets() {
+                // todo: map budgets by main category and have subcategory budgets underneath
+                var mappedBudgets = {};
+                this.dataBudgets.forEach( function( budget ) {
+                    if (!mappedBudgets[budget.category]) {
+                        mappedBudgets[budget.category] = {
+                            monthly_amount: 0,
+                            annual_amount: 0,
+                            budgets: []
+                        };
+                    }
+
+                    mappedBudgets[budget.category].monthly_amount += budget.monthly_amount
+                    mappedBudgets[budget.category].annual_amount += budget.annual_amount
+                    mappedBudgets[budget.category].budgets.push(budget)
+                })
+
+                return mappedBudgets;
             }
+
+        },
+        mounted() {
+            var self = this;
+            this.budgets.forEach( function(budget, index) {
+                console.log(budget.monthly_budgets)
+                if ( !budget.monthly_budgets || Array.isArray( budget.monthly_budgets ) && budget.monthly_budgets.length < 1) {
+                    let newBudget = budget;
+                    newBudget.monthly_budgets = {};
+                    var i = 1;
+                    while (i <= 12) {
+                        let index = (i).toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false})
+                        newBudget.monthly_budgets[index] = newBudget.timeframe == 0 ? newBudget.amount : newBudget.amount / 12;
+                        i++;
+                    }
+                    self.$set(self.budgets, index, newBudget)
+                }
+            })
         }
     }
 </script>

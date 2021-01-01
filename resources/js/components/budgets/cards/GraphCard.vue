@@ -67,7 +67,7 @@ export default {
         var self = this;
         for (const [key, value] of Object.entries(data)) {
             let sum = 0;
-            sum = parseFloat(value.amount);
+            sum = parseFloat(value.monthly_amount);
             console.log(sum)
             self.datalabels.push( value.name )
             self.dataColors.push(this.getColor( value ))
@@ -79,7 +79,7 @@ export default {
         return Math.floor(Math.random() * (50 - 5 + 1)) + 5;
       },
       getColor( budget ) {
-        let percent = ((budget.total / budget.amount) * 100)
+        let percent = ((budget.total / budget.monthly_amount) * 100)
         if ( percent >= 100) {
             return '#d01a3b'
         } else if (percent >= 85) {
@@ -100,7 +100,7 @@ export default {
       total() {
           let total = 0;
           this.budgets.forEach( function( budget ) {
-              total += parseFloat(budget.amount)
+              total += parseFloat(budget.monthly_amount)
           })
           return total
       }

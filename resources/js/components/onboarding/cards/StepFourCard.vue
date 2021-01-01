@@ -7,7 +7,7 @@
 
                 <!-- Pretitle -->
                 <h6 class="mb-4 text-uppercase text-muted">
-                    Step 4 of 5
+                    Step 5 of 5
                 </h6>
 
                 <!-- Title -->
@@ -55,27 +55,27 @@
                         </thead>
                         <tbody class="list" :key="budgets.length">
                             <tr v-for="(budget, index ) in budgets" :key="index">
-                            <td class="orders-category">
-                                <select class="form-control" name="category" v-model="budget.category" style="background-color: transparent;">
-                                    <option value="" disabled>Select a Category</option>
-                                    <option v-for="(category, key) in $transactionCategories" :key="key" :value="key"> {{ category }}</option>
-                                </select>
-                            </td>
-                            <td class="orders-amount">
-                                <input type="text" class="form-control" style="background-color: transparent;" v-model="budget.amount">
-                            </td>
-                            <td class="orders-timeframe">
-                                <select v-model="budget.timeframe"
-                                    class="form-control"
-                                    id="categorySelect" name="timeframe">
-                                    <option value="undefined" disabled>Select a Timeframe</option>
-                                    <option value="0" selected>Monthly</option>
-                                    <option value="1">Annual</option>
-                                </select>
-                            </td>
-                            <td class="pull-right text-right">
-                                <a @click="deleteBudget( index )" href="#">X</a>
-                            </td>
+                                <td class="orders-category">
+                                    <select class="form-control" name="category" v-model="budget.category" style="background-color: transparent;">
+                                        <option value="" disabled>Select a Category</option>
+                                        <option v-for="(category, key) in $transactionCategories" :key="key" :value="key"> {{ category }}</option>
+                                    </select>
+                                </td>
+                                <td class="orders-amount">
+                                    <input type="text" class="form-control" style="background-color: transparent;" v-model="budget.amount">
+                                </td>
+                                <td class="orders-timeframe">
+                                    <select v-model="budget.timeframe"
+                                        class="form-control"
+                                        id="categorySelect" name="timeframe">
+                                        <option value="undefined" disabled>Select a Timeframe</option>
+                                        <option value="0" selected>Monthly</option>
+                                        <option value="1">Annual</option>
+                                    </select>
+                                </td>
+                                <td class="pull-right text-right">
+                                    <a @click="deleteBudget( index )" href="#">X</a>
+                                </td>
                             </tr>
                         </tbody>
                     </table>

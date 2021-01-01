@@ -21,12 +21,21 @@ const files = require.context('./', true, /\.vue$/i)
 files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 import TransactionCategories from './enums/TransactionCategories';
+import TransactionSubCategories from './enums/TransactionSubCategories';
+import TransactionSubCategoriesMapped from './enums/TransactionSubCategoriesMapped';
 import TransactionCategoryColors from './enums/TransactionCategoryColors';
 import transactionCategoryIcons from './enums/TransactionCategoryIcons';
+import MonthlyBudgets from './enums/MonthlyBudgets';
+
+import BudgetMethods from './methods/BudgetMethods';
 
 Vue.prototype.$transactionCategories = TransactionCategories
+Vue.prototype.$transactionSubCategories = TransactionSubCategories
+Vue.prototype.$transactionSubCategoriesMapped = TransactionSubCategoriesMapped
 Vue.prototype.$transactionCategoryColors = TransactionCategoryColors
 Vue.prototype.$transactionCategoryIcons = transactionCategoryIcons
+Vue.prototype.$monthlyBudgets = MonthlyBudgets
+
 
 import Vuelidate from 'vuelidate'
 Vue.use(Vuelidate)
@@ -48,6 +57,10 @@ Vue.use(require('vue-moment'));
 /**
  * Mixin global functions
  */
+
+ Vue.mixin({
+     methods: BudgetMethods,
+ })
 
 Vue.mixin({
     methods: {

@@ -100,6 +100,7 @@
                                 :account="account"
                                 :institutions="institutions"
                                 :errors="$v.account"
+                                :user="user"
                                 @manualAccount="manualAccount( $event )"
                                 @updateAccount="updateAccount( $event )"
                             />
@@ -159,7 +160,8 @@
         router,
         props: [
             'selectedAccount',
-            'institutions'
+            'institutions',
+            'user'
         ],
         components: {
             SettingsCard

@@ -7,7 +7,7 @@
 
                 <!-- Pretitle -->
                 <h6 class="mb-4 text-uppercase text-muted">
-                    Step 2 of 5
+                    Step 3 of 5
                 </h6>
 
                 <!-- Title -->
@@ -22,14 +22,17 @@
 
             </div>
         </div> <!-- / .row -->
+        {{ dataAccount }}
 
         <transition-group name="fade" mode="out-in" >
             <bank-card
-                v-if="!dataAccount.mx_institution_code"
+                v-if="!dataAccount.mx_institution_code && user.billing != 'Free'"
                 :key="1"
                 :account="dataAccount"
                 :institutions="institutions"
                 :errors="errors"
+                :onboarding="true"
+                :user="user"
                 @updateAccount="updateAccount($event)"
             />
             <!-- <credentials-card
@@ -39,7 +42,7 @@
                 :errors="errors"
             /> -->
             <settings-card
-                v-if="dataAccount.mx_institution_code"
+                v-if="dataAccount.mx_institution_code || user.billing == 'Free' || dataAccount.tracking_options == 0"
                 :institutions="institutions"
                 :key="2"
                 :account="dataAccount"
@@ -56,7 +59,7 @@
     import SettingsCard from '../../accounts/step-cards/SettingsCard'
 
     export default {
-        props: ['account', 'institutions', 'errors'],
+        props: ['user', 'account', 'institutions', 'errors'],
         data() {
             return {
                 dataAccount: this.account
@@ -72,6 +75,11 @@
                 this.dataAccount = data;
                 console.log(this.account)
                 this.$emit('updateAccount', data)
+            }
+        },
+        mounted() {
+            if (this.user.billing == 'Free') {
+                this.dataAccount.tracking_type = 0;
             }
         }
     }

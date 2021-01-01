@@ -9,6 +9,7 @@
                 :institutions="{{ json_encode($institutions) }}"
                 :account="{{ json_encode( $account ) }}"
                 :budgets="{{ json_encode( $budgets ) }}"
+                :transactions="{{ json_encode( $transactions ) }}"
             />
         </main>
     </div>

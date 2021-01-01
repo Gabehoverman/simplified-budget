@@ -20,6 +20,7 @@ class TransactionsController extends Controller
     {
         $this->middleware('auth');
         $this->middleware('notifications');
+        $this->middleware('billing-verification');
         $this->rules = $ruleRepository;
     }
 

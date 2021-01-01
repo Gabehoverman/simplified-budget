@@ -13,7 +13,6 @@ class BudgetRepository extends Model
         $this->model = $budget;
     }
 
-
     public function getMappedBudgets()
     {
         $budgets = $this->model->where('user_id', Auth::User()->id)->get();

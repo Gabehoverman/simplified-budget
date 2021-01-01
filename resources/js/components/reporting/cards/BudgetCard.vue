@@ -43,22 +43,19 @@
         ],
          computed: {
             incomePercentage() {
-                let monthlyIncome = this.user.pay ? this.user.pay : (this.user.income / 12)
+                let monthlyIncome = this.user.pay ? this.user.pay : ( this.user.income / 12 )
                 return ( monthlyIncome ) * 100;
             },
             expensesPercentage() {
-                let monthlyIncome = this.user.pay ? this.user.pay : (this.user.income / 12)
+                let monthlyIncome = this.user.pay ? this.user.pay : ( this.user.income / 12 )
                 monthlyIncome = this.budgetTotal;
                 return ( this.expenses / monthlyIncome ) * 100;
             },
             budgetTotal() {
+                var self = this;
                let sum = 0;
                 this.budgets.forEach( function( budget ) {
-                    if ( budget.timeframe == 1 ) {
-                        sum += budget.amount / 12;
-                    } else {
-                        sum += budget.amount;
-                    }
+                    sum += parseFloat( self.getMonthlyBudgetAmount( budget ) );
                 })
                 return sum;
             },

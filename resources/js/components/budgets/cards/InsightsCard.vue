@@ -20,9 +20,9 @@
                     return "Set up your first budget to keep track of your spending."
                 }
                 this.budgets.forEach( function( budget ) {
-                    if (budget.amount < budget.total ) {
+                    if (budget.monthly_amount < budget.total ) {
                         overBudget++;
-                    } else if ( ( budget.total / budget.amount ) * 100 > 85 && ( budget.total / budget.amount ) * 100 < 100) {
+                    } else if ( ( budget.total / budget.monthly_amount ) * 100 > 85 && ( budget.total / budget.monthly_amount ) * 100 < 100) {
                         approachingBudgets++;
                     }
                 })

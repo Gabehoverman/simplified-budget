@@ -23,6 +23,7 @@ class AccountsController extends Controller
     {
         $this->middleware('auth');
         $this->middleware('notifications');
+        $this->middleware('billing-verification');
         $this->client = new AtriumClient(
             env('MX_API_KEY'),
             env('MX_CLIENT_ID'),

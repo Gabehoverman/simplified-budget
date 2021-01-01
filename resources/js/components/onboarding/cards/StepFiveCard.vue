@@ -4,7 +4,6 @@
         <!-- Header -->
         <div class="row justify-content-center">
             <div class="col-12 col-md-12 text-center">
-
                 <!-- Pretitle -->
                 <h6 class="mb-4 text-uppercase text-muted">
                     Step 5 of 5
@@ -19,7 +18,6 @@
                 <p class="mb-5 text-muted">
                     That's all the info we need to get started. We'll take you to your dashbord next.
                 </p>
-
             </div>
 
             <div class="row">
@@ -43,6 +41,13 @@
                             <input class="custom-control-input" id="checklistThree" type="checkbox" checked="" disabled>
                             <label class="custom-control-label" for="checklistThree"></label>
                             <span class="custom-control-caption">
+                                Chose Your Plan
+                            </span>
+                        </div>
+                        <div class="custom-control custom-checkbox checklist-control" tabindex="0">
+                            <input class="custom-control-input" id="checklistThree" type="checkbox" checked="" disabled>
+                            <label class="custom-control-label" for="checklistThree"></label>
+                            <span class="custom-control-caption">
                                 Added your first account
                             </span>
                         </div>
@@ -53,16 +58,14 @@
                                 Recorded some transactions
                             </span>
                         </div>
-
-                        <div class="custom-control custom-checkbox checklist-control" tabindex="0">
+                        <!-- <div class="custom-control custom-checkbox checklist-control" tabindex="0">
                             <input class="custom-control-input" id="checklistFour" type="checkbox" checked="" disabled>
                             <label class="custom-control-label" for="checklistFour"></label>
                             <span class="custom-control-caption">
                                 Setup some budgets
                             </span>
-                        </div>
-
-                        </div>
+                        </div> -->
+                    </div>
                 </div>
             </div>
         </div> <!-- / .row -->

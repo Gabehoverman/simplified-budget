@@ -15,7 +15,8 @@ class Budget extends Model
      * @var array
      */
     protected $fillable = [
-        'category', 'amount', 'user_id', 'account_id', 'timeframe'
+        'category', 'amount', 'user_id', 'account_id', 'timeframe', 'monthly_budgets',
+        'annual_amount', 'monthly_amount', 'sub_category'
     ];
 
     /**
@@ -24,6 +25,7 @@ class Budget extends Model
      * @var array
      */
     protected $casts = [
+        'monthly_budgets' => 'json'
     ];
 
     const STATUS_ACTIVE = 1;
@@ -39,15 +41,30 @@ class Budget extends Model
         return $this->belongsTo('App\User');
     }
 
+    public function monthlyBudgets()
+    {
+        return $this->hasMany('App\Models\Budgets\MonthlyBudget');
+    }
+
     public function monthlyTotal()
     {
-        return Transaction::toUser()->where('category', $this->category)->where('exclude', 0)->where('date', '>=', \Carbon\Carbon::now()->firstOfMonth())->get()->sum('amount');
+        return Transaction::toUser()->where('category', $this->category)->where('exclude', 0)->where('date', '>=', \Carbon\Carbon::now()->firstOfMonth())
+        ->where( function ($q) {
+            if ($this->sub_category) {
+                $q->where('sub_category', $this->sub_category);
+            }
+        })->get()->sum('amount');
     }
 
     public function previousMonthlyTotal()
     {
         return Transaction::toUser()->where('category', $this->category)->where('exclude', 0)->where('date', '<=', \Carbon\Carbon::now()->firstOfMonth())
                     ->where('date', '>=', \Carbon\Carbon::now()->subMonths(1)->firstOfMonth())
+                    ->where( function ($q) {
+                        if ($this->sub_category) {
+                            $q->where('sub_category', $this->sub_category);
+                        }
+                    })
                     ->get()
                     ->sum('amount');
     }

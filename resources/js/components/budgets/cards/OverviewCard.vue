@@ -32,13 +32,10 @@
         computed: {
             budgetTotals() {
                 var sum = 0;
+                var self = this;
 
                 this.budgets.forEach( function( budget ) {
-                    if (budget.timeframe == 1) {
-                        sum += parseFloat(budget.amount) / 12
-                    } else {
-                        sum += parseFloat(budget.amount)
-                    }
+                    sum += parseFloat( self.getMonthlyBudgetAmount( budget ) )
                 })
 
                 return sum;

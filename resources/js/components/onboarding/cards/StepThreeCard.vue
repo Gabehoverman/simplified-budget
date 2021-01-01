@@ -7,7 +7,7 @@
 
             <!-- Pretitle -->
             <h6 class="mb-4 text-uppercase text-muted">
-                Step 3 of 5
+                Step 4 of 5
             </h6>
 
             <!-- Title -->
@@ -30,14 +30,14 @@
             <!-- <div class="col-6 text-center">
                 <a class="btn btn-primary text-white" @click="generateTransactions()">Auto Record Transactions</a>
             </div> -->
-            <!-- <div class="col-6 text-center">
-                <a class="btn btn-primary text-white">Input Transactions Manually</a>
-            </div> -->
+            <div class="col-6 text-center">
+                <a class="btn btn-primary text-white" @click="addTransaction()">Input Transactions Manually</a>
+            </div>
         </div>
 
         <hr class="divider">
 
-        <div class="row" v-if="transactions.length < 1">
+        <div class="row" v-if="transactions == null">
             <div class="col-md-8 offset-md-2">
                 <content-loader
                     :width="200"
@@ -58,59 +58,109 @@
             </div>
         </div>
 
-        <div class="row" v-if="transactions.length > 0">
+        <div class="row" v-if="transactions != null">
             <div class="col-12">
                 <div class="table-responsive" style="max-height: 400px;">
                     <table id="transactions-table" class="table table-hover table-sm table-nowrap card-table">
                         <thead>
                             <tr>
-                            <th>
-                                <a href="#" class="text-muted sort" data-sort="orders-order">
-                                    #
-                                </a>
-                            </th>
-                            <th>
-                                <a href="#" class="text-muted sort" data-sort="orders-category">
-                                Category
-                                </a>
-                            </th>
-                            <th>
-                                <a href="#" class="text-muted sort" data-sort="orders-amount">
-                                Amount
-                                </a>
-                            </th>
-                            <th>
-                                <a href="#" class="text-muted sort" data-sort="orders-vendor">
-                                Vendor
-                                </a>
-                            </th>
-                            <th>
-                                <a href="#" class="text-muted sort" data-sort="orders-date">
-                                Date
-                                </a>
-                            </th>
+                                <th>
+                                    <a href="#" class="text-muted sort" data-sort="orders-order">
+                                        #
+                                    </a>
+                                </th>
+                                <th>
+                                    <a href="#" class="text-muted sort" data-sort="orders-category">
+                                    Category
+                                    </a>
+                                </th>
+                                <th>
+                                    <a href="#" class="text-muted sort" data-sort="orders-amount">
+                                    Amount
+                                    </a>
+                                </th>
+                                <th>
+                                    <a href="#" class="text-muted sort" data-sort="orders-vendor">
+                                    Vendor
+                                    </a>
+                                </th>
+                                <th>
+                                    <a href="#" class="text-muted sort" data-sort="orders-date">
+                                    Date
+                                    </a>
+                                </th>
+                                <th v-if="account.tracking_type == 0">
+                                </th>
                             </tr>
                         </thead>
                         <tbody class="list" :key="transactions.length">
-                            <tr v-for="(transaction, index ) in transactions" :key="index">
-                            <td class="orders-order">
-                                #{{ index + 1 }}
-                            </td>
-                            <td class="orders-category">
-                                {{ formatString(transaction.category) }}
-                            </td>
-                            <td class="orders-amount">
-                                <div :class="'badge '+getBadgeType( transaction )">
-                                    ${{ transaction.amount }}
-                                </div>
-                            </td>
-                            <td class="orders-vendor">
-                                {{ transaction.vendor }}
-                            </td>
-                            <td class="orders-date">
-                                <time :datetime="transaction.date">{{ getFormattedDate( transaction.date ) }}</time>
-                            </td>
+                            <!-- todo: add in a conditional that checks for the id of the transaction -->
+                            <tr v-for="(transaction, index ) in dataTransactions" :key="index">
+                                <td class="orders-order">
+                                    #{{ index + 1 }}
+                                </td>
+
+                                <td class="orders-category" v-if="transaction.id">
+                                    {{ transaction.category ? formatString(transaction.category) : '' }}
+                                </td>
+
+                                <td class="orders-category" v-else>
+                                    <select class="form-control" name="category" v-model="transaction.category" style="background-color: transparent;">
+                                        <option value="" disabled>Select a Category</option>
+                                        <option v-for="(category, key) in $transactionCategories" :key="key" :value="key"> {{ category }}</option>
+                                    </select>
+                                </td>
+
+                                <td class="orders-amount" v-if="transaction.id">
+                                    <div :class="'badge '+getBadgeType( transaction )">
+                                        ${{ transaction.amount }}
+                                    </div>
+                                </td>
+                                <td class="orders-amount" v-else>
+                                    <input type="text" class="form-control" style="background-color: transparent;" v-model="transaction.amount">
+                                </td>
+
+                                <td class="orders-vendor" v-if="transaction.id">
+                                    {{ transaction.vendor }}
+                                </td>
+                                <td class="orders-amount" v-else>
+                                    <input type="text" class="form-control" style="background-color: transparent;" v-model="transaction.vendor">
+                                </td>
+
+                                <td class="orders-date" v-if="transaction.id">
+                                    <time :datetime="transaction.date">{{ transaction.date ? getFormattedDate( transaction.date ) : '' }}</time>
+                                </td>
+                                    <td class="orders-amount" v-else>
+                                    <input type="date" class="form-control" style="background-color: transparent;" v-model="transaction.date">
+                                </td>
+
+                                <td class="pull-right text-right" v-if="!transaction.id">
+                                    <a @click="deleteBudget( index )" href="#">X</a>
+                                </td>
+
                             </tr>
+                        <!-- </tbody>
+                        <tbody class="list" :key="transactions.length" v-else> -->
+                            <!-- <tr v-for="(transaction, index ) in transactions" :key="index">
+                                <td class="orders-category">
+                                    <select class="form-control" name="category" v-model="transaction.category" style="background-color: transparent;">
+                                        <option value="" disabled>Select a Category</option>
+                                        <option v-for="(category, key) in $transactionCategories" :key="key" :value="key"> {{ category }}</option>
+                                    </select>
+                                </td>
+                                <td class="orders-amount">
+                                    <input type="text" class="form-control" style="background-color: transparent;" v-model="transaction.amount">
+                                </td>
+                                <td class="orders-amount">
+                                    <input type="text" class="form-control" style="background-color: transparent;" v-model="transaction.vendor">
+                                </td>
+                                <td class="orders-amount">
+                                    <input type="date" class="form-control" style="background-color: transparent;" v-model="transaction.date">
+                                </td>
+                                <td class="pull-right text-right">
+                                    <a @click="deleteBudget( index )" href="#">X</a>
+                                </td>
+                            </tr> -->
                         </tbody>
                     </table>
                 </div>
@@ -125,6 +175,12 @@
 
     export default {
         props: ['user', 'account', 'transactions'],
+        data() {
+            return {
+                dataAccount: this.account,
+                dataTransactions: this.transactions
+            }
+        },
         components: {
             ContentLoader
         },
@@ -132,6 +188,9 @@
             generateTransactions() {
                 var self = this
                 let date = new Date()
+            },
+            addTransaction() {
+                this.$emit('addTransaction')
             },
             formatDate(date) {
                 var d = new Date(date),

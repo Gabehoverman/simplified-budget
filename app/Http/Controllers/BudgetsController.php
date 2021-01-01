@@ -20,6 +20,7 @@ class BudgetsController extends Controller
     {
         $this->middleware('auth');
         $this->middleware('notifications');
+        $this->middleware('billing-verification');
         $this->budgets = $budgetRepository;
         $this->transactions = $transactionRepository;
     }
@@ -64,6 +65,15 @@ class BudgetsController extends Controller
     {
         $budget = new Budget($request->input());
         $budget->user_id = Auth::User()->id;
+        $budget->monthly_amount = $budget->timeframe == 1 ? $budget->amount / 12 : $budget->amount;
+        $monthly = new \stdClass();
+        for ($i = 1; $i <= 12; $i++) {
+            $index = \Carbon\Carbon::create()->month($i)->startOfMonth()->format('M');
+            $monthly->{$index} = round( $budget->monthly_amount, 2 );
+        }
+        $budget->monthly_budgets = $monthly;
+        $budget->annual_amount = $budget->monthly_amount * 12;
+        $budget->sub_category = ( $request->input('sub_category') == 'undefined' ? null : ( $budget->sub_cateory ?: $request->input('sub_category') ) );
         $budget->save();
 
         $budget->total = $budget->monthlyTotal();
@@ -80,7 +90,34 @@ class BudgetsController extends Controller
     public function update( $id, Request $request )
     {
         $budget = Budget::find($id);
-        $budget->update( $request->input() );
+        $data = $request->input();
+        if ( $budget->timeframe != $data['timeframe'] || $budget->amount != $data['amount'] ) {
+            // Handle changing the default budget amounts
+            $monthly = new \stdClass();
+            for ($i = 1; $i <= 12; $i++) {
+                $index = \Carbon\Carbon::create()->month($i)->startOfMonth()->format('M');
+                $monthly->{$index} = round( ( $data['timeframe'] == 0 ? $data['amount'] : $data['amount'] / 12 ), 2 );
+            }
+            unset($data['monthly_budgets']);
+            $budget->monthly_budgets = $monthly;
+            $budget->save();
+        }
+
+        unset($data['annual_amount']);
+
+        $budget->update( $data );
+        $budget->monthly_amount = $budget->timeframe == 1 ? $budget->amount / 12 : $budget->amount;
+        $budget->save();
+
+        $annual = 0;
+        for ($i = 1; $i <= 12; $i++) {
+            $index = \Carbon\Carbon::create()->month($i)->startOfMonth()->format('M');
+            $annual += (float) $budget->monthly_budgets[$index];
+        }
+
+        $budget->annual_amount = round($annual);
+        $budget->save();
+
         $budget->transactions;
 
         $budget->total = $budget->monthlyTotal();

@@ -9,9 +9,11 @@
         </div>
         <div class="col-md-8">
 
-            <table-card
+            <mapped-table-card
                 :user="user"
                 :budgets="budgets"
+                :computed-budgets="computedBudgets"
+                @editBudget="editBudget($event)"
                 @saveBudget="saveBudget($event)"
                 @deleteBudget="deleteBudget($event)"
                 @selectBudget="selectBudget($event)"
@@ -31,13 +33,6 @@
                 @selectBudget="selectBudget($event)"
                 @unselectBudget="unselectBudget($event)"
             />
-            <!-- <details-card
-                :key="modalKey"
-                :budget="selectedBudget"
-                :budgets="budgets"
-                :accounts="accounts"
-                @selectBudget="selectBudget($event)"
-            /> -->
         </div>
     </div>
 </template>
@@ -46,13 +41,15 @@
     import OverviewCard from '../cards/OverviewCard'
     import DetailsCard from '../cards/DetailsCard'
     import TableCard from '../cards/TableCard'
+    import MappedTableCard from '../cards/MappedTableCard'
     import BudgetListCard from '../cards/BudgetListCard'
 
     export default {
-        props: ['user', 'budgets', 'accounts', 'totals', 'selectedBudget'],
+        props: ['user', 'budgets', 'computedBudgets', 'accounts', 'totals', 'selectedBudget'],
         data() {
             return {
                 modalKey: 0,
+                dataBudgets: this.budgets
                 // selectedBudget: {},
             }
         },
@@ -60,6 +57,7 @@
             OverviewCard,
             DetailsCard,
             TableCard,
+            MappedTableCard,
             BudgetListCard
         },
         methods: {
@@ -71,6 +69,7 @@
             },
             editBudget ( budget ) {
                 this.selectedBudget = budget
+                this.$emit('editBudget', budget)
             },
             saveBudget( budget ) {
                 this.$emit('saveBudget', budget)

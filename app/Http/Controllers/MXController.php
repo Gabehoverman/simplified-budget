@@ -7,6 +7,7 @@ use App\Models\Account;
 use App\Models\Transactions\Transaction;
 use App\Models\Transactions\TransactionRepository;
 use App\Models\Institutions\Institution;
+use App\Models\MX\MXRepository;
 use Carbon\Carbon;
 use atrium\api\AtriumClient;
 use GuzzleHttp\Client;
@@ -20,10 +21,11 @@ class MXController extends Controller
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(MXRepository $mXRepository)
     {
         $this->middleware('auth');
         $this->middleware('notifications');
+        $this->mx = $mXRepository;
         $this->client = new AtriumClient(
             env('MX_API_KEY'),
             env('MX_CLIENT_ID'),
@@ -235,6 +237,12 @@ class MXController extends Controller
 
     public function widget()
     {
+        if (!Auth::User()->mx_user_guid) {
+            $user = Auth::User();
+            $user->mx_user_guid = $this->mx->generateUserGuid( $user );
+            $user->save();
+        }
+
         $user_guid = Auth::User()->mx_user_guid; // "USR-5762d24b-d6ef-4667-9b6b-7c5c098f5034"; // string | The unique identifier for a `user`.
         $body = new \atrium\model\ConnectWidgetRequestBody([ 'color_scheme' => 'dark' ]); // \atrium\model\ConnectWidgetRequestBody | Optional config options for WebView (is_mobile_webview, current_institution_code, current_member_guid, update_credentials)
 

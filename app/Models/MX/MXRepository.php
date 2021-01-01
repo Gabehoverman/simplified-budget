@@ -100,6 +100,7 @@ class MXRepository extends Model
         $tran->user_id = $account->user_id;
         $tran->mx_transaction_guid = $transaction['guid'];
         $tran->category = $transaction['top_level_category'];
+        $tran->sub_category = $transaction['category'];
         $tran->amount = $transaction['amount'];
         $tran->vendor = $transaction['description'];
         $tran->type = $this->mapTransactionType( $transaction );

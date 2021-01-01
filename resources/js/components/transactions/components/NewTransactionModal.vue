@@ -48,6 +48,17 @@
             </select>
         </div>
 
+        <div class="form-group" v-if="transaction.type != 1 && transaction.type != 2 && transaction.type != 3 && transaction.category">
+            <label for="categorySelect">Sub Category</label>
+            <select v-model="transaction.sub_category"
+                        :class="'form-control '+($v.transaction.sub_category.$error ? 'is-invalid ' : '')"
+                        @change="unsetSubCategory()"
+                        id="categorySelect" name="category">
+                <option value="undefined" selected disabled>Select a Category</option>
+                <option v-for="(category) in subCategories" :key="category" :value="category"> {{ category }}</option>
+            </select>
+        </div>
+
         <div class="custom-control custom-checkbox form-group mt-5 mb-0" v-if="transaction.vendor && transaction.category" @change="checkForRule()">
             <input v-model="transaction.create_rule" class="custom-control-input" id="checklistOne" type="checkbox" />
             <label class="custom-control-label" for="checklistOne"></label>
@@ -95,18 +106,29 @@ export default {
         }
       },
     checkForRule() {
-            console.log(this.transaction.create_rule)
-            if ( !this.transaction.create_rule ) {
-                return this.rule = null;
-            }
-            console.log(this.rules)
-            console.log(this.transaction.vendor)
-            let index = this.rules.map(function (x) { return x.vendor.toLowerCase(); }).indexOf(this.transaction.vendor.toLowerCase());
-            console.log( index )
-            if (index < 0) {
-                return this.rule = null;
-            }
-            this.rule = this.rules[index]
+        if ( !this.transaction.create_rule ) {
+            return this.rule = null;
+        }
+        console.log(this.rules)
+        console.log(this.transaction.vendor)
+        let index = this.rules.map(function (x) { return x.vendor.toLowerCase(); }).indexOf(this.transaction.vendor.toLowerCase());
+        console.log( index )
+        if (index < 0) {
+            return this.rule = null;
+        }
+        this.rule = this.rules[index]
+      },
+        unsetSubCategory() {
+          this.transaction.sub_category = 'undefined';
+      }
+  },
+  computed: {
+      subCategories() {
+        if (this.transaction.category) {
+            return this.$transactionSubCategoriesMapped[this.transaction.category]
+        } else {
+            return this.$transactionSubCategories;
+        }
       }
   },
   validations: {
@@ -124,6 +146,8 @@ export default {
             required: requiredIf(function() {
                 return this.transaction.type == 0;
             })
+        },
+        sub_category: {
         },
         type: {
             required

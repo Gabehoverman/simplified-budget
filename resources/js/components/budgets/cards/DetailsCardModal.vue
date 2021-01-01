@@ -30,7 +30,7 @@
                             </div>
                             <div class="col-6 col-md-12 col-lg-6 mt-3 text-xs-right text-right text-md-left text-lg-right">
                                 <span class="text-muted">${{ budget.total }}</span>
-                                <span class="text-muted">| ${{ budget.amount }}</span>
+                                <span class="text-muted">| ${{ budget.monthly_amount }}</span>
                             </div>
 
                             <!-- progress bar -->
@@ -38,7 +38,7 @@
                                 <div class="row">
                                 <div class="col-4 col-md-12 col-lg-4">
                                     <!-- Value -->
-                                    <small class="muted mr-2">{{ calculatePercentage( budget.amount, budget.total ) }}%</small>
+                                    <small class="muted mr-2">{{ calculatePercentage( budget.monthly_amount, budget.total ) }}%</small>
                                 </div>
                                 <div class="col-8 col-md-12 col-lg-8 mt-3">
                                     <!-- Progress -->
@@ -46,8 +46,8 @@
                                     <div
                                         :class="'progress-bar ' + getProgressClass( budget )"
                                         role="progressbar"
-                                        :style="'width: '+ calculatePercentage( budget.amount, budget.total ) +'%'"
-                                        :aria-valuenow="calculatePercentage( budget.amount, budget.total )"
+                                        :style="'width: '+ calculatePercentage( budget.monthly_amount, budget.total ) +'%'"
+                                        :aria-valuenow="calculatePercentage( budget.monthly_amount, budget.total )"
                                         aria-valuemin="0"
                                         aria-valuemax="100"
                                     ></div>
@@ -79,7 +79,7 @@
             getTotal( vendorData ) {
                 let sum = 0;
                 vendorData.forEach(transaction => {
-                    sum += parseFloat(transaction.amount)
+                    sum += parseFloat(transaction.monthly_amount)
                 });
                 return sum.toFixed(2);
             },
@@ -88,7 +88,7 @@
                 return percent.toFixed(2)
             },
             getProgressClass( budget ) {
-                let percent = this.calculatePercentage(budget.amount, budget.total)
+                let percent = this.calculatePercentage(budget.monthly_amount, budget.total)
                 if ( percent >= 100) {
                     return 'bg-danger'
                 } else if (percent >= 85) {

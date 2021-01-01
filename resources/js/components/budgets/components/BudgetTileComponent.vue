@@ -154,7 +154,7 @@
                   <div class="col-auto">
                     <!-- Text -->
                     <small class="item-industry">{{
-                      budget.amount ? '$'+budget.amount : ""
+                      budget.monthly_amount ? '$'+budget.monthly_amount : ""
                     }}</small>
                   </div>
                 </div>
@@ -198,7 +198,7 @@
                 <div class="row align-items-center no-gutters">
                   <div class="col-auto">
                     <!-- Value -->
-                    <small class="mr-2">{{ calculatePercentage( budget.amount, budget.total ) }}%</small>
+                    <small class="mr-2">{{ calculatePercentage( budget.monthly_amount, budget.total ) }}%</small>
                   </div>
                   <div class="col">
                     <!-- Progress -->
@@ -206,8 +206,8 @@
                       <div
                         :class="'progress-bar ' + getProgressClass( budget )"
                         role="progressbar"
-                        :style="'width: '+ calculatePercentage( budget.amount, budget.total ) +'%'"
-                        :aria-valuenow="calculatePercentage( budget.amount, budget.total )"
+                        :style="'width: '+ calculatePercentage( budget.monthly_amount, budget.total ) +'%'"
+                        :aria-valuenow="calculatePercentage( budget.monthly_amount, budget.total )"
                         aria-valuemin="0"
                         aria-valuemax="100"
                       ></div>
@@ -285,7 +285,7 @@ export default {
       return percent.toFixed(2)
     },
     getProgressClass( budget ) {
-      let percent = this.calculatePercentage(budget.amount, budget.total)
+      let percent = this.calculatePercentage(budget.monthly_amount, budget.total)
       if ( percent >= 100) {
         return 'bg-danger'
       } else if (percent >= 85) {

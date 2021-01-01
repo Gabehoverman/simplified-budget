@@ -6,7 +6,6 @@
     <div class="row justify-content-center">
       <div class="col-12">
 
-
         <!-- Header -->
         <div class="header">
           <div class="header-body">
@@ -30,6 +29,12 @@
 
                 <!-- Nav -->
                 <ul class="nav nav-tabs nav-overflow header-tabs">
+                <li class="nav-item">
+                    <a @click="selectTab('billing')" href="#!" :class="selectedTab == 'billing' ? 'nav-link active' : 'nav-link'">
+                        Billing Details
+                      <!-- <span class="badge badge-pill badge-soft-secondary">823</span> -->
+                    </a>
+                  </li>
                   <li class="nav-item">
                     <a @click="selectTab('account')" href="#!" :class="selectedTab == 'account' ? 'nav-link active' : 'nav-link'">
                         Account Settings
@@ -50,6 +55,16 @@
         </div>
 
         <!-- Card -->
+        <billing-card v-if="selectedTab == 'billing'"
+            :user="dataUser"
+            :stripe-pk="stripePk"
+            :intent="intent"
+            :modal-key="modalKey"
+            @updateCard="updateCard($event)"
+            @updateBilling="updateBilling($event)"
+            @updateAddress="updateAddress($event)"
+        />
+
         <account-card v-if="selectedTab == 'account'"
             :user="dataUser"
             @updateProfile="updateProfile($event)"
@@ -67,21 +82,26 @@
 <script>
     import AccountCard from './cards/AccountCard';
     import EmailCard from './cards/EmailCard';
+    import BillingCard from './cards/BillingCard';
 
     export default {
         name: 'settings-page-component',
         props: [
             'user',
-            'settings'
+            'settings',
+            'stripePk',
+            'intent',
         ],
         components: {
             AccountCard,
-            EmailCard
+            EmailCard,
+            BillingCard
         },
         data() {
             return {
-                selectedTab: 'account',
-                dataUser: this.user
+                selectedTab: 'billing',
+                dataUser: this.user,
+                modalKey: 0,
             }
         },
         methods: {
@@ -94,6 +114,24 @@
                     self.user = response;
                     self.showNotification('success', 'Profile Updated Successfully!')
                 })
+            },
+            updateCard( user ) {
+                this.dataUser = user;
+                this.showNotification('success', 'Card successfully updated')
+                $('#billingModal').modal('toggle')
+                this.modalKey++;
+            },
+            updateBilling( user ) {
+                this.dataUser = user;
+                this.showNotification('success', 'Plan Changed Successfully')
+                $('#billingModal').modal('toggle')
+                this.modalKey++;
+            },
+            updateAddress( user ) {
+                this.dataUser = user;
+                this.showNotification('success', 'Address Updated Successfully')
+                $('#billingModal').modal('toggle')
+                this.modalKey++;
             }
         }
     }

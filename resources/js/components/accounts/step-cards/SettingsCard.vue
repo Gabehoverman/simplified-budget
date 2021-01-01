@@ -26,7 +26,7 @@
                 <label>
                     Account Balance
                 </label>
-                <input v-model="account.balance" name="name" type="text" :class="'form-control'">
+                <input v-model="account.balance" name="balance" type="text" :class="'form-control'">
             </div>
 
             <!-- Project tags -->

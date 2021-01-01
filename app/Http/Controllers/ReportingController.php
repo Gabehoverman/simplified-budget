@@ -18,6 +18,7 @@ class ReportingController extends Controller
     {
         $this->middleware('auth');
         $this->middleware('notifications');
+        $this->middleware('billing-verification');
         $this->budgets = $budgetRepository;
     }
 

@@ -19,6 +19,7 @@
     <script src="{{ asset('js/theme.min.js') }}"></script>
     <script src="{{ asset("js/dashkit.min.js") }}"></script>
     <script src="{{ asset("js/list.js") }}"></script>
+    <script src="https://js.stripe.com/v3/"></script>
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-180134412-1"></script>

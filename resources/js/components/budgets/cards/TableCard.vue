@@ -23,13 +23,7 @@
 
                                 <th>
                                     <a href="#" class="text-muted sort" data-sort="orders-amount">
-                                        Budgetted Amount
-                                    </a>
-                                </th>
-
-                                <th>
-                                    <a href="#" class="text-muted sort" data-sort="orders-amount">
-                                        Timeframe
+                                        Monthly Budget
                                     </a>
                                 </th>
 
@@ -44,6 +38,12 @@
                                         Monthly Remainder
                                     </a>
                                 </th>
+
+                                <th>
+                                    <a href="#" class="text-muted sort" data-sort="orders-amount">
+                                        Annual Amount
+                                    </a>
+                                </th>
                                 <th width="50">
                                 </th>
                             </tr>
@@ -51,41 +51,28 @@
                         <tbody class="list" :key="budgets.length">
                             <tr v-for="(budget, index ) in budgets" :key="index">
                                 <td class="orders-category">
-                                    <select class="form-control" name="category" v-model="budget.category"
-                                                style="background-color: transparent;" @change="saveBudget(budget)">
-                                        <option value="null" disabled>Select a Category</option>
-                                        <option v-for="(category, key) in $transactionCategories" :key="key" :value="key"> {{ category }}</option>
-                                    </select>
+                                    <a href="#" @click="selectBudget( budget )">
+                                        {{ budget.category }}
+                                    </a>
                                 </td>
                                 <td class="orders-amount">
-                                    <input type="text" class="form-control" style="background-color: transparent;" v-model="budget.amount" @change="saveBudget(budget)">
+                                    {{ getMonthlyBudgetAmount( budget ) }}
                                 </td>
                                 <td class="orders-amount">
-                                    <select v-model="budget.timeframe" class="form-control" @change="saveBudget(budget)">
-                                        <option value="0">Monthly</option>
-                                        <option value="1">Annual</option>
-                                    </select>
-                                </td>
-                                <td class="orders-amount text-center">
-                                    <!-- <input type="text" class="form-control" style="background-color: transparent;" v-model="budget.amount"> -->
                                     {{ budget.total }}
                                 </td>
-                                <td class="text-center">
+                                <td class="">
                                     {{  formatCurrency( getRemainder(budget) )  }}
                                 </td>
+                                <td class="orders-amount">
+                                    {{ budget.annual_amount }}
+                                </td>
                                 <td width="50" class="text-right">
-                                    <a href="#" class="show-on-hover" @click="selectBudget( budget )">
+                                    <a href="#" class="show-on-hover" @click="editBudget( budget )">
                                         <span class="fe fe-edit"></span>
                                     </a>
                                     <a class="show-on-hover" @click="deleteBudget( budget )" href="#">
                                         <span class="fe fe-trash-2"></span>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr :key="budgets.length">
-                                <td class="text-right">
-                                    <a @click="addBudget()" href="#">
-                                        Add Budget
                                     </a>
                                 </td>
                             </tr>
@@ -130,13 +117,31 @@
                 event.preventDefault()
                 this.$emit('selectBudget', budget);
             },
+            editBudget( budget ) {
+                event.preventDefault()
+                this.$emit('editBudget', budget);
+            },
+            // getMonthlyBudgetAmount( budget ) {
+            //     // if (budget.timeframe == 1) {
+            //     //     return parseFloat( ( budget.amount / 12 ) ).toFixed(2)
+            //     // } else {
+            //         return budget.monthly_amount;
+            //     // }
+            // },
             getRemainder( budget ) {
-                if (budget.timeframe == 1) {
-                    return parseFloat( ( budget.amount / 12 ) - budget.total )
-                } else {
-                    return budget.amount - budget.total
+                // if (budget.timeframe == 1) {
+                //     return parseFloat( ( budget.amount / 12 ) - budget.total )
+                // } else {
+                    return budget.monthly_amount - budget.total
+                // }
+            },
+            getAnnualSum( budget ) {
+                var sum = 0;
+                for ( var month in budget.monthly_budgets ) {
+                    sum += parseFloat(budget.monthly_budgets[month])
                 }
-            }
+                return sum;
+            },
         },
         computed: {
             budgetCategories() {
@@ -213,6 +218,5 @@
     tr:hover .show-on-hover {
         display: inline-block;
     }
-
 </style>
 

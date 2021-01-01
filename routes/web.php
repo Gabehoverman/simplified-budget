@@ -52,6 +52,16 @@ Route::resource('/budgets', 'BudgetsController');
 Route::resource('/profile', 'ProfileController');
 
 Route::get('/settings/billing', 'SettingsController@billingPortal');
+Route::post('/settings/billing/change-plan', 'SettingsController@changePlan');
+Route::post('/settings/billing/card', 'SettingsController@attachCard');
+Route::post('/settings/billing/update-profile', 'SettingsController@updateProfile');
+
+Route::resource('/money-savers', 'MoneySaversController');
+
+Route::resource('admin/money-savers', 'Admin\MoneySaversController');
+Route::resource('admin/money-saver-types', 'Admin\MoneySaverTypesController');
+
+
 Route::resource('/settings', 'SettingsController');
 
 Route::resource('/admin/dashboard', 'Admin\DashboardController');

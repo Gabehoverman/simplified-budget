@@ -22,6 +22,7 @@ class DashboardController extends Controller
     {
         $this->middleware('auth');
         $this->middleware('notifications');
+        $this->middleware('billing-verification');
         $this->mx = $mXRepository;
         $this->budgets = $budgetRepository;
     }
@@ -33,7 +34,7 @@ class DashboardController extends Controller
      */
     public function index( TransactionRepository $transactionRepository)
     {
-        if (Auth::User()->income == null) {
+        if (Auth::User()->income == null || Auth::User()->plan == null) {
             return redirect('/onboarding');
         }
 

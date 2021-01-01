@@ -83,14 +83,11 @@
                 return sum;
             },
             budgetTotal() {
+                var self = this;
                let sum = 0;
                 let date = new Date()
                 this.budgets.forEach( function( budget ) {
-                    if (budget.timeframe == 1) {
-                        sum += budget.amount / 12
-                    } else {
-                        sum += budget.amount;
-                    }
+                    sum += self.getMonthlyBudgetAmount( budget );
                 })
                 switch( this.filter ) {
                     case 'weekly':

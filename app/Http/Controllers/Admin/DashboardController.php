@@ -34,14 +34,19 @@ class DashboardController extends Controller
     public function index( UserRepository $userRepository )
     {
         $users = User::all();
-        $analyticsData = Analytics::performQuery(
-            Period::months(1),
-            'ga:sessions',
-            [
-                'metrics' => 'ga:sessions,ga:pageviews',
-                // 'dimensions' => 'ga:yearMonth'
-            ]
-        );
+        try {
+            $analyticsData = @Analytics::performQuery(
+                Period::months(1),
+                'ga:sessions',
+                [
+                    'metrics' => 'ga:sessions,ga:pageviews',
+                    // 'dimensions' => 'ga:yearMonth'
+                ]
+            );
+        } catch (\Exception $e) {
+            $analyticsData = null;
+        }
+
 
         $weeklyNewUsers = $userRepository->getWeeklyNewUsers();
         $monthlyNewUsers = $userRepository->getMonthlyNewUsers();

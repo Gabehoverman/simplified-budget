@@ -36,9 +36,12 @@
                 </label>
                 <select v-model="account.type" name="type" :class="'form-control '+(errors.type.$error ? 'is-invalid ' : '')" data-toggle="select">
                     <option value="undefined" disabled>Select an Option</option>
-                    <option value="0">Checking</option>
-                    <option value="1">Savings</option>
-                    <option value="2">Credit</option>
+                    <option :value="0">Checking</option>
+                    <option :value="1">Savings</option>
+                    <option :value="2">Credit</option>
+                    <option :value="3">Loan</option>
+                    <option :value="4">Mortgage</option>
+                    <option :value="5">Investment</option>
                 </select>
             </div>
         </div>

@@ -101,6 +101,8 @@ Vue.mixin({
         },
         getAccountLabel( type ) {
             switch( parseInt( type ) ) {
+                case 2:
+                    return 'Credit'
                 case 1:
                     return 'Savings'
                 case 0:
@@ -148,6 +150,9 @@ Vue.mixin({
                 name = name + section.substring(0,1).toUpperCase()
             })
             return name
+        },
+        isDebtAccount( account ) {
+            return [2,3,4].includes( account.type );
         },
         formatString( string ) {
             return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase()

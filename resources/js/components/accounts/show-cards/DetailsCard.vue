@@ -18,6 +18,14 @@
                             <p>Balance</p>
                             <p>{{ account.balance ? account.balance : '--' }}</p>
                         </div>
+                         <div v-if="isDebtAccount(account)" class="row" style="display: flex; justify-content: space-between">
+                            <p>APR</p>
+                            <p>{{ account.apr ? account.apr : '--' }}</p>
+                        </div>
+                         <div v-if="isDebtAccount(account)" class="row" style="display: flex; justify-content: space-between">
+                            <p>Monthly Payment</p>
+                            <p>{{ account.minimum_payment ? account.minimum_payment : '--' }}</p>
+                        </div>
                     </div>
                 </div>
             </div>

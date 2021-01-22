@@ -85,6 +85,11 @@
             </a>
           </li>
           <li class="nav-item">
+            <a class="nav-link" href="/what-if">
+             <span class="fe fe-bar-chart"></span> What If
+            </a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" href="/profile">
               <i class="fe fe-user"></i> Profile
             </a>

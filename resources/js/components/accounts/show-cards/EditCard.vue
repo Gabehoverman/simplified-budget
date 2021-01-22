@@ -24,10 +24,17 @@
                             :errors="$v.account"
                         />
 
-                        <div class="col-md-6 offset-md-6 row mt-5 text-right">
-                            <a @click="saveAccount( account )" href="#" class="text-right btn btn-primary" style="float: right;">
+                        <additional-details-card
+                            v-if="isDebtAccount(account)"
+                            :account="account"
+                            :institutions="institutions"
+                            :errors="$v.account"
+                        />
+
+                        <div class="col-md-12 mt-5 text-right">
+                            <button @click="saveAccount( account )" class="text-right btn btn-primary" style="float: right;">
                                 Update
-                            </a>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -37,18 +44,21 @@
 </template>
 
 <script>
-    import { required, minLength, between } from 'vuelidate/lib/validators'
+    import { required, maxLength, minLength, between } from 'vuelidate/lib/validators'
 
     import BankCard from '../step-cards/BankCard'
     import CredentialsCard from '../step-cards/CredentialsCard'
     import SettingsCard from '../step-cards/SettingsCard'
+    import AdditionalDetailsCard from '../step-cards/AdditionalDetailsCard'
+
 
     export default {
         props: ['account', 'institutions', 'institutions'],
         components: {
             BankCard,
             CredentialsCard,
-            SettingsCard
+            SettingsCard,
+            AdditionalDetailsCard
         },
         methods: {
             saveAccount( account ) {
@@ -73,7 +83,11 @@
                 },
                 tracking_options: {
                     required
-                }
+                },
+                apr: {
+                    maxLength: 4
+                },
+                minimum_payment: {}
             },
             BankGroup: ['account.institution_id'],
             CredentialsGroup: ['account.username', 'account.password'],

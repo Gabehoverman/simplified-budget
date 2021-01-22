@@ -38,4 +38,22 @@ class BudgetRepository extends Model
             }
         }
     }
+
+    public function getMonthlyBudgetSum( $user = null )
+    {
+        if (!$user) {
+            $user = \Auth::User();
+        }
+
+        return Budget::where('user_id', $user->id)->sum('monthly_amount');
+    }
+
+    public function getAnnualBudgetSum( $user = null )
+    {
+        if (!$user) {
+            $user = \Auth::User();
+        }
+
+        return Budget::where('user_id', $user->id)->sum('annual_amount');
+    }
 }

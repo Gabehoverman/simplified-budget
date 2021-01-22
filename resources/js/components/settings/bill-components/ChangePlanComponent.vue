@@ -116,7 +116,7 @@
                             <a v-if="currentPlan == 'Monthly'" :class="'btn btn-block btn-light '  + (currentPlan == selectedPlan || selectedPlan == null ? 'disabled': '' )" @click="deselectPlan()">
                                 Current Plan
                             </a>
-                            <a v-else href="#!" class="btn btn-block btn-primary" disabled @click="selectPlan('Monthly')">
+                            <a v-else href="#!" class="btn btn-block btn-primary" @click="selectPlan('Monthly')">
                                 {{ selectedPlan == 'Monthly' ? 'Selected' : 'Choose Plan' }}
                             </a>
 

@@ -12,7 +12,7 @@ return [
      * to learn how to get this file. You can also pass the credentials as an array
      * instead of a file path.
      */
-    'service_account_credentials_json' => [ // storage_path('app/analytics/simplified-budget-0a58b9983cce.json'),
+    'service_account_credentials_json' => [
         "type"=> "service_account",
         "project_id"=> "simplified-budget",
         "private_key_id"=> env('ANALYTICS_PRIV_KEY_ID'),

@@ -28,7 +28,7 @@
                     </div> <!-- / .row -->
                 </div>
 
-                <div class="card" v-if="moneySavers.length < 1">
+                <div class="card">
                     <div class="card-body row">
 
                         <div class="col-md-12 row">

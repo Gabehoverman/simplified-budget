@@ -58,7 +58,23 @@
         methods: {
             newBudget( budget ) {
                 this.modalKey += 1;
-                this.dataBudgets.push( budget )
+                var amount = budget.timeframe == 1 ? ( budget.amount / 12 ) : budget.amount
+                budget.monthly_budgets = {
+                    'Jan': amount,
+                    'Feb': amount,
+                    'Mar': amount,
+                    'Apr': amount,
+                    'May': amount,
+                    'Jun': amount,
+                    'Jul': amount,
+                    'Aug': amount,
+                    'Sep': amount,
+                    'Oct': amount,
+                    'Nov': amount,
+                    'Dec': amount,
+                }
+                budget.annual_amount = budget.timeframe == 1 ? (budget.amount) : budget.amount * 12
+                this.budgets.push( budget )
             },
             saveBudget( budget ) {
                 budget.annual_amount = Object.keys(budget.monthly_budgets).reduce((sum,key)=>sum+parseFloat(budget.monthly_budgets[key]||0),0);

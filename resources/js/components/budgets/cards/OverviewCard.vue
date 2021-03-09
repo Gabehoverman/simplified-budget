@@ -1,7 +1,7 @@
 <template>
     <div class="card">
         <div class="card-header">
-            <h4 class="card-header-title">Current Month</h4>
+            <h4 class="card-header-title">Current Month: {{ month }}</h4>
         </div>
         <div class="card-body row">
             <div class="col-sm-6 col-md-4">
@@ -26,7 +26,7 @@
 
 <script>
     export default {
-        props: ['budgets', 'totals'],
+        props: ['budgets', 'totals', 'month'],
         methods: {
         },
         computed: {

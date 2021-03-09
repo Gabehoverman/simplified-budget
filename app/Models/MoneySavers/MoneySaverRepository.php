@@ -27,7 +27,7 @@ class MoneySaverRepository extends Model
     public function getRecommendedMoneySavers()
     {
         $recommended = [];
-        $moneySavers = $this->model->where('status', $this->model::STATUS_ACTIVE)->orderBy('recommended', 'DESC')->get();
+        $moneySavers = $this->model->where('status', $this->model::STATUS_ACTIVE)->orderBy('recommended', 'DESC')->with('type')->get();
         foreach($moneySavers as $saver) {
             // Check each rule & return recommended
             $rules = $saver->type->rules;

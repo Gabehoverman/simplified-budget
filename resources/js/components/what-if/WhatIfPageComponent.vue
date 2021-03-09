@@ -39,6 +39,9 @@
                                 <!-- <option value="spending">Changed My Spending Habits</option> -->
                                 <option value="account">Paid down a Debt</option>
                                 <option value="debt">Added a Debt</option>
+                                <option v-if="moneySavers" value="money-saver">Chose a Money Saver</option>
+                                <!-- <option value="monthly-budget">Updated My Monthly Budget</option> -->
+                                <option value="annual-budget">Updated My Annual Budgets</option>
                             </select>
                         </div>
 
@@ -77,6 +80,34 @@
                     @calculate="calculate()"
                 />
 
+                <money-saver-form
+                    v-if="projectionData.type == 'money-saver'"
+                    :projection-data="projectionData"
+                    :projection-results="projectionResults"
+                    :moneySavers="moneySavers"
+                    :accounts="accounts"
+                    @calculate="calculate()"
+                />
+
+                <monthly-budget-form
+                    v-if="projectionData.type == 'monthly-budget'"
+                    :budgets="budgets"
+                    :user="user"
+                    :projection-data="projectionData"
+                    :projection-results="projectionResults"
+                    @calculate="calculate()"
+                />
+
+                <annual-budget-form
+                    v-if="projectionData.type == 'annual-budget'"
+                    :budgets="budgets"
+                    :user="user"
+                    :accounts="accounts"
+                    :projection-data="projectionData"
+                    :projection-results="projectionResults"
+                    @calculate="calculate()"
+                />
+
                 <!-- Calc Card -->
 
                  <account-card
@@ -102,6 +133,12 @@
                     :projection-data="projectionData"
                     :projection-results="projectionResults"
                  />
+
+                <money-saver-card
+                    v-if="projectionData.type == 'money-saver' && projectionResults.money_saver"
+                    :projection-data="projectionData"
+                    :projection-results="projectionResults"
+                 />
                  </div>
             </div>
         </div>
@@ -118,19 +155,25 @@
     import DebtForm from './forms/DebtForm';
     import IncomeForm from './forms/IncomeForm';
     import SpendingForm from './forms/SpendingForm';
+    import MoneySaverForm from './forms/MoneySaverForm';
+    import MonthlyBudgetForm from './forms/MonthlyBudgetForm';
+    import AnnualBudgetForm from './forms/AnnualBudgetForm';
 
     export default {
-        props: ['user', 'moneySavers', 'accounts', 'totals'],
+        props: ['user', 'moneysaver', 'moneySavers', 'accounts', 'totals', 'budgets'],
         data() {
             return {
                 modalKey: 0,
                 projectionType: 0,
                 projectionData: {
-                    'income_amount': this.user.income
+                    'income_amount': this.user.income,
+                    'type': this.moneysaver ? 'money-saver' : null,
+                    'money_saver_id': this.moneysaver
                 },
                 projectionResults: {},
                 selectedMoneySaver: this.moneySavers.length > 0 ? this.moneySavers[0] : [],
                 selectedTab: 'tiles',
+                dataBudgets: this.budgets
             }
         },
         components: {
@@ -142,7 +185,10 @@
             AccountForm,
             DebtForm,
             IncomeForm,
-            SpendingForm
+            SpendingForm,
+            MoneySaverForm,
+            MonthlyBudgetForm,
+            AnnualBudgetForm
         },
         methods: {
             calculate() {
@@ -168,10 +214,26 @@
                     }
                 })
                 return categories
-            }
+            },
+            computedBudgets() {
+                // todo: map budgets by main category and have subcategory budgets underneath
+                var mappedBudgets = {};
+                this.dataBudgets.forEach( function( budget ) {
+                    if (!mappedBudgets[budget.category]) {
+                        mappedBudgets[budget.category] = {
+                            monthly_amount: 0,
+                            annual_amount: 0,
+                            budgets: []
+                        };
+                    }
+
+                    mappedBudgets[budget.category].monthly_amount += budget.monthly_amount
+                    mappedBudgets[budget.category].annual_amount += budget.annual_amount
+                    mappedBudgets[budget.category].budgets.push(budget)
+                })
+
+                return mappedBudgets;
+            },
         },
-        mounted() {
-            var self = this;
-        }
     }
 </script>

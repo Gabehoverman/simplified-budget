@@ -5,7 +5,10 @@
         </div>
         <div class='card-body'>
             <div class="list-group list-group-flush list-group-activity my-n3">
-                <div class="list-group-item" v-for="(vendor, name) in vendors" :key="name">
+                <div v-if="!vendors.length" class="list-group-item" >
+                    Not enough data for this month.
+                </div>
+                <div v-else class="list-group-item" v-for="(vendor, name) in vendors" :key="name">
                     <div class="row" >
                         <div class="col-auto">
                         <!-- Avatar -->

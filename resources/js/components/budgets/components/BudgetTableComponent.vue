@@ -3,6 +3,7 @@
     <div class="row">
         <div class="col-md-12">
             <overview-card
+                :month="month"
                 :budgets="budgets"
                 :totals="totals"
             />
@@ -45,7 +46,7 @@
     import BudgetListCard from '../cards/BudgetListCard'
 
     export default {
-        props: ['user', 'budgets', 'computedBudgets', 'accounts', 'totals', 'selectedBudget'],
+        props: ['user', 'budgets', 'computedBudgets', 'accounts', 'totals', 'selectedBudget', 'month'],
         data() {
             return {
                 modalKey: 0,

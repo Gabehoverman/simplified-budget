@@ -22,7 +22,15 @@
                                 </h1>
                             </div>
 
-                            <div class="col text-right">
+                            <div class="col-auto text-right row">
+                                <form id="month-form" class="col-md-12 card mb-0" method="GET">
+                                    <select name="month" v-model="dataMonth" class="form-control" @change="submitForm()">
+                                        <option v-for="(month, index) in monthSelect" :key="index">{{ month }}</option>}
+                                    </select>
+                                </form>
+                            </div>
+
+                            <div class="col-auto text-right">
                                 <div class="nav btn-group d-inline-flex" role="tablist" style="margin-right: 20px;">
                                     <button :class="'btn btn-white '+(selectedTab == 'table' ? 'active' : '')"  @click="selectTab('table')">
                                         <span class="fe fe-calendar"></span>
@@ -30,7 +38,7 @@
                                     <!-- <button :class="'btn btn-white '+(selectedTab == 'tiles' ? 'active' : '')" @click="selectTab('tiles')">
                                         <span class="fe fe-grid"></span>
                                     </button> -->
-                                      <button :class="'btn btn-white '+(selectedTab == 'annual' ? 'active' : '')" @click="selectTab('annual')">
+                                    <button :class="'btn btn-white '+(selectedTab == 'annual' ? 'active' : '')" @click="selectTab('annual')">
                                         <span class="fe fe-list"></span>
                                     </button>
                                 </div>
@@ -73,6 +81,7 @@
                     :computed-budgets="computedBudgets"
                     :categories="budgetCategories"
                     :totals="totals"
+                    :month="month"
                     :selectedBudget="selectedBudget"
                     @saveBudget="saveBudget($event)"
                     @selectBudget="selectBudget($event)"
@@ -103,13 +112,14 @@
     import BudgetAnnualComponent from './components/BudgetAnnualComponent'
 
     export default {
-        props: ['user', 'budgets', 'accounts', 'totals'],
+        props: ['user', 'budgets', 'accounts', 'totals', 'month', 'previousMonth', 'nextMonth'],
         data() {
             return {
                 modalKey: 0,
                 selectedBudget: {},
                 selectedTab: 'table',
                 dataBudgets: this.budgets,
+                dataMonth: this.month,
             }
         },
         components: {
@@ -167,6 +177,9 @@
                     self.$delete(self.budgets, index)
                     self.showNotification('success', 'Budget Successfully Removed!')
                 })
+            },
+            submitForm() {
+                $('#month-form').trigger('submit');
             }
         },
         computed: {
@@ -198,8 +211,19 @@
                 })
 
                 return mappedBudgets;
-            }
+            },
+            monthSelect() {
+                var date = new Date( this.user.created_at )
+                var now = new Date();
+                var months = [ date.toLocaleString('default', { month: 'long' }) +', '+date.getFullYear() ]
 
+                while (date < now ) {
+                    var newDate = new Date( date.setMonth(date.getMonth() + 1 ) );
+                    months.push( date.toLocaleString('default', { month: 'long' }) +', '+date.getFullYear() )
+                }
+                months.reverse()
+                return months;
+            }
         },
         mounted() {
             var self = this;

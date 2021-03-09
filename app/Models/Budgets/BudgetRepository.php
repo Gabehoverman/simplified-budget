@@ -13,13 +13,17 @@ class BudgetRepository extends Model
         $this->model = $budget;
     }
 
-    public function getMappedBudgets()
+    public function getMappedBudgets( $month = null )
     {
+        if ( !$month ) {
+            $month = Carbon::now();
+        }
+
         $budgets = $this->model->where('user_id', Auth::User()->id)->get();
         $mappedBudgets = [];
         foreach( $budgets as $budget ) {
-            $budget->total = $budget->monthlyTotal();
-            $budget->previousMonthlyTotal = $budget->previousMonthlyTotal();
+            $budget->total = $budget->monthlyTotal( $month );
+            $budget->previousMonthlyTotal = $budget->previousMonthlyTotal( $month );
             $mappedBudgets[] = $budget;
         }
 

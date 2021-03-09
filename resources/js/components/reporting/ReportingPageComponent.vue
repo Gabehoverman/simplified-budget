@@ -18,9 +18,19 @@
 
                                 <!-- Title -->
                                 <h1 class="header-title">
-                                    Reporting
+                                    Reporting for {{ month }}
                                 </h1>
 
+                            </div>
+                            <div class="col-auto text-right row">
+                                <!-- todo: add in a dropdown for the user to select the month they want to view -->
+                                <div class="col-auto text-right row">
+                                    <form id="month-form" class="col-md-12 card mb-0" method="GET">
+                                        <select name="month" v-model="dataMonth" class="form-control" @change="submitForm()">
+                                            <option v-for="(month, index) in monthSelect" :key="index">{{ month }}</option>}
+                                        </select>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div> <!-- / .row -->
@@ -28,7 +38,9 @@
             </div>
             <div class="col-12 col-lg-6">
                 <insights-card
-
+                    :monthlyTransactions="monthlyTransactions"
+                    :previousMonthlyTransactions="previousMonthlyTransactions"
+                    :categories="categories"
                 />
             </div>
 
@@ -42,6 +54,8 @@
 
             <div class="col-12 col-lg-6">
                 <monthly-comparison-card
+                    :timestamp="timestamp"
+                    :month="month"
                     :monthlyTransactions="monthlyTransactions"
                     :previousMonthlyTransactions="previousMonthlyTransactions"
                 />
@@ -80,7 +94,12 @@
     import CashflowCard from './cards/CashflowCard'
 
     export default {
-        props: ['user', 'categories', 'budgets', 'vendors', 'income', 'expenses', 'monthlyTransactions', 'previousMonthlyTransactions'],
+        props: ['user', 'categories', 'budgets', 'vendors', 'income', 'expenses', 'monthlyTransactions', 'previousMonthlyTransactions', 'month', 'previousMonth', 'nextMonth', 'timestamp'],
+        data() {
+            return {
+                dataMonth: this.month
+            }
+        },
         components: {
             InsightsCard,
             MonthlyComparisonCard,
@@ -88,6 +107,25 @@
             BudgetCard,
             TopVendorCard,
             CashflowCard,
+        },
+        methods: {
+            submitForm() {
+                $('#month-form').trigger('submit');
+            }
+        },
+        computed: {
+            monthSelect() {
+                var date = new Date( this.user.created_at )
+                var now = new Date();
+                var months = [ date.toLocaleString('default', { month: 'long' }) +', '+date.getFullYear() ]
+
+                while (date < now ) {
+                    var newDate = new Date( date.setMonth(date.getMonth() + 1 ) );
+                    months.push( date.toLocaleString('default', { month: 'long' }) +', '+date.getFullYear() )
+                }
+                months.reverse()
+                return months;
+            }
         }
     }
 </script>

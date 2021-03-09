@@ -12,7 +12,7 @@ class MoneySaverType extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'features', 'rules', 'status'
+        'name', 'account_type', 'features', 'rules', 'status'
     ];
 
     /**

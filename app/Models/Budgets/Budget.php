@@ -46,9 +46,13 @@ class Budget extends Model
         return $this->hasMany('App\Models\Budgets\MonthlyBudget');
     }
 
-    public function monthlyTotal()
+    public function monthlyTotal( $month = null )
     {
-        return Transaction::toUser()->where('category', $this->category)->where('exclude', 0)->where('date', '>=', \Carbon\Carbon::now()->firstOfMonth())
+        $start = $month ? \Carbon\Carbon::parse($month)->firstOfMonth() : \Carbon\Carbon::now()->firstOfMonth();
+        $end = $month ? \Carbon\Carbon::parse($month)->endOfMonth() : \Carbon\Carbon::now()->endOfMonth();
+
+        return Transaction::toUser()->where('category', $this->category)->where('exclude', 0)->whereDate('date', '>=', $start->format('Y-m-d'))
+        ->whereDate('date', '<=', $end->format('Y-m-d'))
         ->where( function ($q) {
             if ($this->sub_category) {
                 $q->where('sub_category', $this->sub_category);
@@ -56,10 +60,13 @@ class Budget extends Model
         })->get()->sum('amount');
     }
 
-    public function previousMonthlyTotal()
+    public function previousMonthlyTotal( $month = null )
     {
-        return Transaction::toUser()->where('category', $this->category)->where('exclude', 0)->where('date', '<=', \Carbon\Carbon::now()->firstOfMonth())
-                    ->where('date', '>=', \Carbon\Carbon::now()->subMonths(1)->firstOfMonth())
+        $start = $month ? \Carbon\Carbon::parse($month)->subMonths(1)->firstOfMonth() : \Carbon\Carbon::now()->subMonths(1)->firstOfMonth();
+        $end = $month ? \Carbon\Carbon::parse($month)->firstOfMonth() : \Carbon\Carbon::now()->firstOfMonth();
+
+        return Transaction::toUser()->where('category', $this->category)->where('exclude', 0)->whereDate('date', '<=', $end->format('Y-m-d'))
+                    ->whereDate('date', '>=', $start->format('Y-m-d'))
                     ->where( function ($q) {
                         if ($this->sub_category) {
                             $q->where('sub_category', $this->sub_category);

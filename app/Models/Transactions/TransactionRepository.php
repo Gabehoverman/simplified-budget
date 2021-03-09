@@ -32,12 +32,18 @@ class TransactionRepository extends Model
         });
     }
 
-    public function getMonthlyTotalSpending() {
-        return $this->model->toUser()->where('type', 0)->where('exclude', 0)->whereDate('date', '>=', Carbon::now()->firstOfMonth()->format('Y-m-d'))->orderBy('date', 'ASC')->get()->sum('amount');
+    public function getMonthlyTotalSpending( $month = null ) {
+        $start = $month ? \Carbon\Carbon::parse($month)->firstOfMonth() : \Carbon\Carbon::now()->firstOfMonth();
+        $end = $month ? \Carbon\Carbon::parse($month)->endOfMonth() : \Carbon\Carbon::now()->endOfMonth();
+
+        return $this->model->toUser()->where('type', 0)->where('exclude', 0)->whereDate('date', '>=', $start->format('Y-m-d'))->whereDate('date', '<=', $end->format('Y-m-d'))->orderBy('date', 'ASC')->get()->sum('amount');
     }
 
-    public function getMonthlyTotalIncome() {
-        return $this->model->toUser()->where('type', 1)->where('exclude', 0)->whereDate('date', '>=', Carbon::now()->firstOfMonth()->format('Y-m-d'))->orderBy('date', 'ASC')->get()->sum('amount');
+    public function getMonthlyTotalIncome( $month = null ) {
+        $start = $month ? \Carbon\Carbon::parse($month)->firstOfMonth() : \Carbon\Carbon::now()->firstOfMonth();
+        $end = $month ? \Carbon\Carbon::parse($month)->endOfMonth() : \Carbon\Carbon::now()->endOfMonth();
+
+        return $this->model->toUser()->where('type', 1)->where('exclude', 0)->whereDate('date', '>=', $start->format('Y-m-d'))->whereDate('date', '<=', $end->format('Y-m-d'))->orderBy('date', 'ASC')->get()->sum('amount');
     }
 
     public function syncTransactions( $account ) {

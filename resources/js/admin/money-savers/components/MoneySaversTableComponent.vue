@@ -85,39 +85,6 @@
                                         </div>
                                     </div> <!-- / .row -->
                                 </div>
-                                <div class="list-group-item" data-select2-id="13">
-                                    <div class="row" data-select2-id="12">
-                                        <div class="col">
-
-                                            <!-- Text -->
-                                            <small>Start Date</small>
-
-                                        </div>
-                                        <div class="col-8" data-select2-id="11">
-
-                                            <!-- Select -->
-                                            <input type="date" class="form-control addl-filter" data-filter-key="start-date" name="start_date" data-date="true" data-date-type="start">
-
-                                        </div>
-                                    </div> <!-- / .row -->
-                                </div>
-
-                                <div class="list-group-item" data-select2-id="13">
-                                    <div class="row" data-select2-id="12">
-                                        <div class="col">
-
-                                            <!-- Text -->
-                                            <small>End Date</small>
-
-                                        </div>
-                                        <div class="col-8" data-select2-id="11">
-
-                                            <!-- Select -->
-                                            <input type="date" class="form-control addl-filter" data-filter-key="end-date" name="end-date" data-date="true" data-date-type="start">
-
-                                        </div>
-                                    </div> <!-- / .row -->
-                                </div>
                             </div>
 
                             <!-- Button -->

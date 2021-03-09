@@ -75,7 +75,7 @@
                                             <td class="orders-amount">
                                                 {{ subBudget.annual_amount }}
                                             </td>
-                                            <td width="50" class="text-right">
+                                            <td v-if="!hideActions" width="50" class="text-right">
                                                 <a href="#" class="show-on-hover" @click="editBudget( subBudget )">
                                                     <span class="fe fe-edit"></span>
                                                 </a>
@@ -100,7 +100,7 @@
     import SettingsCard from '../../accounts/step-cards/SettingsCard'
 
     export default {
-        props: ['account', 'budgets', 'computedBudgets', 'errors'],
+        props: ['account', 'budgets', 'computedBudgets', 'errors', 'hideActions'],
         data() {
             return {
                 dataBudgets: this.budgets

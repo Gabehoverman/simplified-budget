@@ -55,6 +55,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary close-modal" data-dismiss="modal">Close</button>
+            <a :href="'/what-if/?moneysaver='+moneySaver.id" target="_blank" type="button" class="btn btn-primary">Compare</a>
             <a :href="moneySaver.link" target="_blank" type="button" class="btn btn-primary">See Details</a>
           </div>
         </div>

@@ -4,13 +4,21 @@
             <h4 class="card-header-title">Insights</h4>
         </div>
         <div class="card-body" style="height: calc(100% - 25px)">
-            <p>So far this month, you've spent $300 less than last month. Congrats!</p>
+            <p>{{ insights }}</p>
+
         </div>
     </div>
 </template>
 
 <script>
     export default {
-
+        props: ['monthlyTransactions', 'previousMonthlyTransactions', 'categories'],
+        computed: {
+            insights() {
+                let insights = '';
+                insights += 'Your highest spending category of this month was '+Object.keys(this.categories)[0]+'.';
+                return insights
+            }
+        }
     }
 </script>

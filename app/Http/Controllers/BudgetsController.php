@@ -32,15 +32,17 @@ class BudgetsController extends Controller
      */
     public function index()
     {
-        $budgets = $this->budgets->getMappedBudgets();
+        $month = request()->input('month') ? \Carbon\Carbon::createFromFormat('F, Y', request()->input('month') ) : \Carbon\Carbon::now();
+
+        $budgets = $this->budgets->getMappedBudgets( $month );
         $accounts = Account::where('user_id', Auth::User()->id)->get();
         $totals = array(
-            'income' => $this->transactions->getMonthlyTotalIncome(),
-            'spending' => $this->transactions->getMonthlyTotalSpending(),
+            'income' => $this->transactions->getMonthlyTotalIncome( $month ),
+            'spending' => $this->transactions->getMonthlyTotalSpending( $month ),
             'estimated_income' => Auth::User()->pay
         );
 
-        return view('user.budgets', array('budgets'=>$budgets, 'accounts' => $accounts, 'totals' => $totals));
+        return view('user.budgets', array('month' => $month, 'budgets'=>$budgets, 'accounts' => $accounts, 'totals' => $totals));
     }
 
     /**

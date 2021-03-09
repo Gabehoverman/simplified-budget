@@ -18,6 +18,38 @@ Route::get('/', function () {
     return view('splash');
 });
 
+Route::get('/web', function() {
+    return view('web.home');
+})->name('web');
+
+Route::get('/web/about', function() {
+    return view('web.about');
+})->name('web.about');
+
+Route::get('/web/features', function() {
+    return view('web.features');
+})->name('web.features');
+
+Route::get('/web/pricing', function() {
+    return view('web.pricing');
+})->name('web.pricing');
+
+Route::get('/web/blog', function() {
+    return view('web.blog');
+})->name('web.blog');
+
+Route::get('/web/disclaimer', function() {
+    return view('web.disclaimer');
+})->name('web.disclaimer');
+
+Route::get('/web/terms', function() {
+    return view('web.terms');
+})->name('web.terms');
+
+Route::get('/web/privacy', function() {
+    return view('web.privacy');
+})->name('web.privacy');
+
 Auth::routes(['verify' => true]);
 
 Route::get('/cron/daily-transactions', 'CronController@pullDailyTransactions');

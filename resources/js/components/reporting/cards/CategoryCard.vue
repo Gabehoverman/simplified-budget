@@ -14,8 +14,11 @@
     </div>
     <div class="card-body">
       <!-- Chart -->
-      <div class="chart">
+      <div v-if="datacollection.datasets && datacollection.datasets[0].data.length" class="chart">
         <category-chart style="height: 300px" :chart-data="datacollection"></category-chart>
+      </div>
+      <div v-else>
+            Note enough data for this month.
       </div>
     </div>
   </div>

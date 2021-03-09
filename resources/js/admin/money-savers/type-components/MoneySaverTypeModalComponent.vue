@@ -28,6 +28,19 @@
                                     :class="'form-control '+($v.moneySaverType.name.$error ? 'is-invalid ' : '')" id="fieldInput" placeholder="Name">
                     </div>
 
+
+                    <div class="form-group">
+                        <label for="vendorInput">Account Type</label>
+                        <select class="form-control" v-model="moneySaverType.account_type">
+                            <option value="0">Checking</option>
+                            <option value="1">Savings</option>
+                            <option value="2">Credit</option>
+                            <option value="3">Loan</option>
+                            <option value="4">Mortgage</option>
+                            <option value="5">Investment</option>
+                        </select>
+                    </div>
+
                     <div class="form-group row">
                         <div class="col-md-6">
                             <p>Active</p>
@@ -49,8 +62,14 @@
                     <p><b>Fields</b></p>
                     <div class="form-group" v-for="( feature, index ) in moneySaverType.features" :key="index">
                         <input v-model="feature.label" type="text"
-                                    style="width: 95%; display: inline"
+                                    style="width: 40%; display: inline"
                                     class="form-control" id="nameInput" placeholder="Label">
+
+                        <select class="form-control" name="compare-to" style="width: 40%; display: inline; margin-left: 5%;" v-model="feature.compare_to">
+                            <option :value="undefined">Compare To</option>
+                            <option value="apr">APR</option>
+                            <option value="minimum_payment">Minimum Payment</option>
+                        </select>
                         <a href="#" @click="removeField( index )" style="float: right; padding-top: 15px;">X</a>
                     </div>
                     <a href="#" class="btn btn-primary" @click="addFeature">Add Feature</a>
@@ -115,6 +134,10 @@
                             <select v-else-if="rule.field == 'type' && rule.type != 'CMP'" class="form-control" v-model="rule.feature" @change="updateJSON">
                                 <option value="0">Checking</option>
                                  <option value="1">Savings</option>
+                                 <option value="2">Credit</option>
+                                 <option value="3">Loan</option>
+                                 <option value="4">Mortgage</option>
+                                 <!-- <option value="5">Investment</option> -->
                              </select>
 
                             <select v-else-if="rule.field == 'category' && rule.type != 'CMP'" class="form-control" v-model="rule.feature" @change="updateJSON">

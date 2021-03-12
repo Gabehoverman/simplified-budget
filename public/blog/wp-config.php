@@ -20,23 +20,29 @@
 
 // ** MySQL settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
-define( 'DB_NAME', 'heroku_3812427fee44ad4' );
+// define( 'DB_NAME', 'heroku_3812427fee44ad4' );
 // define( 'DB_NAME', 'simplified_budget_blog_db' );
+define( 'DB_NAME', 'gabehove_simplified_blog_db' );
+
 
 
 /** MySQL database username */
-define( 'DB_USER', 'b7dc23b9a341f2' );
+// define( 'DB_USER', 'b7dc23b9a341f2' );
 // define( 'DB_USER', 'rapt' );
+define( 'DB_USER', 'gabehove_sb_user' );
+
 
 
 /** MySQL database password */
-define( 'DB_PASSWORD', '5be758b4' );
+// define( 'DB_PASSWORD', '5be758b4' );
 // define( 'DB_PASSWORD', '' );
+define('DB_PASSWORD', '.U]*7n?fkX^o');
 
 
 /** MySQL hostname */
-define( 'DB_HOST', 'us-cdbr-east-03.cleardb.com' );
+// define( 'DB_HOST', 'us-cdbr-east-03.cleardb.com' );
 // define( 'DB_HOST', '127.0.0.1' );
+define('DB_HOST', 'gabehoverman.com');
 
 /** Database Charset to use in creating database tables. */
 define( 'DB_CHARSET', 'utf8' );

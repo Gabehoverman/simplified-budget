@@ -36,7 +36,7 @@ define( 'DB_PASSWORD', '5be758b4' );
 
 /** MySQL hostname */
 define( 'DB_HOST', 'us-cdbr-east-03.cleardb.com' );
-// define( 'DB_HOST', 'localhost' );
+// define( 'DB_HOST', '127.0.0.1' );
 
 /** Database Charset to use in creating database tables. */
 define( 'DB_CHARSET', 'utf8' );

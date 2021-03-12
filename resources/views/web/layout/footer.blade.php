@@ -59,14 +59,14 @@
                         <a href="{{ route('web.terms') }}"  class="nav-link">Terms of Service</a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('web') }}" class="nav-link">Blog</a>
+                        <a href="/blog" class="nav-link">Blog</a>
                     </li>
                 </ul>
             </div>
             <div class="col-lg-3 col-xl-2 mt-3 mt-lg-0">
                 <ul class="nav">
                     <li class="nav-item">
-                        <a href="https://leap.mediumra.re/home-mobile-app.html#" class="nav-link">
+                        <a href="#" class="nav-link">
                             <svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24"
                                 class="injected-svg icon" data-src="assets/img/icons/social/facebook.svg"
                                 xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -78,7 +78,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="https://leap.mediumra.re/home-mobile-app.html#" class="nav-link">
+                        <a href="#" class="nav-link">
                             <svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24"
                                 class="injected-svg icon" data-src="assets/img/icons/social/instagram.svg"
                                 xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -90,7 +90,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="https://leap.mediumra.re/home-mobile-app.html#" class="nav-link">
+                        <a href="#" class="nav-link">
                             <svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 24 24"
                                 class="injected-svg icon" data-src="assets/img/icons/social/twitter.svg"
                                 xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -113,7 +113,7 @@
         </div>
     </div>
 </footer>
-<a href="https://leap.mediumra.re/home-mobile-app.html#" class="btn back-to-top btn-primary btn-round aos-init"
+<a href="#" class="btn back-to-top btn-primary btn-round aos-init"
     data-smooth-scroll="" data-aos="fade-up" data-aos-offset="2000" data-aos-mirror="true" data-aos-once="false">
     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px"
         viewBox="0 0 24 24" version="1.1" class="injected-svg icon"

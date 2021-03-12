@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!-- saved from url=(0045)https://leap.mediumra.re/home-mobile-app.html -->
 <html lang="en">
 
 @include('web.layout.header')

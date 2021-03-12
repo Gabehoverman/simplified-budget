@@ -23,8 +23,28 @@ if ( ! defined( 'ABSPATH' ) ) {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="profile" href="https://gmpg.org/xfn/11">
 
+    <!-- Scripts -->
+    <script src="/js/app.js" defer></script>
+
+    <!-- Libs CSS -->
+    <link rel="stylesheet" href='/fonts/feather/feather.min.css'>
+    <link rel="stylesheet" href="/libs/highlight.js/styles/vs2015.css">
+    <link rel="stylesheet" href="/libs/quill/dist/quill.core.css">
+    <link rel="stylesheet" href="/libs/select2/dist/css/select2.min.css">
+    <link rel="stylesheet" href="/libs/flatpickr/dist/flatpickr.min.css">
+
+    <!-- Theme CSS -->
+    <!-- <link rel="stylesheet" href="/css/theme.min.css" id="stylesheetLight"> -->
+
+    <link rel="stylesheet" href="/css/theme-dark.min.css" id="stylesheetDark">
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+
+    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <link href="/css/app.css" rel="stylesheet">
+
 <?php wp_head(); ?>
 <?php astra_head_bottom(); ?>
+
 </head>
 
 <body <?php astra_schema_body(); ?> <?php body_class(); ?>>
@@ -51,42 +71,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 
     ?>
 
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{ config('app.name', 'Laravel') }}</title>
-
-    <!-- Scripts -->
-    <script src="../jjs/app.js" defer></script>
-
-    <!-- Libs CSS -->
-    <link rel="stylesheet" href="./fonts/feather/feather.min.css">
-    <link rel="stylesheet" href="./libs/highlight.js/styles/vs2015.css">
-    <link rel="stylesheet" href="..'/libs/quill/dist/quill.core.css">
-    <link rel="stylesheet" href="../libs/select2/dist/css/select2.min.css">
-    <link rel="stylesheet" href="../libs/flatpickr/dist/flatpickr.min.css">
-
-    <!-- Theme CSS -->
-    <link rel="stylesheet" href="../css/theme.min.css" id="stylesheetLight">
-
-    <link rel="stylesheet" href="../css/theme-dark.min.css" id="stylesheetDark">
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-    <link href="../css/app.css" rel="stylesheet">
-
-  </head>
-
   <div class="navbar-container " style="min-height: 72px;">
     <nav class="navbar navbar-expand-lg justify-content-between navbar-light border-bottom-0 bg-white position-fixed"
         data-sticky="top">
         <div class="container">
             <div class="col flex-fill px-0 d-flex justify-content-between">
-                <a class="navbar-brand mr-0 fade-page" href="{{ route('web') }}">
-                    <img src="{{ asset('/img/logo2-01.png') }}" width="125px" alt="Leap">
+                <a class="navbar-brand mr-0 fade-page" href="/home">
+                    <img src='/img/logo2-01.png' width="125px" alt="Leap">
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse"
                     aria-expanded="false" aria-label="Toggle navigation">
@@ -113,29 +104,29 @@ if ( ! defined( 'ABSPATH' ) ) {
                 <div class="py-2 py-lg-0">
                     <ul class="navbar-nav">
                         <li class="nav-item ">
-                            <a href="{{ route('web') }}" class="nav-link">Home</a>
+                            <a href="/web" class="nav-link">Home</a>
                         </li>
                         <li class="nav-item ">
-                            <a href="{{ route('web.about') }}" class="nav-link">About Us</a>
+                            <a href="/web/about" class="nav-link">About Us</a>
                         </li>
                         <li class="nav-item ">
-                            <a href="{{ route('web.features') }}" class="nav-link">Our Features</a>
+                            <a href="/web/features" class="nav-link">Our Features</a>
                         </li>
                         <li class="nav-item ">
-                            <a href="{{ route('web.pricing') }}" class="nav-link">Our Pricing</a>
+                            <a href="/web/pricing" class="nav-link">Our Pricing</a>
                         </li>
                         <li class="nav-item ">
-                            <a href="{{ route('web') }}" class="nav-link">Blog</a>
+                            <a href="/blog" class="nav-link">Blog</a>
                         </li>
                         <li class="nav-item ">
-                            <a href="{{ route('login') }}" class="nav-link">Log In</a>
+                            <a href="/login" class="nav-link">Log In</a>
                         </li>
                     </ul>
                 </div>
             </div>
             <div class="collapse navbar-collapse justify-content-end col flex-fill px-0"><a
-                    href="{{ route('register') }}"
-                    class="btn btn-primary ml-lg-3">Sign Up</a>
+                    href="/register"
+                    class="btn btn-primary mr-lg-2 login-button">Sign Up</a>
             </div>
         </div>
     </nav>
@@ -147,7 +138,25 @@ if ( ! defined( 'ABSPATH' ) ) {
 	astra_header_after();
 
 	astra_content_before();
+
 	?>
+    <section class="bg-primary-3 text-light header-inner pb-5 pt-5 hero">
+        <div class="container py-0 layer-2 mt-5 mb-5">
+            <div class="row my-4 my-md-12 aos-init aos-animate" data-aos="fade-up">
+                <div class="col-md-8 col-md-8">
+                    <?php if (!is_singular()): ?>
+                        <h1 class="display-4">Better Budgeting Starts Here</h1>
+                        <p class="lead mb-0">
+                            Power features to help you understand your spending, tracking where your money goes, and improve your financial health.
+                        </p>
+                    <?php else: ?>
+                        <h1 class="display-4 mt-3"><?php the_title(); ?></h1>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </div>
+    </section>
+
 	<div id="content" class="site-content">
 		<div class="ast-container">
 		<?php astra_content_top(); ?>

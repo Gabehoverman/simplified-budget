@@ -9,3 +9,104 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: simplified-budget
 Template: astra
 */
+
+ul {
+    margin-left: 0px;
+}
+
+.navbar-brand-img, .navbar-brand > img {
+    max-height: none !important;
+}
+
+.navbar-light .navbar-nav .nav-link {
+    color: #373737 !important;
+}
+
+.ast-right-sidebar #secondary {
+    border-left: none;
+}
+
+aside.widget {
+    padding: 15px;
+    background: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.75rem 1.5rem rgb(18 38 63 / 3%);
+}
+
+article.post {
+    border-radius: 0.5rem;
+    box-shadow: 0 0.75rem 1.5rem rgb(18 38 63 / 3%)
+}
+
+.sidebar-main a, .entry-meta *, .read-more a {
+    color: #2C7BE5;
+}
+
+#comments {
+    display: none;
+}
+
+.post-thumb-img-content {
+    max-height: 400px;
+    overflow: hidden;
+}
+
+article.post.format-standard {
+    padding: 0px 0px 4em 0px !important;
+    margin-bottom: 5em !important;
+}
+
+article.post.ast-article-single {
+    margin-bottom: 0px !important;
+}
+
+.entry-header, .entry-content, .ast-article-single .ast-single-post-order, .ast-article-single .entry-content {
+    padding: 2em 3em 0em 3em;
+}
+
+.single-layout-1 .entry-header {
+    padding:0px;
+}
+
+.widget_search .search-form .search-field {
+    margin-top: 10px;
+    border: none;
+    border-radius: 0.5em;
+    height: 40px;
+}
+
+.navbar .container {
+    width: 100%;
+    padding-right: 12px;
+    padding-left: 12px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.navbar > .container > .col.flex-fill.px-0.d-flex.justify-content-between{
+    max-width: 187px;
+}
+
+.navbar-nav .nav-item {
+    font-size: 16px;
+}
+
+.navbar-collapse .login-button {
+    font-size: 16px;
+    line-height: 24px;
+    margin-right: 16px !important;
+    padding: 7px 20px;
+}
+
+#footer .container h5 {
+    font-size: 20px;
+    letter-spacing: inherit;
+}
+
+footer {
+    padding-top: 95px !important;
+}
+
+footer .card.push-top {
+    margin-top: -149px;
+}

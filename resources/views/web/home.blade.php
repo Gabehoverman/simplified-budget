@@ -10,7 +10,7 @@
                     <p class="lead">
                         Take control of your finances with our effortless transaction reporting, powerful reporting tools, and much more.
                     </p>
-                    <a href="https://leap.mediumra.re/home-mobile-app.html#"
+                    <a href="/register"
                         class="btn btn-primary btn-lg mt-3">Get Started</a>
                 </div>
                 <div class="col-lg-6">

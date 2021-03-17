@@ -262,7 +262,8 @@
           </li>
           <li class="nav-item">
             <a class="nav-link " href="/admin/settings">
-              <i class="fe fe-git-branch"></i> Site Settings <span class="badge badge-primary ml-auto">v1.3.1</span>
+              <i class="fe fe-layers"></i> Site Settings
+              {{-- <span class="badge badge-primary ml-auto">v1.3.1</span> --}}
             </a>
           </li>
         </ul>

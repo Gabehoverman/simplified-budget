@@ -16,6 +16,8 @@
     </div>
 </section>
 
+@include('web.partials.pricing-table', ['hideHeader' => true])
+{{--
 <section style="margin-top: -225px;">
     <div class="container">
         <div class="row justify-content-center">
@@ -145,7 +147,7 @@
             </div>
         </div>
     </div>
-</section>
+</section> --}}
 
 <section class="mb-5 mt-0 pt-3">
     <div class="container pb-5">

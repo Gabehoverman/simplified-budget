@@ -1,5 +1,6 @@
 <section>
     <div class="container">
+    @if (!isset($hideHeader))
       <div class="row justify-content-center text-center mb-6">
         <div class="col-xl-8 col-lg-9">
           <h2 class="display-4 mx-xl-6">Straightforward Pricing</h2>
@@ -8,7 +9,8 @@
           </p>
         </div>
       </div>
-      <div class="row justify-content-center mb-3">
+      @endif
+      <div class="row justify-content-center mb-3" @if (isset($hideHeader) ) style="margin-top: -225px" @endif>
         <div class="col-md-6 col-lg-4 aos-init aos-animate" data-aos="fade-up" data-aos-delay="100">
           <div class="card card-body align-items-center ">
             <div class="pt-md-2">
@@ -33,7 +35,7 @@
                 <span>Details Transaction Reporting</span>
               </li>
               <li class="py-1">
-                <span>Integrations</span>
+                <span>Email Reports</span>
               </li>
               <li class="py-1">
                 <span class="text-muted text-strikethrough">Automatic Transaction Reporting</span>
@@ -72,7 +74,7 @@
                     <span>Details Transaction Reporting</span>
                 </li>
                 <li class="py-1">
-                    <span>Integrations</span>
+                    <span>Email Reports</span>
                 </li>
                 <li class="py-1">
                     <span>Automatic Transaction Reporting</span>
@@ -110,7 +112,7 @@
                     <span>Details Transaction Reporting</span>
                 </li>
                 <li class="py-1">
-                    <span>Integrations</span>
+                    <span>Email Reports</span>
                 </li>
                 <li class="py-1">
                     <span>Automatic Transaction Reporting</span>

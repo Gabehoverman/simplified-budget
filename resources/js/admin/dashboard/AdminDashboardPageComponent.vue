@@ -14,6 +14,9 @@
                     <admin-widget-row
                         :users="users"
                         :filter="dataFilter"
+                        :weeklyNewUsers="weeklyNewUsers"
+                        :monthlyNewUsers="monthlyNewUsers"
+                        :annualNewUsers="annualNewUsers"
                     />
 
                     <admin-user-graph-card

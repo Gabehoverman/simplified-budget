@@ -51,6 +51,7 @@ class DashboardController extends Controller
         $weeklyNewUsers = $userRepository->getWeeklyNewUsers();
         $monthlyNewUsers = $userRepository->getMonthlyNewUsers();
         $annualNewUsers = $userRepository->getAnnualNewUsers();
+
         $activity = Activity::where('log_name', 'like', 'mx%')->get()->take(5);
 
         return view('admin.dashboard', compact('users', 'weeklyNewUsers', 'monthlyNewUsers', 'annualNewUsers', 'activity', 'analyticsData'));

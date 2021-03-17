@@ -16,7 +16,7 @@
 
                 <!-- Title -->
                 <h1 class="header-title text-white">
-                  User Growth: +{{ users.length }}
+                  User Growth: +{{ userGrowthCount }}
                 </h1>
 
               </div>
@@ -93,10 +93,10 @@
         datacollection: {},
         datalabels: [],
         dataset: [],
-        dataTab: 'weekly'
+        dataTab: 'weekly',
+        userGrowthCount: 0
       }
     },
-
     methods: {
       fillData ( tab ) {
         this.dataTab = tab;
@@ -117,15 +117,12 @@
       parseData( data ) {
             this.dataset = [];
             this.datalabels = [];
+            this.userGrowthCount = 0;
             var self = this;
-            console.log(data);
             for (const [key, value] of Object.entries(data)) {
-                let sum = 0;
-                value.forEach( expense => {
-                    sum = parseFloat(sum) + parseFloat(expense.amount);
-                })
                 self.datalabels.push(key)
-                self.dataset.push(sum)
+                self.dataset.push(value.length)
+                self.userGrowthCount += value.length
             }
             return true;
       },

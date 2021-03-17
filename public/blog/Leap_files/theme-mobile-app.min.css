@@ -11888,11 +11888,11 @@ body[data-aos-easing="ease-in-out-quart"] [data-aos] {
 }
 .accordion-panel-title:hover > *,
 .accordion-panel-title[aria-expanded="true"] > * {
-    color: #535bfe;
+    color: #2C7BE5 !important;
 }
 .accordion-panel-title:hover > * path,
 .accordion-panel-title[aria-expanded="true"] > * path {
-    fill: #535bfe;
+    fill: #2C7BE5;
 }
 .article p.lead:first-child {
     margin-top: 4.5rem;

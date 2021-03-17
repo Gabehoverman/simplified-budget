@@ -14,20 +14,20 @@ class UserRepository extends Model
 
     public function getWeeklyNewUsers()
     {
-        return $this->model->where('created_at', '>=', Carbon::now()->startOfWeek())->orderBy('created_at', 'ASC')->get()->groupBy(function($date) {
-            return Carbon::parse($date->date)->format('d'); // grouping by day
+        return $this->model->where('created_at', '>=', Carbon::now()->startOfWeek())->orderBy('created_at', 'ASC')->get()->groupBy(function($user) {
+            return Carbon::parse($user->created_at)->format('d'); // grouping by day
         });
     }
 
     public function getMonthlyNewUsers() {
-        return $this->model->where('created_at', '>=', Carbon::now()->firstOfMonth())->orderBy('created_at', 'ASC')->get()->groupBy(function($date) {
-            return Carbon::parse($date->date)->format('d'); // grouping by month
+        return $this->model->where('created_at', '>=', Carbon::now()->firstOfMonth())->orderBy('created_at', 'ASC')->get()->groupBy(function($user) {
+            return Carbon::parse($user->created_at)->format('d'); // grouping by month
         });
     }
 
     public function getAnnualNewUsers() {
-        return $this->model->where('created_at', '>=', Carbon::now()->firstOfYear())->orderBy('created_at', 'ASC')->get()->groupBy(function($date) {
-            return Carbon::parse($date->date)->format('m-d'); // grouping by month-day
+        return $this->model->where('created_at', '>=', Carbon::now()->firstOfYear())->orderBy('created_at', 'ASC')->get()->groupBy(function($user) {
+            return Carbon::parse($user->created_at)->format('m-d'); // grouping by month-day
         });
     }
 

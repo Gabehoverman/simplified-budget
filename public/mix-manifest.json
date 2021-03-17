@@ -3,5 +3,7 @@
     "/js/app.js": "/js/app.js",
     "/css/app.css": "/css/app.css",
     "/dist/css/style.css": "/dist/css/style.css",
-    "/js/list.js": "/js/list.js"
+    "/leap/css/theme-mobile-app.css": "/leap/css/theme-mobile-app.css",
+    "/js/list.js": "/js/list.js",
+    "/leap/js/index.js": "/leap/js/index.js"
 }

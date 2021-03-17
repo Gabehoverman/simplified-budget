@@ -45,9 +45,9 @@
             </div>
 
         <!-- Chart -->
-        <div class="chart">
+        <!-- <div class="chart">
             <canvas id="ordersChart" class="chart-canvas"></canvas>
-        </div>
+        </div> -->
 
         </div>
     </div>

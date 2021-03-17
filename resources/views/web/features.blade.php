@@ -131,7 +131,7 @@
                 <div class="ml-3">
                     <h5>Intuitive Budgets</h5>
                     <p>
-                        Budget Breakdowns for .
+                        Create monthly and annual budgets to track your spending, and progress towards yur financial goals.
                     </p>
                 </div>
             </div>

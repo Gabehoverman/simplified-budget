@@ -61,11 +61,16 @@ class DashboardController extends Controller
                 "name" => "Budget Overview",
                 "key" => "budget_overview",
                 "show" => true
+            ], [
+                "name" => "Cashflow Overview",
+                'key' => "cashflow_overview",
+                "show" => true
             ]];
         }
 
         $start = Carbon::now()->firstOfMonth();
         $end = Carbon::now()->endOfMonth();
+        $month = Carbon::now();
 
         $transactions = Transaction::where('user_id', Auth::User()->id)->where('exclude', 0)->with('account')->orderBy('date', 'DESC')->get();
         $accounts = Account::where('user_id', Auth::User()->id)->limit(3)->with('transactions')->get();
@@ -78,7 +83,13 @@ class DashboardController extends Controller
         $monthlyExpenses = $transactionRepository->getMonthlyExpenses();
         $annualExpenses = $transactionRepository->getAnnualExpenses();
 
-        return view('user.dashboard', compact('transactions', 'accounts', 'weeklyExpenses', 'budgets', 'monthlyExpenses', 'annualExpenses', 'vendors', 'income', 'expenses'));
+        $categories = Transaction::toUser()->whereIn('type', [0,3])->where('exclude', 0)->where('date', '>=', $start)->get()->groupBy('category');
+        $previousMonthlyTransactions = Transaction::toUser()->where('exclude', 0)->where('date', '>=', \Carbon\Carbon::parse($month)->subMonth(1)->firstOfMonth())
+                ->where('date', '<=',  \Carbon\Carbon::parse($month)->subMonth(1)->endOfMonth())
+                ->orderBy('date', 'ASC')
+                ->get()->groupBy('date');
+
+        return view('user.dashboard', compact('transactions', 'accounts', 'weeklyExpenses', 'budgets', 'monthlyExpenses', 'annualExpenses', 'vendors', 'income', 'expenses', 'categories', 'previousMonthlyTransactions'));
     }
 
     public function updateCustomDashboard(Request $request)

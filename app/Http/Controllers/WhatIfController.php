@@ -7,6 +7,7 @@ use App\Models\MoneySavers\MoneySaverRepository;
 use App\Models\Account;
 use App\Models\MoneySavers\MoneySaver;
 use App\Models\Budgets\BudgetRepository;
+use App\Models\Transactions\TransactionRepository;
 use Auth;
 
 class WhatIfController extends Controller
@@ -16,13 +17,14 @@ class WhatIfController extends Controller
      *
      * @return void
      */
-    public function __construct( MoneySaverRepository $moneySaverRepository, BudgetRepository $budgetRepository )
+    public function __construct( MoneySaverRepository $moneySaverRepository, BudgetRepository $budgetRepository, TransactionRepository $transactionRepository )
     {
         $this->middleware('auth');
         $this->middleware('notifications');
         $this->middleware('billing-verification');
         $this->moneySavers = $moneySaverRepository;
         $this->budgets = $budgetRepository;
+        $this->transactions = $transactionRepository;
     }
 
     /**
@@ -39,7 +41,13 @@ class WhatIfController extends Controller
 
         $budgets = $this->budgets->getMappedBudgets( $month );
 
-        return view('user.what-if', compact('moneySavers', 'accounts', 'budgets'));
+        $totals = array(
+            'income' => $this->transactions->getMonthlyTotalIncome( $month ),
+            'spending' => $this->transactions->getMonthlyTotalSpending( $month ),
+            'estimated_income' => \Auth::User()->pay
+        );
+
+        return view('user.what-if', compact('moneySavers', 'accounts', 'totals', 'budgets'));
     }
 
     public function store( Request $request )

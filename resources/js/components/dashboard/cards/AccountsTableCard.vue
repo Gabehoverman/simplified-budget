@@ -43,7 +43,7 @@
 
                     <!-- Time -->
                     <p class="card-text small text-muted">
-                        <time datetime="2018-05-24">{{ account.transactions.length }} transactions</time>
+                        <time datetime="2018-05-24">${{ formatCurrency( account.balance ) }}</time>
                     </p>
 
                     </div>

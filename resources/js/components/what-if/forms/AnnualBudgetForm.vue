@@ -2,7 +2,7 @@
 
     <div class="col-md-12 row">
 
-        <div class="col-md-12 mb-4">
+        <div class="col-md-12">
             <button
                 @click="unselectBudget()"
                 type="button"
@@ -11,6 +11,30 @@
                 data-target="#budgetModal"
                 >New Budget
             </button>
+
+                <div class="card col-md-10">
+                    <div class="card-header">
+                        <h4 class="card-header-title">Budget Breakdown</h4>
+                    </div>
+                    <div class="card-body row">
+                        <div class="col-sm-6 col-md-4">
+                            <p>Estimated Monthly Income:</p>
+                            <p>Estimated Annual Income:</p>
+                        </div>
+                        <div class="col-sm-6 col-md-2">
+                            <p>${{ formatCurrency( totals.estimated_income ) }}</p>
+                            <p>${{ formatCurrency( totals.estimated_income * 12 ) }}</p>
+                        </div>
+                        <div class="col-sm-6 col-md-4">
+                            <p>Average Monthly Budget:</p>
+                            <p>Annual Budgeted Amount:</p>
+                        </div>
+                        <div class="col-sm-6 col-md-2">
+                            <p>${{ formatCurrency( annualBudgetTotals / 12 ) }}</p>
+                            <p>${{ formatCurrency( annualBudgetTotals ) }}</p>
+                        </div>
+                    </div>
+                </div>
 
 
                 <new-budget-component
@@ -43,7 +67,7 @@
     import NewBudgetComponent from '../../budgets/components/NewBudgetComponent'
 
     export default {
-        props: ['user', 'budgets', 'accounts'],
+        props: ['user', 'budgets', 'accounts', 'totals'],
         data() {
             return {
                 dataBudgets: this.budgets,
@@ -113,6 +137,20 @@
 
                 return mappedBudgets;
             },
+            monthlyBudgetTotals() {
+                var sum = 0;
+                for (const [key, value] of Object.entries( this.computedBudgets )) {
+                    sum += value.monthly_amount
+                }
+                return sum;
+            },
+            annualBudgetTotals() {
+                var sum = 0;
+                for (const [key, value] of Object.entries( this.computedBudgets )) {
+                    sum += value.annual_amount
+                }
+                return sum;
+            }
         },
     }
 </script>

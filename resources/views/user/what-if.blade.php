@@ -8,5 +8,6 @@
         :accounts="{{ json_encode($accounts) }}"
         :moneysaver="{{ request()->input('moneysaver') ? : 0 }}"
         :budgets="{{ json_encode($budgets) }}"
+        :totals="{{ json_encode( $totals ) }}"
     />
 @endsection

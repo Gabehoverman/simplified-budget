@@ -7,12 +7,12 @@
 
                     <!-- Title -->
                     <h4 class="card-header-title">
-                        Transactions
+                        Recent Transactions
                     </h4>
 
                 </div>
                 <div class="col-auto">
-
+                    <a href="/transactions" class="small">View all</a>
                 </div>
             </div> <!-- / .row -->
         </div>

@@ -11598,13 +11598,15 @@ button:focus {
     background-position: 100% 100%;
     background-size: 100% auto;
 }
-.main-content {
-    padding-top: 62px;
-}
+
 .navbar-vertical ~ .main-content.bg-fixed-bottom {
     background-size: 100%;
 }
 @media (min-width: 768px) {
+    .main-content {
+        padding-top: 62px;
+    }
+
     .navbar-vertical ~ .main-content.bg-fixed-bottom {
         background-size: calc(100% - 250px);
     }

@@ -117,11 +117,11 @@
             monthSelect() {
                 var date = new Date( this.user.created_at )
                 var now = new Date();
-                var months = [ date.toLocaleString('default', { month: 'long' }) +', '+date.getFullYear() ]
+                var months = []
 
                 while (date < now ) {
-                    var newDate = new Date( date.setMonth(date.getMonth() + 1 ) );
                     months.push( date.toLocaleString('default', { month: 'long' }) +', '+date.getFullYear() )
+                    date.setMonth(date.getMonth() + 1 );
                 }
                 months.reverse()
                 return months;

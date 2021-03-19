@@ -46,25 +46,28 @@
 </template>
 
 <script>
-import draggable from 'vuedraggable'
+    import draggable from 'vuedraggable'
 
-export default {
-    props: ['user'],
-    data() {
-        return {
-            userOrder: [],
-            customDashboardComponents: this.user.custom_dashboard
+    export default {
+        props: ['user'],
+        data() {
+            return {
+                userOrder: [],
+                customDashboardComponents: []
+            }
+        },
+        methods: {
+            saveChanges() {
+                this.$emit('updateCustomDashboard', this.customDashboardComponents)
+            }
+        },
+        components: {
+            draggable,
+        },
+        mounted() {
+            this.customDashboardComponents = this.user.custom_dashboard
         }
-    },
-    methods: {
-        saveChanges() {
-            this.$emit('updateCustomDashboard', this.customDashboardComponents)
-        }
-    },
-    components: {
-        draggable,
     }
-}
 </script>
 
 <style scoped>

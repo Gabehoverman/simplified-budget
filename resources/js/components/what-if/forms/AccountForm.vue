@@ -12,7 +12,7 @@
                         <select class="form-control" v-model="projectionData.account_id" @change="fillAccount">
                             <!-- todo: pull in all debt accounts -->
                             <option value="undefined">Select a Debt Account:</option>
-                            <option v-for="account in accounts" :key="account.id" :value="account.id">{{ account.name }}</option>
+                            <option v-for="account in computedDebtAccounts" :key="account.id" :value="account.id">{{ account.name }}</option>
                             <option value="custom">Custom Debt</option>
                         </select>
                     </div>
@@ -124,6 +124,12 @@ export default {
                 this.projectionData.account_apr = this.accounts[index].apr
                 this.projectionData.account_current_payment = this.accounts[index].minimum_payment
             }
+        }
+    },
+    computed: {
+         computedDebtAccounts() {
+            console.log(this.accounts)
+            return this.accounts.filter( function(account) { console.log(account.type); return [2,3,4].includes( account.type ) });
         }
     },
     validations: {

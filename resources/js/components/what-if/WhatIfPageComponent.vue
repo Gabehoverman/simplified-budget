@@ -105,6 +105,7 @@
                     :accounts="accounts"
                     :projection-data="projectionData"
                     :projection-results="projectionResults"
+                    :totals="totals"
                     @calculate="calculate()"
                 />
 

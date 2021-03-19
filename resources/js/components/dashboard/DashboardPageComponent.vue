@@ -2,33 +2,30 @@
         <!-- MAIN CONTENT
     ================================================== -->
     <div>
+        <notifications group="notification"/>
 
-        <overview-graph-card
-            :transactions="transactions"
-            :weeklyExpenses="weeklyExpenses"
-            :monthlyExpenses="monthlyExpenses"
-            :annualExpenses="annualExpenses"
-            @updateDate="updateData( $event )"
+        <customize-widget
+            :user="user"
+            @updateCustomDashboard="updateCustomDashboard( $event )"
         />
 
-      <!-- CARDS -->
-      <div class="container-fluid mt--6">
-        <!-- <div class="row">
-          <div class="col-12 col-xl-8">
+        <div v-for="(row, index) in dataDashWidgets" :key="row.key">
 
-            <accounts-graph-card
-
+        <!-- Card 1 -->
+        <div :class="index != 0 ? 'container-fluid'  : '' ">
+            <overview-graph-card
+                :class="index != 0 ? 'card'  : '' "
+                v-if="row.key == 'spending_overview' && row.show == true"
+                :transactions="transactions"
+                :weeklyExpenses="weeklyExpenses"
+                :monthlyExpenses="monthlyExpenses"
+                :annualExpenses="annualExpenses"
+                @updateDate="updateData( $event )"
             />
+        </div>
 
-          </div>
-          <div class="col-12 col-xl-4">
-
-              <transactions-graph-card
-
-              />
-
-          </div>
-        </div> / .row -->
+      <!-- CARDS -->
+      <div :class="index != 0 ? 'container-fluid'  : 'container-fluid mt--6' " v-if="row.key == 'spending_overview' && row.show == true">
         <div class="row">
           <div class="col-12 col-lg-6 col-xl">
 
@@ -65,6 +62,11 @@
           </div>
 
         </div> <!-- / .row -->
+      </div>
+      <!-- /Card 1 -->
+
+      <!-- Card 2 -->
+      <div class="container-fluid" v-if="row.key == 'account_overview' && row.show == true">
         <div class="row">
           <div class="col-12 col-xl-4">
               <accounts-table-card
@@ -78,6 +80,46 @@
           </div>
         </div> <!-- / .row -->
       </div>
+      <!-- /Card 2 -->
+
+      <!-- Card 3 -->
+
+        <!-- Budget Card -->
+
+        <!-- Monthly Spending (chart)-->
+
+        <!-- Overall Spending for current Month-->
+
+      <!-- / Card 3 -->
+
+
+    <!-- Card 4 -->
+
+        <!-- Account Snapshot -->
+
+        <!-- Cashflow? -->
+    <div class="container-fluid" v-if="row.key == 'budget_overview' && row.show == true">
+        <div class="row">
+
+            <div class="col-12 col-lg-6">
+                <top-vendor-card
+                    :vendors="vendors"
+                />
+            </div>
+
+            <div class="col-12 col-lg-6">
+                <cashflow-card
+                    :user="user"
+                    :income="income"
+                    :expenses="expenses"
+                />
+            </div>
+        </div>
+    </div>
+
+      <!-- / Card 4 -->
+
+        </div>
     </div>
 
 </template>
@@ -89,21 +131,28 @@
     import TransactionsGraphCard from './cards/TransactionsGraphCard'
     import TransactionsTableCard from './cards/TransactionsTableCard'
     import AccountsTableCard from './cards/AccountsTableCard'
+    import CashflowCard from '../reporting/cards/CashflowCard'
+    import TopVendorCard from '../reporting/cards/TopVendorCard'
 
     import TransactionExpenseWidget from './widgets/TransactionExpenseWidget'
     import TransactionIncomeWidget from './widgets/TransactionIncomeWidget'
     import TransactionsCountWidget from './widgets/TransactionsCountWidget'
     import BudgetProgressWidget from './widgets/BudgetProgressWidget'
+    import CustomizeWidget from './widgets/CustomizeWidget'
 
     export default {
         name: 'dashboard-page-component',
         props: [
+            'user',
             'accounts',
             'transactions',
             'budgets',
             'weekly-expenses',
             'monthly-expenses',
-            'annual-expenses'
+            'annual-expenses',
+            'vendors',
+            'income',
+            'expenses'
         ],
         components: {
             OverviewGraphCard,
@@ -115,19 +164,46 @@
             TransactionIncomeWidget,
             TransactionsCountWidget,
             BudgetProgressWidget,
+            CashflowCard,
+            TopVendorCard,
+            CustomizeWidget
         },
         data() {
             return {
                 dataFilter: 'weekly',
-                dataSet: this.weeklyExpenses
+                dataSet: this.weeklyExpenses,
+                dataDashWidgets: this.user.custom_dashboard
             }
         },
         methods: {
             updateData( data ) {
                 this.dataFilter = data;
+            },
+            updateCustomDashboard( customDashboard ) {
+                var self = this
+                this.user.custom_dashboard = customDashboard
+                this.dataDashWidgets = customDashboard
+                this.asyncSendData(this.user, '/dashboard/update-custom', 'post').then( function( response ) {
+                    self.user = response;
+                    self.showNotification('success', 'Dashboard Updated Successfully!')
+                })
             }
         },
         mounted() {
         }
     }
 </script>
+
+<style scoped>
+    .card {
+        height: 100%
+    }
+
+    .card .card-header {
+        max-height: 60px !important;
+    }
+
+    .container-fluid {
+        margin-bottom: 25px;
+    }
+</style>

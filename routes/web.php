@@ -64,6 +64,7 @@ Route::get('logout', 'Auth\LoginController@logout');
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::post('/dashboard/update-custom', 'DashboardController@updateCustomDashboard');
 Route::resource('/dashboard', 'DashboardController');
 
 Route::resource('/transactions', 'TransactionsController');

@@ -48,14 +48,45 @@ class DashboardController extends Controller
             $stripeCustomer = Auth::User()->createAsStripeCustomer();
         }
 
+        if (!Auth::User()->custom_dashboard) {
+            \Auth::User()->custom_dashboard = [[
+                "name" => "Spending Overview",
+                "key" => "spending_overview",
+                "show" => true
+            ], [
+                "name" => "Account Overview",
+                "key" => "account_overview",
+                "show" => true
+            ], [
+                "name" => "Budget Overview",
+                "key" => "budget_overview",
+                "show" => true
+            ]];
+        }
+
+        $start = Carbon::now()->firstOfMonth();
+        $end = Carbon::now()->endOfMonth();
+
         $transactions = Transaction::where('user_id', Auth::User()->id)->where('exclude', 0)->with('account')->orderBy('date', 'DESC')->get();
         $accounts = Account::where('user_id', Auth::User()->id)->limit(3)->with('transactions')->get();
         $budgets = $this->budgets->getMappedBudgets();
+        $vendors = Transaction::groupBy('category')->toUser()->whereIn('type', [0,3])->where('exclude', 0)->where('date', '>=', $start)->selectRaw('category, sum(amount) as sum')->orderBy('sum', 'desc')->get()->take(3);
+        $income = Transaction::toUser()->where('type', 1)->where('exclude', 0)->where('date', '>=', $start)->sum('amount');
+        $expenses = Transaction::toUser()->whereIn('type', [0,3])->where('exclude', 0)->where('date', '>=', $start)->sum('amount');
 
         $weeklyExpenses = $transactionRepository->getWeeklyExpenses();
         $monthlyExpenses = $transactionRepository->getMonthlyExpenses();
         $annualExpenses = $transactionRepository->getAnnualExpenses();
 
-        return view('user.dashboard', compact('transactions', 'accounts', 'weeklyExpenses', 'budgets', 'monthlyExpenses', 'annualExpenses'));
+        return view('user.dashboard', compact('transactions', 'accounts', 'weeklyExpenses', 'budgets', 'monthlyExpenses', 'annualExpenses', 'vendors', 'income', 'expenses'));
+    }
+
+    public function updateCustomDashboard(Request $request)
+    {
+        $user = \App\User::find( $request->input('id') );
+        $user->custom_dashboard = $request->input('custom_dashboard');
+        $user->save();
+
+        return response( json_encode( $user ), 200 );
     }
 }

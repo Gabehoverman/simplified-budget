@@ -21,7 +21,7 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     protected $fillable = [
         'first_name', 'last_name', 'email', 'phone', 'password', 'notifications', 'income', 'pay', 'goals',
-        'mx_user_guid', 'address', 'unit', 'city', 'state', 'zip', 'plan'
+        'mx_user_guid', 'address', 'unit', 'city', 'state', 'zip', 'plan', 'custom_dashboard'
     ];
 
     /**
@@ -40,6 +40,7 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'custom_dashboard' => 'array'
     ];
 
     public function accounts()

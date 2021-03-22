@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Auth;
 use App\Models\Institutions\InstitutionRepository;
+use App\Models\Admin\AdminSiteSettings;
 
 class SettingsController extends Controller
 {
@@ -28,6 +29,19 @@ class SettingsController extends Controller
     public function index( InstitutionRepository $institutionRepository)
     {
         $institutions = $institutionRepository->getInstitutions();
-        return view('admin.settings', compact('institutions'));
+        $adminSiteSettings = AdminSiteSettings::first();
+        if (!$adminSiteSettings) {
+            $adminSiteSettings = new AdminSiteSettings();
+            $adminSiteSettings->save();
+        }
+        return view('admin.settings', compact('institutions', 'adminSiteSettings'));
+    }
+
+    public function update( Request $request ) {
+        $adminSiteSettings = AdminSiteSettings::first();
+        $adminSiteSettings->update( $request->input() );
+        $adminSiteSettings->save();
+
+        return response( json_encode($adminSiteSettings), 200);
     }
 }

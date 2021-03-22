@@ -106,7 +106,7 @@
           labels: this.datalabels,
           datasets: [
             {
-              label: 'Spending',
+              label: 'New Users',
               backgroundColor: 'rgba(0, 149, 247, .5)',
               borderColor: '#0095f7',
               data: this.dataset

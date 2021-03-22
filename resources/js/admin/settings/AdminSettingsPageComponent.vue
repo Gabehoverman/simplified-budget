@@ -60,6 +60,7 @@
                 />
 
                 <notifications-card v-if="selectedTab == 'notifications'"
+                    :admin-site-settings="adminSiteSettings"
                 />
 
                 <institutions-card v-if="selectedTab == 'institutions'"
@@ -75,7 +76,7 @@
     import InstitutionsCard from './Components/InstitutionsCard';
 
     export default {
-        props: ['institutions'],
+        props: ['institutions', 'admin-site-settings'],
         data() {
             return {
                 selectedTab: 'settings'

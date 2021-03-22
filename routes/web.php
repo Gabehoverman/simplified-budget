@@ -99,6 +99,7 @@ Route::resource('/settings', 'SettingsController');
 
 Route::resource('/admin/dashboard', 'Admin\DashboardController');
 
+Route::post('/admin/settings/notifications', 'Admin\SettingsController@updateNotifications');
 Route::resource('/admin/settings', 'Admin\SettingsController');
 
 Route::resource('/institutions', 'InstitutionsController');

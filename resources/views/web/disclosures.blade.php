@@ -7,7 +7,7 @@
     <div class="container py-0 layer-2 mt-5 mb-5">
         <div class="row my-4 my-md-12 aos-init aos-animate text-center" data-aos="fade-up">
             <div class="col-lg-8 offset-lg-2 col-xl-8 offset-xl-2">
-                <h1 class="display-4">Disclaimer</h1>
+                <h1 class="display-4">Disclosures</h1>
             </div>
         </div>
     </div>

@@ -10,7 +10,7 @@
                     <table id="budgets-table" class="table table-sm table-nowrap card-table scroll-table slim-table">
                         <thead>
                             <tr>
-                                <th width="150">
+                                <th width="175">
                                     <a href="#" class="text-muted">
                                         Category
                                     </a>
@@ -41,14 +41,14 @@
                                             </th>
                                         </tr>
                                         <tr v-for="(subBudget, index ) in budget.budgets" :key="index">
-                                            <td class="orders-category" width="150">
+                                            <td class="orders-category" width="175">
                                                 {{ subBudget.sub_category ? subBudget.sub_category : 'All ' + subBudget.category }}
                                             </td>
-                                            <td v-for="(name, month) in $monthlyBudgets" :key="month">
+                                            <td class="budget-currency" v-for="(name, month) in $monthlyBudgets" :key="month">
                                                 <input type="text" class="form-control" style="background-color: transparent;" v-model="subBudget.monthly_budgets[month]" @change="saveBudget(subBudget)">
                                             </td>
-                                            <td>
-                                                {{ subBudget.annual_amount }}
+                                            <td class="budget-currency annual-amount">
+                                                {{ formatCurrency(subBudget.annual_amount) }}
                                             </td>
                                             <td v-if="!hideActions" width="50" class="text-right">
                                                 <a href="#" class="show-on-hover" @click="editBudget( subBudget )">
@@ -205,6 +205,27 @@
 
     .slim-table td, .slim-table th {
         padding: 1em 0.25em;
+    }
+
+    .budget-currency {
+        position: relative;
+    }
+
+    .budget-currency:before {
+        content: '$';
+        position: absolute;
+        top: 23px;
+        left: -5px;
+        font-size: 12px;
+    }
+
+    .annual-amount {
+        font-size: 15px;
+        color: #6E84A3;
+    }
+
+    .annual-amount:before {
+        color: #6E84A3;
     }
 </style>
 

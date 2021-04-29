@@ -50,7 +50,7 @@
                                     data-toggle="modal"
                                     data-target="#budgetModal"
                                     :disabled="accounts.length < 1 ? true : false"
-                                    >New Budget
+                                    >New Budget Item
                                 </button>
                             </div>
                         </div>

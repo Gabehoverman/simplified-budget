@@ -81,6 +81,10 @@
                         {{ __('Register') }}
                     </button>
 
+                    <div class="col-md-10 offset-md-1">
+                        <p class="small text-muted text-center">By signing up, you agree to our <a target="_blank" href="{{ route('web.terms') }}">Terms of Service</a>, <a target="_blank" href="{{ route('web.privacy') }}">Privacy Policy</a>, and <a target="_blank" href="{{ route('web.disclosures') }}">Disclosures</a>.</p>
+                    </div>
+                    <br>
                     <!-- Link -->
                     <div class="text-center">
                         <small class="text-muted text-center">

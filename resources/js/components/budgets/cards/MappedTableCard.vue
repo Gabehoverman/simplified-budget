@@ -63,17 +63,17 @@
                                                     {{ subBudget.sub_category ? subBudget.sub_category : 'All ' + subBudget.category }}
                                                 </a>
                                             </td>
-                                            <td class="orders-amount">
-                                                {{ getMonthlyBudgetAmount( subBudget ) }}
+                                            <td class="orders-amount budget-currency">
+                                                {{ formatCurrency( getMonthlyBudgetAmount( subBudget ) ) }}
                                             </td>
-                                            <td class="orders-amount">
-                                                {{ subBudget.total }}
+                                            <td class="orders-amount budget-currency">
+                                                {{ formatCurrency(subBudget.total) }}
                                             </td>
-                                            <td class="">
+                                            <td class="budget-currency">
                                                 {{  formatCurrency( getRemainder(subBudget) )  }}
                                             </td>
-                                            <td class="orders-amount">
-                                                {{ subBudget.annual_amount }}
+                                            <td class="orders-amount budget-currency">
+                                                {{ formatCurrency(subBudget.annual_amount) }}
                                             </td>
                                             <td v-if="!hideActions" width="50" class="text-right">
                                                 <a href="#" class="show-on-hover" @click="editBudget( subBudget )">
@@ -229,6 +229,17 @@
 
     tr:hover .show-on-hover {
         display: inline-block;
+    }
+
+      .budget-currency {
+        position: relative;
+    }
+
+    .budget-currency:before {
+        content: '$';
+        position: absolute;
+        left: 6px;
+        font-size: 12px;
     }
 </style>
 

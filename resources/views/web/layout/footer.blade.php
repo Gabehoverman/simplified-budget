@@ -50,7 +50,7 @@
                 <h5>Navigate</h5>
                 <ul class="nav flex-column">
                     <li class="nav-item">
-                        <a href="{{ route('web.disclaimer') }}" class="nav-link">Disclaimer</a>
+                        <a href="{{ route('web.disclosures') }}" class="nav-link">Disclosures</a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('web.privacy') }}"  class="nav-link">Privacy Policy</a>

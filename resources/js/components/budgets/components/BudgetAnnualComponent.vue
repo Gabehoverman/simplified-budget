@@ -2,7 +2,7 @@
     <!-- Header -->
     <div class="row">
 
-        <div class="col-md-12">
+        <div class="col-md-12 mapped-annual-budgets-card">
             <mapped-annual-card
                 :user="user"
                 :budgets="dataBudgets"

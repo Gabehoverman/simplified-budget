@@ -38,9 +38,9 @@ Route::get('/web/blog', function() {
     return view('web.blog');
 })->name('web.blog');
 
-Route::get('/web/disclaimer', function() {
-    return view('web.disclaimer');
-})->name('web.disclaimer');
+Route::get('/web/disclosures', function() {
+    return view('web.disclosures');
+})->name('web.disclosures');
 
 Route::get('/web/terms', function() {
     return view('web.terms');

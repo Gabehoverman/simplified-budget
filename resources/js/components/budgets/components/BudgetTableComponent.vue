@@ -8,7 +8,7 @@
                 :totals="totals"
             />
         </div>
-        <div class="col-md-8">
+        <div :class=" (!selectedBudget.id ? 'col-md-12' : 'col-md-8') + ' breakdown-table'">
 
             <mapped-table-card
                 :user="user"
@@ -21,11 +21,11 @@
             />
         </div>
 
-        <div class="col-md-4">
-            <budget-list-card
+        <div :class=" !selectedBudget.id ? '' : 'col-md-4'">
+            <!-- <budget-list-card
                 v-if="!selectedBudget.id"
                 :budgets="budgets"
-            />
+            /> -->
             <details-card
                 v-if="selectedBudget.id"
                 :selectedBudget="selectedBudget"
@@ -37,6 +37,12 @@
         </div>
     </div>
 </template>
+
+<style scoped>
+    .breakdown-table {
+        min-height: 600px;
+    }
+</style>
 
 <script>
     import OverviewCard from '../cards/OverviewCard'

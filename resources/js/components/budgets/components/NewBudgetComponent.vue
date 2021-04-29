@@ -12,7 +12,7 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h3 class="modal-title" id="budgetModalLabel">Add Budget</h3>
+            <h3 class="modal-title" id="budgetModalLabel">New Budget Item</h3>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -64,10 +64,10 @@
                     </div>
 
                     <div class="col-md-6">
-                        <div class="form-group">
+                        <div :class="'form-group budget-currency' + ( !budget.amount ? ' gray' : '' )">
                             <label for="amountInput">Budgeted Amount</label>
                             <input v-model="budget.amount" type="text"
-                                        :class="'form-control '+($v.budget.amount.$error ? 'is-invalid ' : '')" id="amountInput" placeholder="$250.00">
+                                        :class="'form-control '+($v.budget.amount.$error ? 'is-invalid ' : '')" id="amountInput" placeholder="250.00">
                         </div>
                     </div>
 
@@ -96,6 +96,25 @@
     </div>
   </div>
 </template>
+
+<style scoped>
+     .budget-currency {
+        position: relative;
+    }
+
+    .budget-currency:before {
+        content: '$';
+        position: absolute;
+        top: 39px;
+        left: 2px;
+        font-size: 15px;
+    }
+
+    .budget-currency.gray:before {
+        color:#95AAC9;
+        opacity: 0.7;
+    }
+</style>
 
 <script>
 import { required, minLength, requiredIf } from 'vuelidate/lib/validators'
